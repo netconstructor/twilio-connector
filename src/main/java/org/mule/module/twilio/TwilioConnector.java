@@ -16,10 +16,6 @@ import org.mule.tools.cloudconnect.annotations.Property;
  * to access the resources of that subaccount.
  * You can not use a subaccount's credentials to access the resources of your master Twilio account or any other
  * subaccounts.
- * <p/>
- * Subaccounts in Twilio are just accounts that are "owned" by another account. Using a subaccount you can segment
- * each of your customers' use of Twilio and keep it separate from all the rest, allowing you to easily manage the
- * activity and resources of each customer independently.
  */
 @Connector(namespacePrefix = "twilio")
 public class TwilioConnector implements Initialisable {
@@ -52,11 +48,11 @@ public class TwilioConnector implements Initialisable {
      * Uri	            The URI for this resource, relative to https://api.twilio.com.
      * SubresourceUris	The list of subresources under this account.
      *
-     * @param accountSid
-     * @return
+     * @param accountSid the account sid for which to get the details, leave empty to use to use {@link TwilioConnector#accountSid}
+     * @return a representation of the account
      */
     @Operation
-    public String getAccountDetails(@Parameter String accountSid) {
+    public String getAccountDetails(@Parameter(optional = true) String accountSid) {
         return twilioClient.getAccountDetails(accountSid);
     }
 
@@ -78,9 +74,10 @@ public class TwilioConnector implements Initialisable {
      * Uri	            The URI for this resource, relative to https://api.twilio.com.
      * SubresourceUris	The list of subresources under this account.
      *
-     * @param accountStatus
-     * @param friendlyName
-     * @return
+     * @param accountStatus Only return Account resources with the given status. Can be closed, suspended or active.
+     * @param friendlyName  Only return the Account resources with friendly names that exactly match this name.
+     * @return a list of the Account resources belonging to the account used to make the API request. This list will
+     *         include that Account as well.
      */
     @Operation
     public String getAllAccountsDetails(@Parameter(optional = true) AccountStatus accountStatus,
@@ -104,13 +101,13 @@ public class TwilioConnector implements Initialisable {
      * Uri	            The URI for this resource, relative to https://api.twilio.com.
      * SubresourceUris	The list of subresources under this account.
      *
-     * @param accountSid
-     * @param accountStatus
-     * @param friendlyName
-     * @return
+     * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountStatus Alter the status of this account: use closed to irreversibly close this account, suspended to temporarily suspend it, or active to reactivate it.
+     * @param friendlyName  Update the human-readable description of this account.
+     * @return a representation of the account
      */
     @Operation
-    public String updateAccount(@Parameter String accountSid,
+    public String updateAccount(@Parameter(optional = true) String accountSid,
                                 @Parameter(optional = true) AccountStatus accountStatus,
                                 @Parameter(optional = true) String friendlyName) {
         return twilioClient.changeAccountStatus(accountSid, accountStatus, friendlyName);
@@ -140,8 +137,8 @@ public class TwilioConnector implements Initialisable {
      * Uri	            The URI for this resource, relative to https://api.twilio.com.
      * SubresourceUris	The list of subresources under this account.
      *
-     * @param friendlyName
-     * @return
+     * @param friendlyName A human readable description of the new subaccount, up to 64 characters. Defaults to "SubAccount Created at {YYYY-MM-DD HH:MM meridiam}".
+     * @return a representation of the account
      */
     @Operation
     public String createSubAccount(@Parameter(optional = true) String friendlyName) {
@@ -166,8 +163,8 @@ public class TwilioConnector implements Initialisable {
      * Uri	            The URI for this resource, relative to https://api.twilio.com.
      * SubresourceUris	The list of subresources under this account.
      *
-     * @param accoundSid
-     * @return
+     * @param accoundSid the account sid to use in the query
+     * @return a representation of the subaccount
      */
     @Operation
     public String getSubAccountByAccountSid(@Parameter String accoundSid) {
@@ -183,7 +180,6 @@ public class TwilioConnector implements Initialisable {
      * each customer that signs up. Then if a customer closes his or her account with your service, you can simply
      * deactivate the associated Twilio subaccount.
      * <p/>
-     * <p/>
      * An Account resource is represented by the following properties:
      * <p/>
      * Sid	            A 34 character string that uniquely identifies this account.
@@ -197,16 +193,39 @@ public class TwilioConnector implements Initialisable {
      * Uri	            The URI for this resource, relative to https://api.twilio.com.
      * SubresourceUris	The list of subresources under this account.
      *
-     * @param friendlyName
-     * @return
+     * @param friendlyName the friendly name to use in the query
+     * @return a representation of the subaccount
      */
     @Operation
     public String getSubAccountByFriendlyName(@Parameter String friendlyName) {
         return twilioClient.getSubAccountByFriendlyName(friendlyName);
     }
 
+    /**
+     * Returns a list of local AvailablePhoneNumber resource representations that match the specified filters, each representing a phone number that is currently available for provisioning within your account.
+     * <p/>
+     * Each phone number instance has the following properties:
+     * <p/>
+     * FriendlyName	A nicely-formatted version of the phone number.
+     * PhoneNumber	The phone number, in E.164 (i.e. "+1") format.
+     * Lata	The LATA of this phone number.
+     * RateCenter	The rate center of this phone number.
+     * Latitude	The latitude coordinate of this phone number.
+     * Longitude	The longitude coordinate of this phone number.
+     * Region	The two-letter state or province abbreviation of this phone number.
+     * PostalCode	The postal (zip) code of this phone number.
+     * IsoCountry	The ISO country code of this phone number.
+     *
+     * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param isoCountryCode a country code in ISO 3166-1 alpha-2 format (e.g. 'US' for United States, 'CA' for Canada).
+     * @param areaCode       Find phone numbers in the specified Area Code. Only available for North American numbers.
+     * @param contains       A pattern to match phone numbers on. Valid characters are '*' and [0-9a-zA-Z]. The '*' character will match any single digit.
+     * @param inRegion       Limit results to a particular region (i.e. State/Province). Given a phone number, search within the same Region as that number.
+     * @param inPostalCode   Limit results to a particular postal code. Given a phone number, search within the same postal code as that number.
+     * @return a list of local AvailablePhoneNumber resource representations that match the specified filters
+     */
     @Operation
-    public String getAvailablePhoneNumbers(@Parameter String accountSid,
+    public String getAvailablePhoneNumbers(@Parameter(optional = true) String accountSid,
                                            @Parameter String isoCountryCode,
                                            @Parameter(optional = true) String areaCode,
                                            @Parameter(optional = true) String contains,
@@ -216,21 +235,36 @@ public class TwilioConnector implements Initialisable {
     }
 
     /**
-     * @param accountSid
-     * @param isoCountryCode
-     * @param areaCode
-     * @param contains
-     * @param inRegion
-     * @param inPostalCode
-     * @param nearLatLong
-     * @param nearPhoneNumber
-     * @param inLata
-     * @param inRateCenter
-     * @param distance
-     * @return
+     * Returns a list of local AvailablePhoneNumber resource representations that match the specified filters, each representing a phone number that is currently available for provisioning within your account.
+     * <p/>
+     * <p/>
+     * Each phone number instance has the following properties:
+     * <p/>
+     * FriendlyName	A nicely-formatted version of the phone number.
+     * PhoneNumber	The phone number, in E.164 (i.e. "+1") format.
+     * Lata	The LATA of this phone number.
+     * RateCenter	The rate center of this phone number.
+     * Latitude	The latitude coordinate of this phone number.
+     * Longitude	The longitude coordinate of this phone number.
+     * Region	The two-letter state or province abbreviation of this phone number.
+     * PostalCode	The postal (zip) code of this phone number.
+     * IsoCountry	The ISO country code of this phone number.
+     *
+     * @param accountSid      the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param isoCountryCode  a country code in ISO 3166-1 alpha-2 format (e.g. 'US' for United States, 'CA' for Canada).
+     * @param areaCode        Find phone numbers in the specified Area Code. Only available for North American numbers.
+     * @param contains        A pattern to match phone numbers on. Valid characters are '*' and [0-9a-zA-Z]. The '*' character will match any single digit.
+     * @param inRegion        Limit results to a particular region (i.e. State/Province). Given a phone number, search within the same Region as that number.
+     * @param inPostalCode    Limit results to a particular postal code. Given a phone number, search within the same postal code as that number.
+     * @param nearLatLong     Given a latitude/longitude pair lat,long find geographically close numbers within Distance miles.
+     * @param nearPhoneNumber Given a phone number, find a geographically close number within Distance miles. Distance defaults to 25 miles.
+     * @param inLata          Limit results to a specific Local access and transport area (LATA). Given a phone number, search within the same LATA as that number.
+     * @param inRateCenter    Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires InLata to be set as well.
+     * @param distance        Specifies the search radius for a Near- query in miles. If not specified this defaults to 25 miles.
+     * @return a list of local AvailablePhoneNumber resource representations that match the specified filters
      */
     @Operation
-    public String getAvailablePhoneNumbersAdvancedSeach(@Parameter String accountSid,
+    public String getAvailablePhoneNumbersAdvancedSeach(@Parameter(optional = true) String accountSid,
                                                         @Parameter String isoCountryCode,
                                                         @Parameter(optional = true) String areaCode,
                                                         @Parameter(optional = true) String contains,
@@ -244,6 +278,26 @@ public class TwilioConnector implements Initialisable {
         return twilioClient.getAvailablePhoneNumbersAdvancedSeach(accountSid, isoCountryCode, areaCode, contains, inRegion, inPostalCode, nearLatLong, nearPhoneNumber, inLata, inRateCenter, distance);
     }
 
+    /**
+     * Returns a list of toll-free AvailablePhoneNumber elements that match the specified filters, each representing a phone number that is currently available for provisioning within your account.
+     * <p/>
+     * Each phone number instance has the following properties:
+     * <p/>
+     * FriendlyName	A nicely-formatted version of the phone number.
+     * PhoneNumber	The phone number, in E.164 (i.e. "+1") format.
+     * Lata	The LATA of this phone number.
+     * RateCenter	The rate center of this phone number.
+     * Latitude	The latitude coordinate of this phone number.
+     * Longitude	The longitude coordinate of this phone number.
+     * Region	The two-letter state or province abbreviation of this phone number.
+     * PostalCode	The postal (zip) code of this phone number.
+     * IsoCountry	The ISO country code of this phone number.
+     *
+     * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param isoCountryCode a country code in ISO 3166-1 alpha-2 format (e.g. 'US' for United States, 'CA' for Canada).
+     * @param contains       A pattern to match phone numbers on. Valid characters are '*' and [0-9a-zA-Z]. The '*' character will match any single digit.
+     * @return a list of toll-free AvailablePhoneNumber elements that match the specified filters
+     */
     @Operation
     public String getAvailableTollFreeNumbers(@Parameter String accountSid,
                                               @Parameter String isoCountryCode,
@@ -251,12 +305,35 @@ public class TwilioConnector implements Initialisable {
         return twilioClient.getAvailableTollFreeNumbers(accountSid, isoCountryCode, contains);
     }
 
+    /**
+     * Returns an outgoing caller id instance matching the given filters.
+     * <p/>
+     * Each outgoing caller id instance has the following properies:
+     * <p/>
+     * Sid	A 34 character string that uniquely identifies this resource.
+     * DateCreated	The date that this resource was created, given in RFC 2822 format.
+     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
+     * FriendlyName	A human readable descriptive text for this resource, up to 64 characters long. By default, the FriendlyName is a nicely formatted version of the phone number.
+     * AccountSid	The unique id of the Account responsible for this Caller Id.
+     * PhoneNumber	The incoming phone number. Formatted with a '+' and country code e.g., +16175551212 (E.164 format).
+     * Uri	The URI for this resource, relative to https://api.twilio.com.
+     *
+     * @param accoundSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param outgoingCallerIdSid the outgoing caller id sid to use in the query
+     * @return an outgoing caller id instance matching the given filters.
+     */
     @Operation
-    public String getOutgoingCallerIdByOutgoingCallerIdSid(@Parameter String accoundSid,
+    public String getOutgoingCallerIdByOutgoingCallerIdSid(@Parameter(optional = true) String accoundSid,
                                                            @Parameter String outgoingCallerIdSid) {
         return twilioClient.getOutgoingCallerIdByOutgoingCallerIdSid(accoundSid, outgoingCallerIdSid);
     }
 
+    /**
+     * @param accoundSid
+     * @param outgoingCallerIdSid
+     * @param friendlyName
+     * @return
+     */
     @Operation
     public String updateOutgoingCallerIdByOutgoingCallerIdSid(@Parameter String accoundSid,
                                                               @Parameter String outgoingCallerIdSid,

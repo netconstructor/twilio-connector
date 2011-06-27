@@ -18,16 +18,21 @@ public class TwilioTestCase {
 
     @Test
     public void invokeSomeMethodOnTheCloudConnector() throws Exception {
-//        String sid = "AC970e46372f082a4947642b9cf19cafa7";
-//        String authToken = "e92e7c636f007f1f2abfc39405b17a7c";
+        String sid = "AC970e46372f082a4947642b9cf19cafa7";
+        String authToken = "e92e7c636f007f1f2abfc39405b17a7c";
+
+        TwilioConnector twilioCloudConnector = new TwilioConnector();
+        twilioCloudConnector.setAccountSid(sid);
+        twilioCloudConnector.setAuthToken(authToken);
+        twilioCloudConnector.initialise();
+
+        String response = twilioCloudConnector.getAccountDetails(null);
+
+        printXml(response);
 //
-//        TwilioConnector twilioCloudConnector = new TwilioConnector(sid, authToken);
+//        String subAccount = twilioCloudConnector.createSubAccount("nueva subaccountsid");
 //
-//        String response = twilioCloudConnector.getAccountDetails(sid);
-//
-//        printXml(response);
-//
-//        twilioCloudConnector.updateAccount(sid, null, null);
+//        printXml(subAccount);
 //
 //        response = twilioCloudConnector.getAccountDetails(sid);
 //
