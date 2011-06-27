@@ -318,14 +318,14 @@ public class TwilioConnector implements Initialisable {
      * PhoneNumber	The incoming phone number. Formatted with a '+' and country code e.g., +16175551212 (E.164 format).
      * Uri	The URI for this resource, relative to https://api.twilio.com.
      *
-     * @param accoundSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param outgoingCallerIdSid the outgoing caller id sid to use in the query
      * @return an outgoing caller id instance matching the given filters.
      */
     @Operation
-    public String getOutgoingCallerIdByOutgoingCallerIdSid(@Parameter(optional = true) String accoundSid,
+    public String getOutgoingCallerIdByOutgoingCallerIdSid(@Parameter(optional = true) String accountSid,
                                                            @Parameter String outgoingCallerIdSid) {
-        return twilioClient.getOutgoingCallerIdByOutgoingCallerIdSid(accoundSid, outgoingCallerIdSid);
+        return twilioClient.getOutgoingCallerIdByOutgoingCallerIdSid(accountSid, outgoingCallerIdSid);
     }
 
     /**
@@ -971,7 +971,7 @@ public class TwilioConnector implements Initialisable {
     }
 
     /**
-     * Initiates a call using the given paramaters. Returns the call representation.
+     * Initiates a call using the given paramaters. Only one of url or applicationSid parameters must be specified, not both. Returns the call representation.
      * <p/>
      * A Call instance resource is represented by the following properties:
      * <p/>

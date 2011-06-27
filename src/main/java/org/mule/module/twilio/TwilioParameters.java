@@ -11,9 +11,6 @@ public class TwilioParameters {
     private TwilioParametersStategy twilioParametersStategy;
     private boolean nullAdded;
 
-    public TwilioParameters() {
-    }
-
     public TwilioParameters(TwilioParametersStategy twilioParametersStategy) {
         this.twilioParametersStategy = twilioParametersStategy;
     }

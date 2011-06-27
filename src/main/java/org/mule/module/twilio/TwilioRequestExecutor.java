@@ -14,6 +14,10 @@ public class TwilioRequestExecutor {
         twilioRestClient = TwilioRestClientFactory.getClient(accountSid, authToken);
     }
 
+    public String executeGetRequestNoParams(String path) {
+        return executeGetRequest(path, TwilioParameters.NO_PARAMETERS);
+    }
+
     public String executeGetRequest(String path, TwilioParameters twilioParameters) {
         return executeRequest(path, "GET", twilioParameters.getMap());
     }
