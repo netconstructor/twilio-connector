@@ -1,9 +1,5 @@
 package org.mule.module.twilio;
 
-// TODO: Exchanging phone numbers
-// TODO: Available Phone Numbers --> Additional Advanced Features
-
-
 import org.mule.module.twilio.TwilioParameters.TwilioParamater;
 import org.mule.module.twilio.TwilioParameters.TwilioParametersStategy;
 
@@ -57,6 +53,12 @@ public class TwilioClient {
         return twilioRequestExecutor.executeGetRequest(ACCOUNT_URI, requiredParams);
     }
 
+    public String exchangePhoneNumbersBetweenSubaccounts(String accountSidFrom, String incomingPhoneNumberSid, String accountSidTo) {
+        TwilioParameters requiredParams = new TwilioParameters(TwilioParametersStategy.ALL_REQUIRED).
+                addIfValueNotNull(TwilioParamater.ACCOUNT_SID, accountSidTo);
+        return twilioRequestExecutor.executePostRequest(getUri(accountSidFrom) + "/IncomingPhoneNumbers/" + incomingPhoneNumberSid, requiredParams);
+    }
+
     public String getAvailablePhoneNumbers(String accountSid, String isoCountryCode, String areaCode, String contains, String inRegion, String inPostalCode) {
         TwilioParameters optionalParams = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL);
         addBasicSearchParams(areaCode, contains, inRegion, inPostalCode, optionalParams);
@@ -91,13 +93,6 @@ public class TwilioClient {
         return twilioRequestExecutor.executePostRequest(getUri(accountSid) + "/OutgoingCallerIds/" + outgoingCallerIdSid, requiredParams);
     }
 
-    private void addBasicSearchParams(String areaCode, String contains, String inRegion, String inPostalCode, TwilioParameters twilioParameters) {
-        twilioParameters.addIfValueNotNull(TwilioParamater.AREA_CODE, areaCode);
-        twilioParameters.addIfValueNotNull(TwilioParamater.CONTAINS, contains);
-        twilioParameters.addIfValueNotNull(TwilioParamater.IN_REGION, inRegion);
-        twilioParameters.addIfValueNotNull(TwilioParamater.IN_POSTAL_CODE, inPostalCode);
-    }
-
     public String getAllOutgoingCallerIds(String accountSid, String phoneNumber, String friendlyName) {
         TwilioParameters optionalParams = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL).
                 addIfValueNotNull(TwilioParamater.PHONE_NUMBER, phoneNumber).
@@ -113,6 +108,10 @@ public class TwilioClient {
                 addIfValueNotNull(TwilioParamater.CALL_DELAY, callDelay).
                 addIfValueNotNull(TwilioParamater.EXTENSION, extension);
         return twilioRequestExecutor.executePostRequest(getUri(accountSid) + "/OutgoingCallerIds/", requiredParams, optionalParams);
+    }
+
+    public String deleteOutgoingCallerId(String accountSid, String outgoingCallerIdSid) {
+        return twilioRequestExecutor.executeDeleteRequest(getUri(accountSid) + "/OutgoingCallerIds/" + outgoingCallerIdSid);
     }
 
     public String getIncomingPhoneNumbers(String accountSid, String incomingPhoneNumberSid) {
@@ -199,10 +198,10 @@ public class TwilioClient {
         return twilioRequestExecutor.executePostRequest(getUri(accountSid) + "/IncomingPhoneNumbers", requiredParams, optionalParams);
     }
 
-
     public String getApplication(String accountSid, String applicationSid) {
         return twilioRequestExecutor.executeGetRequestNoParams(getUri(accountSid) + "/Applications/" + applicationSid);
     }
+
 
     public String updateApplication(String accountSid, String applicationSid, String friendlyName, String apiVersion, String voiceUrl, String voiceMethod,
                                     String voiceFallbackUrl, String voiceFallbackMethod, String statusCallback, String statusCallbackMethod, Boolean voiceCallerIdLookup,
@@ -303,7 +302,6 @@ public class TwilioClient {
         return twilioRequestExecutor.executeGetRequestNoParams(getUri(accountSid) + "/Conferences/" + conferenceSid);
     }
 
-
     public String getConferences(String accountSid, String status, String friendlyName, String dateCreated, String dateUpdated) {
         TwilioParameters optionalParams = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL).
                 addIfValueNotNull(TwilioParamater.STATUS, status).
@@ -312,6 +310,7 @@ public class TwilioClient {
                 addIfValueNotNull(TwilioParamater.DATE_UPDATED, dateUpdated);
         return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/Conferences/", optionalParams);
     }
+
 
     public String getParticipant(String accountSid, String conferenceSid, String callSid) {
         return twilioRequestExecutor.executeGetRequestNoParams(getUri(accountSid) + "/Conferences/" + conferenceSid + "/Participants/" + callSid);
@@ -416,6 +415,13 @@ public class TwilioClient {
                 addIfValueNotNull(TwilioParamater.SMS_URL, smsUrl).
                 addIfValueNotNull(TwilioParamater.SMS_METHOD, smsMethod);
         return twilioRequestExecutor.executePostRequest(getUri(accountSid) + "/Sandbox", optionalParams);
+    }
+
+    private void addBasicSearchParams(String areaCode, String contains, String inRegion, String inPostalCode, TwilioParameters twilioParameters) {
+        twilioParameters.addIfValueNotNull(TwilioParamater.AREA_CODE, areaCode);
+        twilioParameters.addIfValueNotNull(TwilioParamater.CONTAINS, contains);
+        twilioParameters.addIfValueNotNull(TwilioParamater.IN_REGION, inRegion);
+        twilioParameters.addIfValueNotNull(TwilioParamater.IN_POSTAL_CODE, inPostalCode);
     }
 
     /**

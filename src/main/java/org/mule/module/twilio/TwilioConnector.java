@@ -202,6 +202,46 @@ public class TwilioConnector implements Initialisable {
     }
 
     /**
+     * Trasfers a number between two subaccounts.
+     * <p/>
+     * Each incoming phone number is represented by the following properties:
+     * <p/>
+     * Sid	A 34 character string that uniquely idetifies this resource.
+     * DateCreated	The date that this resource was created, given as GMT RFC 2822 format.
+     * DateUpdated	The date that this resource was last updated, given as GMT RFC 2822 format.
+     * FriendlyName	A human readable descriptive text for this resource, up to 64 characters long. By default, the FriendlyName is a nicely formatted version of the phone number.
+     * AccountSid	The unique id of the Account responsible for this phone number.
+     * PhoneNumber	The incoming phone number. e.g., +16175551212 (E.164 format)
+     * ApiVersion	Calls to this phone number will start a new TwiML session with this API version.
+     * VoiceCallerIdLookup	Look up the caller's caller-ID name from the CNAM database (additional charges apply). Either true or false.
+     * VoiceUrl	The URL Twilio will request when this phone number receives a call.
+     * VoiceMethod	The HTTP method Twilio will use when requesting the above Url. Either GET or POST.
+     * VoiceFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by Url.
+     * VoiceFallbackMethod	The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either GET or POST.
+     * StatusCallback	The URL that Twilio will request to pass status parameters (such as call ended) to your application.
+     * StatusCallbackMethod	The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST.
+     * VoiceApplicationSid	The 34 character sid of the application Twilio should use to handle phone calls to this number. If a VoiceApplicationSid is present, Twilio will ignore all of the voice urls above and use those set on the application.
+     * SmsUrl	The URL Twilio will request when receiving an incoming SMS message to this number.
+     * SmsMethod	The HTTP method Twilio will use when making requests to the SmsUrl. Either GET or POST.
+     * SmsFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML from SmsUrl.
+     * SmsFallbackMethod	The HTTP method Twilio will use when requesting the above URL. Either GET or POST.
+     * SmsApplicationSid	The 34 character sid of the application Twilio should use to handle SMSs sent to this number. If a SmsApplicationSid is present, Twilio will ignore all of the SMS urls above and use those set on the application.
+     * Uri	The URI for this resource, relative to https://api.twilio.com.
+     *
+     * @param accountSidFrom         the account sid from where to get the number, leave empty to use {@link TwilioConnector#accountSid}
+     * @param incomingPhoneNumberSid the incoming phone number sid to transfer
+     * @param accountSidTo           the account sid where to transfer the phone number.
+     * @return an incoming phone number instance.
+     */
+    @Operation
+    public String exchangePhoneNumbersBetweenSubaccounts(@Parameter(optional = true) String accountSidFrom,
+                                                         @Parameter String incomingPhoneNumberSid,
+                                                         @Parameter String accountSidTo) {
+        return twilioClient.exchangePhoneNumbersBetweenSubaccounts(accountSidFrom, incomingPhoneNumberSid, accountSidTo);
+
+    }
+
+    /**
      * Returns a list of local AvailablePhoneNumber resource representations that match the specified filters, each representing a phone number that is currently available for provisioning within your account.
      * <p/>
      * Each phone number instance has the following properties:
@@ -402,6 +442,20 @@ public class TwilioConnector implements Initialisable {
                                  @Parameter(optional = true) String callDelay,
                                  @Parameter(optional = true) String extension) {
         return twilioClient.addNewCallerId(accountSid, phoneNumber, friendlyName, callDelay, extension);
+    }
+
+    /**
+     * Deletes the caller ID from the account. Returns an HTTP 204 response if successful, with no body.
+     *
+     * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param outgoingCallerIdSid the outgoing caller id sid to delete
+     * @return an HTTP 204 response if successful, with no body.
+     */
+    @Operation
+    public String deleteOutgoingCallerId(@Parameter(optional = true) String accountSid,
+                                         @Parameter String outgoingCallerIdSid) {
+        return twilioClient.deleteOutgoingCallerId(accountSid, outgoingCallerIdSid);
+
     }
 
     /**
