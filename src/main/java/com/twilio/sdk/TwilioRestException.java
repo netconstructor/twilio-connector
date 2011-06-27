@@ -6,4 +6,7 @@ public class TwilioRestException extends Exception {
         super(arg0);
     }
 
+    public TwilioRestException(Exception e) {
+        super(e);
+    }
 }

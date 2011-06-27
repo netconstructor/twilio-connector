@@ -64,12 +64,12 @@ public class TwilioRestClient implements ITwilioRestClient {
     public TwilioRestResponse request(String path, String method, Map<String, String> vars) throws TwilioRestException {
 
         String encoded = "";
-        if (vars != null) {
+        if (vars != null && !vars.isEmpty()) {
             for (String key : vars.keySet()) {
                 try {
                     encoded += "&" + key + "=" + URLEncoder.encode(vars.get(key), "UTF-8");
                 } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
+                    throw new TwilioRestException(e);
                 }
             }
             encoded = encoded.substring(1);
@@ -146,12 +146,10 @@ public class TwilioRestClient implements ITwilioRestClient {
 
             return new TwilioRestResponse(url, decodedString.toString(), responseCode);
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            throw new TwilioRestException(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new TwilioRestException(e);
         }
-
-        return null;
     }
 
     public String getAccountSid() {
