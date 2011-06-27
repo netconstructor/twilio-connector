@@ -205,23 +205,23 @@ public class TwilioClient {
     }
 
     public String updateApplication(String accountSid, String applicationSid, String friendlyName, String apiVersion, String voiceUrl, String voiceMethod,
-                                    String voiceFallbackUrl, String voiceFallbackMethod, String statusCallback, String statusCallbackMethod, String voiceCallerIdLookup,
+                                    String voiceFallbackUrl, String voiceFallbackMethod, String statusCallback, String statusCallbackMethod, Boolean voiceCallerIdLookup,
                                     String smsUrl, String smsMethod, String smsFallbackUrl, String smsFallbackMethod, String smsStatusCallback) {
-        TwilioParameters twilioParameters = new TwilioParameters();
-        twilioParameters.addIfValueNotNull(TwilioParamater.FRIENDLY_NAME, friendlyName);
-        twilioParameters.addIfValueNotNull(TwilioParamater.API_VERSION, apiVersion);
-        twilioParameters.addIfValueNotNull(TwilioParamater.VOICE_URL, voiceUrl);
-        twilioParameters.addIfValueNotNull(TwilioParamater.VOICE_METHOD, voiceMethod);
-        twilioParameters.addIfValueNotNull(TwilioParamater.VOICE_FALLBACK_URL, voiceFallbackUrl);
-        twilioParameters.addIfValueNotNull(TwilioParamater.VOICE_FALLBACK_METHOD, voiceFallbackMethod);
-        twilioParameters.addIfValueNotNull(TwilioParamater.STATUS_CALLBACK, statusCallback);
-        twilioParameters.addIfValueNotNull(TwilioParamater.STATUS_CALLBACK_METHOD, statusCallbackMethod);
-        twilioParameters.addIfValueNotNull(TwilioParamater.VOICE_CALLER_ID_LOOKUP, voiceCallerIdLookup);
-        twilioParameters.addIfValueNotNull(TwilioParamater.SMS_URL, smsUrl);
-        twilioParameters.addIfValueNotNull(TwilioParamater.SMS_METHOD, smsMethod);
-        twilioParameters.addIfValueNotNull(TwilioParamater.SMS_FALLBACK_URL, smsFallbackUrl);
-        twilioParameters.addIfValueNotNull(TwilioParamater.SMS_FALLBACK_METHOD, smsFallbackMethod);
-        twilioParameters.addIfValueNotNull(TwilioParamater.SMS_STATUS_CALLBACK, smsStatusCallback);
+        TwilioParameters twilioParameters = new TwilioParameters(TwilioParametersStategy.AT_LEAST_ONE_REQUIRED).
+                addIfValueNotNull(TwilioParamater.FRIENDLY_NAME, friendlyName).
+                addIfValueNotNull(TwilioParamater.API_VERSION, apiVersion).
+                addIfValueNotNull(TwilioParamater.VOICE_URL, voiceUrl).
+                addIfValueNotNull(TwilioParamater.VOICE_METHOD, voiceMethod).
+                addIfValueNotNull(TwilioParamater.VOICE_FALLBACK_URL, voiceFallbackUrl).
+                addIfValueNotNull(TwilioParamater.VOICE_FALLBACK_METHOD, voiceFallbackMethod).
+                addIfValueNotNull(TwilioParamater.STATUS_CALLBACK, statusCallback).
+                addIfValueNotNull(TwilioParamater.STATUS_CALLBACK_METHOD, statusCallbackMethod).
+                addIfValueNotNull(TwilioParamater.VOICE_CALLER_ID_LOOKUP, voiceCallerIdLookup).
+                addIfValueNotNull(TwilioParamater.SMS_URL, smsUrl).
+                addIfValueNotNull(TwilioParamater.SMS_METHOD, smsMethod).
+                addIfValueNotNull(TwilioParamater.SMS_FALLBACK_URL, smsFallbackUrl).
+                addIfValueNotNull(TwilioParamater.SMS_FALLBACK_METHOD, smsFallbackMethod).
+                addIfValueNotNull(TwilioParamater.SMS_STATUS_CALLBACK, smsStatusCallback);
         return twilioRequestExecutor.executePostRequest(getUri(accountSid) + "/Applications/" + applicationSid, twilioParameters);
 
     }
@@ -231,30 +231,31 @@ public class TwilioClient {
     }
 
     public String getAllApplications(String accountSid, String friendlyName) {
-        TwilioParameters twilioParameters = new TwilioParameters();
-        twilioParameters.addIfValueNotNull(TwilioParamater.FRIENDLY_NAME, friendlyName);
-        return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/Applications", twilioParameters);
+        TwilioParameters optionalParams = new TwilioParameters().
+                addIfValueNotNull(TwilioParamater.FRIENDLY_NAME, friendlyName);
+        return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/Applications", optionalParams);
     }
 
     public String createApplication(String accountSid, String friendlyName, String apiVersion, String voiceUrl, String voiceMethod, String voiceFallbackUrl,
-                                    String voiceFallbackMethod, String statusCallback, String statusCallbackMethod, String voiceCallerIdLookup, String smsUrl,
+                                    String voiceFallbackMethod, String statusCallback, String statusCallbackMethod, Boolean voiceCallerIdLookup, String smsUrl,
                                     String smsMethod, String smsFallbackUrl, String smsFallbackMethod, String smsStatusCallback) {
-        TwilioParameters twilioParameters = new TwilioParameters();
-        twilioParameters.addIfValueNotNull(TwilioParamater.FRIENDLY_NAME, friendlyName);
-        twilioParameters.addIfValueNotNull(TwilioParamater.API_VERSION, apiVersion);
-        twilioParameters.addIfValueNotNull(TwilioParamater.VOICE_URL, voiceUrl);
-        twilioParameters.addIfValueNotNull(TwilioParamater.VOICE_METHOD, voiceMethod);
-        twilioParameters.addIfValueNotNull(TwilioParamater.VOICE_FALLBACK_URL, voiceFallbackUrl);
-        twilioParameters.addIfValueNotNull(TwilioParamater.VOICE_FALLBACK_METHOD, voiceFallbackMethod);
-        twilioParameters.addIfValueNotNull(TwilioParamater.STATUS_CALLBACK, statusCallback);
-        twilioParameters.addIfValueNotNull(TwilioParamater.STATUS_CALLBACK_METHOD, statusCallbackMethod);
-        twilioParameters.addIfValueNotNull(TwilioParamater.VOICE_CALLER_ID_LOOKUP, voiceCallerIdLookup);
-        twilioParameters.addIfValueNotNull(TwilioParamater.SMS_URL, smsUrl);
-        twilioParameters.addIfValueNotNull(TwilioParamater.SMS_METHOD, smsMethod);
-        twilioParameters.addIfValueNotNull(TwilioParamater.SMS_FALLBACK_URL, smsFallbackUrl);
-        twilioParameters.addIfValueNotNull(TwilioParamater.SMS_FALLBACK_METHOD, smsFallbackMethod);
-        twilioParameters.addIfValueNotNull(TwilioParamater.SMS_STATUS_CALLBACK, smsStatusCallback);
-        return twilioRequestExecutor.executePostRequest(getUri(accountSid) + "/Applications/", twilioParameters);
+        TwilioParameters requiredParams = new TwilioParameters(TwilioParametersStategy.ALL_REQUIRED).
+                addIfValueNotNull(TwilioParamater.FRIENDLY_NAME, friendlyName);
+        TwilioParameters optionalParams = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL).
+                addIfValueNotNull(TwilioParamater.API_VERSION, apiVersion).
+                addIfValueNotNull(TwilioParamater.VOICE_URL, voiceUrl).
+                addIfValueNotNull(TwilioParamater.VOICE_METHOD, voiceMethod).
+                addIfValueNotNull(TwilioParamater.VOICE_FALLBACK_URL, voiceFallbackUrl).
+                addIfValueNotNull(TwilioParamater.VOICE_FALLBACK_METHOD, voiceFallbackMethod).
+                addIfValueNotNull(TwilioParamater.STATUS_CALLBACK, statusCallback).
+                addIfValueNotNull(TwilioParamater.STATUS_CALLBACK_METHOD, statusCallbackMethod).
+                addIfValueNotNull(TwilioParamater.VOICE_CALLER_ID_LOOKUP, voiceCallerIdLookup).
+                addIfValueNotNull(TwilioParamater.SMS_URL, smsUrl).
+                addIfValueNotNull(TwilioParamater.SMS_METHOD, smsMethod).
+                addIfValueNotNull(TwilioParamater.SMS_FALLBACK_URL, smsFallbackUrl).
+                addIfValueNotNull(TwilioParamater.SMS_FALLBACK_METHOD, smsFallbackMethod).
+                addIfValueNotNull(TwilioParamater.SMS_STATUS_CALLBACK, smsStatusCallback);
+        return twilioRequestExecutor.executePostRequest(getUri(accountSid) + "/Applications/", requiredParams, optionalParams);
     }
 
     public String getCall(String accountSid, String callSid) {
@@ -262,12 +263,12 @@ public class TwilioClient {
     }
 
     public String getCalls(String accountSid, String to, String from, String status, String startTime) {
-        TwilioParameters twilioParameters = new TwilioParameters();
-        twilioParameters.addIfValueNotNull(TwilioParamater.TO, to);
-        twilioParameters.addIfValueNotNull(TwilioParamater.FROM, from);
-        twilioParameters.addIfValueNotNull(TwilioParamater.STATUS, status);
-        twilioParameters.addIfValueNotNull(TwilioParamater.START_TIME, startTime);
-        return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/Calls/", twilioParameters);
+        TwilioParameters optionalParams = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL).
+                addIfValueNotNull(TwilioParamater.TO, to).
+                addIfValueNotNull(TwilioParamater.FROM, from).
+                addIfValueNotNull(TwilioParamater.STATUS, status).
+                addIfValueNotNull(TwilioParamater.START_TIME, startTime);
+        return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/Calls/", optionalParams);
     }
 
     public String makeCall(String accountSid, String from, String to, String url, String applicationSid, String method, String fallbackUrl, String fallbackMethod,
@@ -304,12 +305,12 @@ public class TwilioClient {
 
 
     public String getConferences(String accountSid, String status, String friendlyName, String dateCreated, String dateUpdated) {
-        TwilioParameters optionalParameters = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL).
+        TwilioParameters optionalParams = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL).
                 addIfValueNotNull(TwilioParamater.STATUS, status).
                 addIfValueNotNull(TwilioParamater.FRIENDLY_NAME, friendlyName).
                 addIfValueNotNull(TwilioParamater.DATE_CREATED, dateCreated).
                 addIfValueNotNull(TwilioParamater.DATE_UPDATED, dateUpdated);
-        return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/Conferences/", optionalParameters);
+        return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/Conferences/", optionalParams);
     }
 
     public String getParticipant(String accountSid, String conferenceSid, String callSid) {
@@ -317,9 +318,9 @@ public class TwilioClient {
     }
 
     public String updateParticipantStauts(String accountSid, String conferenceSid, String callSid, Boolean muted) {
-        TwilioParameters twilioParameters = new TwilioParameters().
+        TwilioParameters requiredParams = new TwilioParameters(TwilioParametersStategy.ALL_REQUIRED).
                 addIfValueNotNull(TwilioParamater.MUTED, muted);
-        return twilioRequestExecutor.executePostRequest(getUri(accountSid) + "/Conferences/" + conferenceSid + "/Participants/" + callSid, twilioParameters);
+        return twilioRequestExecutor.executePostRequest(getUri(accountSid) + "/Conferences/" + conferenceSid + "/Participants/" + callSid, requiredParams);
     }
 
     public String deleteParticipant(String accountSid, String conferenceSid, String callSid) {
@@ -337,11 +338,11 @@ public class TwilioClient {
     }
 
     public String getAllSmsMessages(String accountSid, String to, String from, String dateSent) {
-        TwilioParameters optionalParameters = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL).
+        TwilioParameters optionalParams = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL).
                 addIfValueNotNull(TwilioParamater.TO, to).
                 addIfValueNotNull(TwilioParamater.FROM, from).
                 addIfValueNotNull(TwilioParamater.DATE_SENT, dateSent);
-        return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/SMS/Messages/", optionalParameters);
+        return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/SMS/Messages/", optionalParams);
     }
 
     public String sendSmsMessage(String accountSid, String from, String to, String body, String statusCallback, String applicationSid) {
@@ -356,8 +357,7 @@ public class TwilioClient {
     }
 
     public String getRecording(String accountSid, String recordingSid, RecordingType recordingType) {
-        return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/Recordings/" + recordingSid + recordingType.getExtension(),
-                TwilioParameters.NO_PARAMETERS);
+        return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/Recordings/" + recordingSid + recordingType.getExtension(), TwilioParameters.NO_PARAMETERS);
     }
 
     public String deleteRecording(String accountSid, String recordingSid) {
@@ -375,8 +375,12 @@ public class TwilioClient {
         return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/Transcriptions/" + transcriptionSid + transcriptionFormat.getExtension(), TwilioParameters.NO_PARAMETERS);
     }
 
-    public String getTranscriptionByRecordingSid(String accountSid, String recordingSid, TranscriptionFormat transcriptionFormat) {
-        return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/Recordings/" + recordingSid + transcriptionFormat.getExtension(), TwilioParameters.NO_PARAMETERS);
+    public String getTranscriptions(String accountSid, String recordingSid, TranscriptionFormat transcriptionFormat) {
+        if (recordingSid == null) {
+            return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/Transcriptions", TwilioParameters.NO_PARAMETERS);
+        } else {
+            return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/Recordings/" + recordingSid + transcriptionFormat.getExtension(), TwilioParameters.NO_PARAMETERS);
+        }
     }
 
     public String getNotification(String accountSid, String notificationSid) {
@@ -387,14 +391,14 @@ public class TwilioClient {
         return twilioRequestExecutor.executeDeleteRequest(getUri(accountSid) + "/Notifications/" + notificationSid);
     }
 
-    public String getNotifications(String accountSid, Integer log, String messageDate) {
+    public String getAllNotifications(String accountSid, Integer log, String messageDate) {
         TwilioParameters optionalParams = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL).
                 addIfValueNotNull(TwilioParamater.LOG, log).
                 addIfValueNotNull(TwilioParamater.MESSAGE_DATE, messageDate);
         return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/Notifications/", optionalParams);
     }
 
-    public String getNotificationsByCallSid(String accountSid, String callSid, String log, String messageDate) {
+    public String getNotifications(String accountSid, String callSid, String log, String messageDate) {
         TwilioParameters optionalParams = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL).
                 addIfValueNotNull(TwilioParamater.LOG, log).
                 addIfValueNotNull(TwilioParamater.MESSAGE_DATE, messageDate);
