@@ -26,9 +26,6 @@ public class TwilioParameters {
 
     public Map<String, String> getMap() {
         validate();
-        if (params.isEmpty()) {
-            return null;
-        }
         return Collections.unmodifiableMap(params);
     }
 

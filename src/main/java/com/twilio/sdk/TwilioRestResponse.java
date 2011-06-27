@@ -98,5 +98,14 @@ public class TwilioRestResponse {
         this.error = error;
     }
 
-
+    @Override
+    public String toString() {
+        return "TwilioRestResponse{" +
+                "responseText='" + responseText + '\'' +
+                ", httpStatus=" + httpStatus +
+                ", url='" + url + '\'' +
+                ", queryString='" + queryString + '\'' +
+                ", error=" + error +
+                '}';
+    }
 }
