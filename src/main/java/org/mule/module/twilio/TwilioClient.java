@@ -114,8 +114,8 @@ public class TwilioClient {
         return twilioRequestExecutor.executeGetRequestNoParams(getUri(accountSid) + "/IncomingPhoneNumbers/" + incomingPhoneNumberSid);
     }
 
-    public String updateIncomingPhoneNumbers(String accountSid, String incomingPhoneNumberSid, String friendlyName, String apiVersion, String voiceUrl, String voiceMethod, String voiceFallbackUrl, String voiceFallbackMethod,
-                                             String statusCallback, String statusCallbackMethod, Boolean voiceCallerIdLookup, String voiceApplicationSid, String smsUrl, String smsMethod, String smsFallbackUrl, String smsFallbackMethod,
+    public String updateIncomingPhoneNumbers(String accountSid, String incomingPhoneNumberSid, String friendlyName, String apiVersion, String voiceUrl, HttpMethod voiceMethod, String voiceFallbackUrl, HttpMethod voiceFallbackMethod,
+                                             String statusCallback, HttpMethod statusCallbackMethod, Boolean voiceCallerIdLookup, String voiceApplicationSid, String smsUrl, HttpMethod smsMethod, String smsFallbackUrl, HttpMethod smsFallbackMethod,
                                              String smsApplicationSid, String accountSidDestination) {
         TwilioParameters twilioParams = new TwilioParameters(TwilioParametersStategy.AT_LEAST_ONE_REQUIRED).
                 addIfValueNotNull(TwilioParamater.FRIENDLY_NAME, friendlyName).
@@ -148,9 +148,9 @@ public class TwilioClient {
         return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/IncomingPhoneNumbers", optionalParams);
     }
 
-    public String addIncomingPhoneNumberByPhoneNumber(String accountSid, String phoneNumber, String friendlyName, String voiceUrl, String voiceMethod, String voiceFallbackUrl, String voiceFallbackMethod,
-                                                      String statusCallback, String statusCallbackMethod, Boolean voiceCallerIdLookup, String voiceApplicationSid, String smsUrl, String smsMethod,
-                                                      String smsFallbackUrl, String smsFallbackMethod, String smsApplicationSid) {
+    public String addIncomingPhoneNumberByPhoneNumber(String accountSid, String phoneNumber, String friendlyName, String voiceUrl, HttpMethod voiceMethod, String voiceFallbackUrl, HttpMethod voiceFallbackMethod,
+                                                      String statusCallback, HttpMethod statusCallbackMethod, Boolean voiceCallerIdLookup, String voiceApplicationSid, String smsUrl, HttpMethod smsMethod,
+                                                      String smsFallbackUrl, HttpMethod smsFallbackMethod, String smsApplicationSid) {
         TwilioParameters requiredParams = new TwilioParameters(TwilioParametersStategy.ALL_REQUIRED).
                 addIfValueNotNull(TwilioParamater.PHONE_NUMBER, phoneNumber);
         TwilioParameters optionalParams = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL).
@@ -171,9 +171,9 @@ public class TwilioClient {
         return twilioRequestExecutor.executePostRequest(getUri(accountSid) + "/IncomingPhoneNumbers", requiredParams, optionalParams);
     }
 
-    public String addIncomingPhoneNumberByAreaCode(String accountSid, String areaCode, String friendlyName, String voiceUrl, String voiceMethod, String voiceFallbackUrl, String voiceFallbackMethod,
-                                                   String statusCallback, String statusCallbackMethod, Boolean voiceCallerIdLookup, String voiceApplicationSid, String smsUrl, String smsMethod,
-                                                   String smsFallbackUrl, String smsFallbackMethod, String smsApplicationSid) {
+    public String addIncomingPhoneNumberByAreaCode(String accountSid, String areaCode, String friendlyName, String voiceUrl, HttpMethod voiceMethod, String voiceFallbackUrl, HttpMethod voiceFallbackMethod,
+                                                   String statusCallback, HttpMethod statusCallbackMethod, Boolean voiceCallerIdLookup, String voiceApplicationSid, String smsUrl, HttpMethod smsMethod,
+                                                   String smsFallbackUrl, HttpMethod smsFallbackMethod, String smsApplicationSid) {
         TwilioParameters requiredParams = new TwilioParameters(TwilioParametersStategy.ALL_REQUIRED).
                 addIfValueNotNull(TwilioParamater.AREA_CODE, areaCode);
         TwilioParameters optionalParams = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL).
@@ -199,9 +199,9 @@ public class TwilioClient {
     }
 
 
-    public String updateApplication(String accountSid, String applicationSid, String friendlyName, String apiVersion, String voiceUrl, String voiceMethod,
-                                    String voiceFallbackUrl, String voiceFallbackMethod, String statusCallback, String statusCallbackMethod, Boolean voiceCallerIdLookup,
-                                    String smsUrl, String smsMethod, String smsFallbackUrl, String smsFallbackMethod, String smsStatusCallback) {
+    public String updateApplication(String accountSid, String applicationSid, String friendlyName, String apiVersion, String voiceUrl, HttpMethod voiceMethod,
+                                    String voiceFallbackUrl, HttpMethod voiceFallbackMethod, String statusCallback, HttpMethod statusCallbackMethod, Boolean voiceCallerIdLookup,
+                                    String smsUrl, HttpMethod smsMethod, String smsFallbackUrl, HttpMethod smsFallbackMethod, String smsStatusCallback) {
         TwilioParameters twilioParams = new TwilioParameters(TwilioParametersStategy.AT_LEAST_ONE_REQUIRED).
                 addIfValueNotNull(TwilioParamater.FRIENDLY_NAME, friendlyName).
                 addIfValueNotNull(TwilioParamater.API_VERSION, apiVersion).
@@ -231,9 +231,9 @@ public class TwilioClient {
         return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/Applications", optionalParams);
     }
 
-    public String createApplication(String accountSid, String friendlyName, String apiVersion, String voiceUrl, String voiceMethod, String voiceFallbackUrl,
-                                    String voiceFallbackMethod, String statusCallback, String statusCallbackMethod, Boolean voiceCallerIdLookup, String smsUrl,
-                                    String smsMethod, String smsFallbackUrl, String smsFallbackMethod, String smsStatusCallback) {
+    public String createApplication(String accountSid, String friendlyName, String apiVersion, String voiceUrl, HttpMethod voiceMethod, String voiceFallbackUrl,
+                                    HttpMethod voiceFallbackMethod, String statusCallback, HttpMethod statusCallbackMethod, Boolean voiceCallerIdLookup, String smsUrl,
+                                    HttpMethod smsMethod, String smsFallbackUrl, HttpMethod smsFallbackMethod, String smsStatusCallback) {
         TwilioParameters requiredParams = new TwilioParameters(TwilioParametersStategy.ALL_REQUIRED).
                 addIfValueNotNull(TwilioParamater.FRIENDLY_NAME, friendlyName);
         TwilioParameters optionalParams = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL).
@@ -267,7 +267,7 @@ public class TwilioClient {
     }
 
     public String makeCall(String accountSid, String from, String to, String url, String applicationSid, String method, String fallbackUrl, String fallbackMethod,
-                           String statusCallback, String statusCallbackMethod, String sendDigits, String ifMachine, String timeout) {
+                           String statusCallback, HttpMethod statusCallbackMethod, String sendDigits, String ifMachine, String timeout) {
         TwilioParameters toFromParams = new TwilioParameters(TwilioParametersStategy.ALL_REQUIRED).
                 addIfValueNotNull(TwilioParamater.TO, to).
                 addIfValueNotNull(TwilioParamater.FROM, from);
@@ -404,7 +404,7 @@ public class TwilioClient {
         return twilioRequestExecutor.executeGetRequestNoParams(getUri(accountSid) + "/Sandbox");
     }
 
-    public String updateSandbox(String accountSid, String voiceUrl, String voiceMethod, String smsUrl, String smsMethod) {
+    public String updateSandbox(String accountSid, String voiceUrl, HttpMethod voiceMethod, String smsUrl, HttpMethod smsMethod) {
         TwilioParameters optionalParams = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL).
                 addIfValueNotNull(TwilioParamater.VOICE_URL, voiceUrl).
                 addIfValueNotNull(TwilioParamater.VOICE_METHOD, voiceMethod).

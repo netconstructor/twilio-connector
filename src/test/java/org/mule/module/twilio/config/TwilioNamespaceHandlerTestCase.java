@@ -163,7 +163,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "POST";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/IncomingPhoneNumbers/some-incoming-phone-number-sid";
-        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, AccountSid=some-account-sid-destination, FriendlyName=some-friendly-name, VoiceApplicationSid=some-voice-application-sid, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, ApiVersion=2010-04-01, VoiceFallbackMethod=some-voice-fallback-method, VoiceMethod=some-voice-method, StatusCallback=some-status-callback, SmsApplicationSid=some-sms-application-sid, SmsFallbackMethod=some-sms-fallback-method, VoiceCallerIdLookup=true, StatusCallbackMethod=some-status-callback-method, SmsFallbackUrl=some-fallback-url, SmsMethod=some-sms-method}";
+        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, AccountSid=some-account-sid-destination, FriendlyName=some-friendly-name, VoiceApplicationSid=some-voice-application-sid, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, ApiVersion=2010-04-01, VoiceFallbackMethod=GET, VoiceMethod=GET, StatusCallback=some-status-callback, SmsApplicationSid=some-sms-application-sid, SmsFallbackMethod=GET, VoiceCallerIdLookup=true, StatusCallbackMethod=GET, SmsFallbackUrl=some-fallback-url, SmsMethod=GET}";
         assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
     }
 
@@ -190,7 +190,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "POST";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/IncomingPhoneNumbers";
-        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, FriendlyName=some-friendly-name, PhoneNumber=some-phone-number, VoiceApplicationSid=some-voice-application-sid, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, VoiceFallbackMethod=some-voice-fallback-method, VoiceMethod=some-voice-method, StatusCallback=some-status-callback, SmsApplicationSid=some-sms-application-sid, SmsFallbackMethod=some-sms-fallback-method, VoiceCallerIdLookup=false, StatusCallbackMethod=some-status-callback-method, SmsFallbackUrl=some-fallback-url, SmsMethod=some-sms-method}";
+        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, FriendlyName=some-friendly-name, PhoneNumber=some-phone-number, VoiceApplicationSid=some-voice-application-sid, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, VoiceFallbackMethod=GET, VoiceMethod=GET, StatusCallback=some-status-callback, SmsApplicationSid=some-sms-application-sid, SmsFallbackMethod=GET, VoiceCallerIdLookup=false, StatusCallbackMethod=GET, SmsFallbackUrl=some-fallback-url, SmsMethod=GET}";
         assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
     }
 
@@ -199,7 +199,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "POST";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/IncomingPhoneNumbers";
-        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, FriendlyName=some-friendly-name, VoiceApplicationSid=some-voice-application-sid, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, VoiceFallbackMethod=some-voice-fallback-method, VoiceMethod=some-voice-method, AreaCode=some-area-code, StatusCallback=some-status-callback, SmsApplicationSid=some-sms-application-sid, SmsFallbackMethod=some-sms-fallback-method, VoiceCallerIdLookup=false, StatusCallbackMethod=some-status-callback-method, SmsFallbackUrl=some-fallback-url, SmsMethod=some-sms-method}";
+        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, FriendlyName=some-friendly-name, VoiceApplicationSid=some-voice-application-sid, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, VoiceFallbackMethod=GET, VoiceMethod=GET, AreaCode=some-area-code, StatusCallback=some-status-callback, SmsApplicationSid=some-sms-application-sid, SmsFallbackMethod=GET, VoiceCallerIdLookup=false, StatusCallbackMethod=GET, SmsFallbackUrl=some-fallback-url, SmsMethod=GET}";
         assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
     }
 
@@ -217,7 +217,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "POST";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Applications/some-application-sid";
-        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, FriendlyName=some-friendly-name, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, ApiVersion=2010-04-01, VoiceFallbackMethod=some-voice-fallback-method, VoiceMethod=some-voice-method, StatusCallback=some-status-callback, SmsFallbackMethod=some-sms-fallback-method, SmsStatusCallback=some-status-callback, VoiceCallerIdLookup=false, StatusCallbackMethod=some-status-callback-method, SmsFallbackUrl=some-fallback-url, SmsMethod=some-sms-method}";
+        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, FriendlyName=some-friendly-name, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, ApiVersion=2010-04-01, VoiceFallbackMethod=GET, VoiceMethod=GET, StatusCallback=some-status-callback, SmsFallbackMethod=GET, SmsStatusCallback=some-status-callback, VoiceCallerIdLookup=false, StatusCallbackMethod=GET, SmsFallbackUrl=some-fallback-url, SmsMethod=GET}";
         assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
     }
 
@@ -244,7 +244,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "POST";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Applications/";
-        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, FriendlyName=some-friendly-name, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, ApiVersion=2010-04-01, VoiceFallbackMethod=some-voice-fallback-method, VoiceMethod=some-voice-method, StatusCallback=some-status-callback, SmsFallbackMethod=some-sms-fallback-method, SmsStatusCallback=some-status-callback, VoiceCallerIdLookup=false, StatusCallbackMethod=some-status-callback-method, SmsFallbackUrl=some-fallback-url, SmsMethod=some-sms-method}";
+        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, FriendlyName=some-friendly-name, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, ApiVersion=2010-04-01, VoiceFallbackMethod=GET, VoiceMethod=GET, StatusCallback=some-status-callback, SmsFallbackMethod=GET, SmsStatusCallback=some-status-callback, VoiceCallerIdLookup=false, StatusCallbackMethod=GET, SmsFallbackUrl=some-fallback-url, SmsMethod=GET}";
         assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
     }
 
@@ -271,7 +271,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "POST";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Calls/";
-        String expectedParams = "{SendDigits=some-digits, ApplicationSid=some-application-sid, FallbackMethod=some-method, Timeout=123, IfMachine=continue, StatusCallback=some-status-callback, Method=some-method, To=some-to, StatusCallbackMethod=some-status-callback-method, FallbackUrl=some-url, From=some-from}";
+        String expectedParams = "{SendDigits=some-digits, ApplicationSid=some-application-sid, FallbackMethod=some-method, Timeout=123, IfMachine=continue, StatusCallback=some-status-callback, Method=some-method, To=some-to, StatusCallbackMethod=GET, FallbackUrl=some-url, From=some-from}";
         assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
     }
 
@@ -460,7 +460,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "POST";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Sandbox";
-        String expectedParams = "{VoiceMethod=some-voice-method, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, SmsMethod=some-sms-method}";
+        String expectedParams = "{VoiceMethod=GET, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, SmsMethod=GET}";
         assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
     }
 

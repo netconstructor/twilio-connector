@@ -558,17 +558,17 @@ public class TwilioConnector implements Initialisable {
                                              @Parameter(optional = true) String friendlyName,
                                              @Parameter(optional = true) String apiVersion,
                                              @Parameter(optional = true) String voiceUrl,
-                                             @Parameter(optional = true) String voiceMethod,
+                                             @Parameter(optional = true) HttpMethod voiceMethod,
                                              @Parameter(optional = true) String voiceFallbackUrl,
-                                             @Parameter(optional = true) String voiceFallbackMethod,
+                                             @Parameter(optional = true) HttpMethod voiceFallbackMethod,
                                              @Parameter(optional = true) String statusCallback,
-                                             @Parameter(optional = true) String statusCallbackMethod,
+                                             @Parameter(optional = true) HttpMethod statusCallbackMethod,
                                              @Parameter(optional = true) Boolean voiceCallerIdLookup,
                                              @Parameter(optional = true) String voiceApplicationSid,
                                              @Parameter(optional = true) String smsUrl,
-                                             @Parameter(optional = true) String smsMethod,
+                                             @Parameter(optional = true) HttpMethod smsMethod,
                                              @Parameter(optional = true) String smsFallbackUrl,
-                                             @Parameter(optional = true) String smsFallbackMethod,
+                                             @Parameter(optional = true) HttpMethod smsFallbackMethod,
                                              @Parameter(optional = true) String smsApplicationSid,
                                              @Parameter(optional = true) String accountSidDestination) {
         return twilioClient.updateIncomingPhoneNumbers(accountSid, incomingPhoneNumberSid, friendlyName, apiVersion, voiceUrl, voiceMethod, voiceFallbackUrl,
@@ -680,17 +680,17 @@ public class TwilioConnector implements Initialisable {
                                                       @Parameter String phoneNumber,
                                                       @Parameter(optional = true) String friendlyName,
                                                       @Parameter(optional = true) String voiceUrl,
-                                                      @Parameter(optional = true) String voiceMethod,
+                                                      @Parameter(optional = true) HttpMethod voiceMethod,
                                                       @Parameter(optional = true) String voiceFallbackUrl,
-                                                      @Parameter(optional = true) String voiceFallbackMethod,
+                                                      @Parameter(optional = true) HttpMethod voiceFallbackMethod,
                                                       @Parameter(optional = true) String statusCallback,
-                                                      @Parameter(optional = true) String statusCallbackMethod,
+                                                      @Parameter(optional = true) HttpMethod statusCallbackMethod,
                                                       @Parameter(optional = true) Boolean voiceCallerIdLookup,
                                                       @Parameter(optional = true) String voiceApplicationSid,
                                                       @Parameter(optional = true) String smsUrl,
-                                                      @Parameter(optional = true) String smsMethod,
+                                                      @Parameter(optional = true) HttpMethod smsMethod,
                                                       @Parameter(optional = true) String smsFallbackUrl,
-                                                      @Parameter(optional = true) String smsFallbackMethod,
+                                                      @Parameter(optional = true) HttpMethod smsFallbackMethod,
                                                       @Parameter(optional = true) String smsApplicationSid) {
         return twilioClient.addIncomingPhoneNumberByPhoneNumber(accountSid, phoneNumber, friendlyName, voiceUrl, voiceMethod, voiceFallbackUrl, voiceFallbackMethod,
                 statusCallback, statusCallbackMethod, voiceCallerIdLookup, voiceApplicationSid, smsUrl, smsMethod, smsFallbackUrl, smsFallbackMethod, smsApplicationSid);
@@ -747,17 +747,17 @@ public class TwilioConnector implements Initialisable {
                                                    @Parameter String areaCode,
                                                    @Parameter(optional = true) String friendlyName,
                                                    @Parameter(optional = true) String voiceUrl,
-                                                   @Parameter(optional = true) String voiceMethod,
+                                                   @Parameter(optional = true) HttpMethod voiceMethod,
                                                    @Parameter(optional = true) String voiceFallbackUrl,
-                                                   @Parameter(optional = true) String voiceFallbackMethod,
+                                                   @Parameter(optional = true) HttpMethod voiceFallbackMethod,
                                                    @Parameter(optional = true) String statusCallback,
-                                                   @Parameter(optional = true) String statusCallbackMethod,
+                                                   @Parameter(optional = true) HttpMethod statusCallbackMethod,
                                                    @Parameter(optional = true) Boolean voiceCallerIdLookup,
                                                    @Parameter(optional = true) String voiceApplicationSid,
                                                    @Parameter(optional = true) String smsUrl,
-                                                   @Parameter(optional = true) String smsMethod,
+                                                   @Parameter(optional = true) HttpMethod smsMethod,
                                                    @Parameter(optional = true) String smsFallbackUrl,
-                                                   @Parameter(optional = true) String smsFallbackMethod,
+                                                   @Parameter(optional = true) HttpMethod smsFallbackMethod,
                                                    @Parameter(optional = true) String smsApplicationSid) {
         return twilioClient.addIncomingPhoneNumberByAreaCode(accountSid, areaCode, friendlyName, voiceUrl, voiceMethod, voiceFallbackUrl, voiceFallbackMethod,
                 statusCallback, statusCallbackMethod, voiceCallerIdLookup, voiceApplicationSid, smsUrl, smsMethod, smsFallbackUrl, smsFallbackMethod, smsApplicationSid);
@@ -832,7 +832,7 @@ public class TwilioConnector implements Initialisable {
      * @param apiVersion           Requests to this application's URLs will start a new TwiML session with this API version. Either 2010-04-01 or 2008-08-01.
      * @param voiceUrl             The URL that Twilio should request when somebody dials a phone number assigned to this application.
      * @param voiceMethod          The HTTP method that should be used to request the VoiceUrl. Either GET or POST.
-     * @param voiceFallbackUrl     The HTTP method that should be used to request the VoiceUrl. Either GET or POST.
+     * @param voiceFallbackUrl     A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by VoiceUrl.
      * @param voiceFallbackMethod  The HTTP method that should be used to request the VoiceFallbackUrl. Either GET or POST.
      * @param statusCallback       The URL that Twilio will request to pass status parameters (such as call ended) to your application.
      * @param statusCallbackMethod The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST.
@@ -850,16 +850,16 @@ public class TwilioConnector implements Initialisable {
                                     @Parameter(optional = true) String friendlyName,
                                     @Parameter(optional = true) String apiVersion,
                                     @Parameter(optional = true) String voiceUrl,
-                                    @Parameter(optional = true) String voiceMethod,
+                                    @Parameter(optional = true) HttpMethod voiceMethod,
                                     @Parameter(optional = true) String voiceFallbackUrl,
-                                    @Parameter(optional = true) String voiceFallbackMethod,
+                                    @Parameter(optional = true) HttpMethod voiceFallbackMethod,
                                     @Parameter(optional = true) String statusCallback,
-                                    @Parameter(optional = true) String statusCallbackMethod,
+                                    @Parameter(optional = true) HttpMethod statusCallbackMethod,
                                     @Parameter(optional = true) Boolean voiceCallerIdLookup,
                                     @Parameter(optional = true) String smsUrl,
-                                    @Parameter(optional = true) String smsMethod,
+                                    @Parameter(optional = true) HttpMethod smsMethod,
                                     @Parameter(optional = true) String smsFallbackUrl,
-                                    @Parameter(optional = true) String smsFallbackMethod,
+                                    @Parameter(optional = true) HttpMethod smsFallbackMethod,
                                     @Parameter(optional = true) String smsStatusCallback) {
         return twilioClient.updateApplication(accountSid, applicationSid, friendlyName, apiVersion, voiceUrl, voiceMethod, voiceFallbackUrl, voiceFallbackMethod, statusCallback, statusCallbackMethod, voiceCallerIdLookup,
                 smsUrl, smsMethod, smsFallbackUrl, smsFallbackMethod, smsStatusCallback);
@@ -938,16 +938,16 @@ public class TwilioConnector implements Initialisable {
                                     @Parameter String friendlyName,
                                     @Parameter(optional = true) String apiVersion,
                                     @Parameter(optional = true) String voiceUrl,
-                                    @Parameter(optional = true) String voiceMethod,
+                                    @Parameter(optional = true) HttpMethod voiceMethod,
                                     @Parameter(optional = true) String voiceFallbackUrl,
-                                    @Parameter(optional = true) String voiceFallbackMethod,
+                                    @Parameter(optional = true) HttpMethod voiceFallbackMethod,
                                     @Parameter(optional = true) String statusCallback,
-                                    @Parameter(optional = true) String statusCallbackMethod,
+                                    @Parameter(optional = true) HttpMethod statusCallbackMethod,
                                     @Parameter(optional = true) Boolean voiceCallerIdLookup,
                                     @Parameter(optional = true) String smsUrl,
-                                    @Parameter(optional = true) String smsMethod,
+                                    @Parameter(optional = true) HttpMethod smsMethod,
                                     @Parameter(optional = true) String smsFallbackUrl,
-                                    @Parameter(optional = true) String smsFallbackMethod,
+                                    @Parameter(optional = true) HttpMethod smsFallbackMethod,
                                     @Parameter(optional = true) String smsStatusCallback) {
         return twilioClient.createApplication(accountSid, friendlyName, apiVersion, voiceUrl, voiceMethod,
                 voiceFallbackUrl, voiceFallbackMethod, statusCallback, statusCallbackMethod, voiceCallerIdLookup, smsUrl,
@@ -1079,11 +1079,12 @@ public class TwilioConnector implements Initialisable {
                            @Parameter(optional = true) String fallbackUrl,
                            @Parameter(optional = true) String fallbackMethod,
                            @Parameter(optional = true) String statusCallback,
-                           @Parameter(optional = true) String statusCallbackMethod,
+                           @Parameter(optional = true) HttpMethod statusCallbackMethod,
                            @Parameter(optional = true) String sendDigits,
                            @Parameter(optional = true) String ifMachine,
                            @Parameter(optional = true) String timeout) {
-        return twilioClient.makeCall(accountSid, from, to, url, applicationSid, method, fallbackUrl, fallbackMethod, statusCallback, statusCallbackMethod, sendDigits, ifMachine, timeout);
+        return twilioClient.makeCall(accountSid, from, to, url, applicationSid, method, fallbackUrl, fallbackMethod,
+                statusCallback, statusCallbackMethod, sendDigits, ifMachine, timeout);
     }
 
     /**
@@ -1693,9 +1694,9 @@ public class TwilioConnector implements Initialisable {
     @Operation
     public String updateSandbox(@Parameter(optional = true) String accountSid,
                                 @Parameter(optional = true) String voiceUrl,
-                                @Parameter(optional = true) String voiceMethod,
+                                @Parameter(optional = true) HttpMethod voiceMethod,
                                 @Parameter(optional = true) String smsUrl,
-                                @Parameter(optional = true) String smsMethod) {
+                                @Parameter(optional = true) HttpMethod smsMethod) {
         return twilioClient.updateSandbox(accountSid, voiceUrl, voiceMethod, smsUrl, smsMethod);
     }
 
