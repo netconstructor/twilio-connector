@@ -40,19 +40,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Returns a representation of an account.
-     * <p/>
-     * An Account resource is represented by the following properties:
-     * <p/>
-     * Property	        Description
-     * Sid	            A 34 character string that uniquely identifies this account.
-     * DateCreated	    The date that this account was created, in GMT in RFC 2822 format
-     * DateUpdated	    The date that this account was last updated, in GMT in RFC 2822 format.
-     * FriendlyName	    A human readable description of this account, up to 64 characters long. By default the
-     * FriendlyName is your email address.
-     * Status	        The status of this account. Usually active, but can be suspended if you've been bad, or closed if you've been horrible.
-     * AuthToken	    The authorization token for this account. This token should be kept a secret, so no sharing.
-     * Uri	            The URI for this resource, relative to https://api.twilio.com.
-     * SubresourceUris	The list of subresources under this account.
      *
      * @param accountSid the account sid for which to get the details, leave empty to use to use {@link TwilioConnector#accountSid}
      * @return a representation of the account
@@ -65,20 +52,6 @@ public class TwilioConnector implements Initialisable {
     /**
      * Retrieve a list of the Account resources belonging to the account used to make the API request. This list will
      * include that Account as well.
-     * <p/>
-     * An Account resource is represented by the following properties:
-     * <p/>
-     * Property	        Description
-     * Sid	            A 34 character string that uniquely identifies this account.
-     * DateCreated	    The date that this account was created, in GMT in RFC 2822 format
-     * DateUpdated	    The date that this account was last updated, in GMT in RFC 2822 format.
-     * FriendlyName	    A human readable description of this account, up to 64 characters long. By default the
-     * FriendlyName is your email address.
-     * Status	        The status of this account. Usually active, but can be suspended if you've been bad, or closed
-     * if you've been horrible.
-     * AuthToken	    The authorization token for this account. This token should be kept a secret, so no sharing.
-     * Uri	            The URI for this resource, relative to https://api.twilio.com.
-     * SubresourceUris	The list of subresources under this account.
      *
      * @param accountStatus Only return Account resources with the given status. Can be closed, suspended or active.
      * @param friendlyName  Only return the Account resources with friendly names that exactly match this name.
@@ -93,19 +66,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Allows you to modify the properties of an account.
-     * <p/>
-     * An Account resource is represented by the following properties:
-     * <p/>
-     * Sid	            A 34 character string that uniquely identifies this account.
-     * DateCreated	    The date that this account was created, in GMT in RFC 2822 format
-     * DateUpdated	    The date that this account was last updated, in GMT in RFC 2822 format.
-     * FriendlyName	    A human readable description of this account, up to 64 characters long. By default the
-     * FriendlyName is your email address.
-     * Status	        The status of this account. Usually active, but can be suspended if you've been bad, or closed
-     * if you've been horrible.
-     * AuthToken	    The authorization token for this account. This token should be kept a secret, so no sharing.
-     * Uri	            The URI for this resource, relative to https://api.twilio.com.
-     * SubresourceUris	The list of subresources under this account.
      *
      * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param accountStatus Alter the status of this account: use closed to irreversibly close this account, suspended to temporarily suspend it, or active to reactivate it.
@@ -130,18 +90,6 @@ public class TwilioConnector implements Initialisable {
      * each customer that signs up. Then if a customer closes his or her account with your service, you can simply
      * deactivate the associated Twilio subaccount.
      * <p/>
-     * An Account resource is represented by the following properties:
-     * <p/>
-     * Sid	            A 34 character string that uniquely identifies this account.
-     * DateCreated	    The date that this account was created, in GMT in RFC 2822 format
-     * DateUpdated	    The date that this account was last updated, in GMT in RFC 2822 format.
-     * FriendlyName	    A human readable description of this account, up to 64 characters long. By default the
-     * FriendlyName is your email address.
-     * Status	        The status of this account. Usually active, but can be suspended if you've been bad, or closed
-     * if you've been horrible.
-     * AuthToken	    The authorization token for this account. This token should be kept a secret, so no sharing.
-     * Uri	            The URI for this resource, relative to https://api.twilio.com.
-     * SubresourceUris	The list of subresources under this account.
      *
      * @param friendlyName A human readable description of the new subaccount, up to 64 characters. Defaults to "SubAccount Created at {YYYY-MM-DD HH:MM meridiam}".
      * @return a representation of the account
@@ -155,19 +103,6 @@ public class TwilioConnector implements Initialisable {
      * Subaccounts in Twilio are just accounts that are "owned" by another account. Using a subaccount you can segment
      * each of your customers' use of Twilio and keep it separate from all the rest, allowing you to easily manage the
      * activity and resources of each customer independently.
-     * <p/>
-     * An Account resource is represented by the following properties:
-     * <p/>
-     * Sid	             A 34 character string that uniquely identifies this account.
-     * DateCreated	     The date that this account was created, in GMT in RFC 2822 format
-     * DateUpdated	     The date that this account was last updated, in GMT in RFC 2822 format.
-     * FriendlyName	     A human readable description of this account, up to 64 characters long. By default the
-     * FriendlyName is your email address.
-     * Status	         The status of this account. Usually active, but can be suspended if you've been bad, or closed
-     * if you've been horrible.
-     * AuthToken	     The authorization token for this account. This token should be kept a secret, so no sharing.
-     * Uri	            The URI for this resource, relative to https://api.twilio.com.
-     * SubresourceUris	The list of subresources under this account.
      *
      * @param accountSid the account sid to use in the query
      * @return a representation of the subaccount
@@ -185,19 +120,6 @@ public class TwilioConnector implements Initialisable {
      * For instance, if you are running a hosted service that relies on Twilio you can create a Twilio subaccount for
      * each customer that signs up. Then if a customer closes his or her account with your service, you can simply
      * deactivate the associated Twilio subaccount.
-     * <p/>
-     * An Account resource is represented by the following properties:
-     * <p/>
-     * Sid	            A 34 character string that uniquely identifies this account.
-     * DateCreated	    The date that this account was created, in GMT in RFC 2822 format
-     * DateUpdated	    The date that this account was last updated, in GMT in RFC 2822 format.
-     * FriendlyName	    A human readable description of this account, up to 64 characters long. By default the
-     * FriendlyName is your email address.
-     * Status	        The status of this account. Usually active, but can be suspended if you've been bad, or closed
-     * if you've been horrible.
-     * AuthToken	    The authorization token for this account. This token should be kept a secret, so no sharing.
-     * Uri	            The URI for this resource, relative to https://api.twilio.com.
-     * SubresourceUris	The list of subresources under this account.
      *
      * @param friendlyName the friendly name to use in the query
      * @return a representation of the subaccount
@@ -209,30 +131,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Trasfers a number between two subaccounts.
-     * <p/>
-     * Each incoming phone number is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely idetifies this resource.
-     * DateCreated	The date that this resource was created, given as GMT RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given as GMT RFC 2822 format.
-     * FriendlyName	A human readable descriptive text for this resource, up to 64 characters long. By default, the FriendlyName is a nicely formatted version of the phone number.
-     * AccountSid	The unique id of the Account responsible for this phone number.
-     * PhoneNumber	The incoming phone number. e.g., +16175551212 (E.164 format)
-     * ApiVersion	Calls to this phone number will start a new TwiML session with this API version.
-     * VoiceCallerIdLookup	Look up the caller's caller-ID name from the CNAM database (additional charges apply). Either true or false.
-     * VoiceUrl	The URL Twilio will request when this phone number receives a call.
-     * VoiceMethod	The HTTP method Twilio will use when requesting the above Url. Either GET or POST.
-     * VoiceFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by Url.
-     * VoiceFallbackMethod	The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either GET or POST.
-     * StatusCallback	The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-     * StatusCallbackMethod	The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST.
-     * VoiceApplicationSid	The 34 character sid of the application Twilio should use to handle phone calls to this number. If a VoiceApplicationSid is present, Twilio will ignore all of the voice urls above and use those set on the application.
-     * SmsUrl	The URL Twilio will request when receiving an incoming SMS message to this number.
-     * SmsMethod	The HTTP method Twilio will use when making requests to the SmsUrl. Either GET or POST.
-     * SmsFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML from SmsUrl.
-     * SmsFallbackMethod	The HTTP method Twilio will use when requesting the above URL. Either GET or POST.
-     * SmsApplicationSid	The 34 character sid of the application Twilio should use to handle SMSs sent to this number. If a SmsApplicationSid is present, Twilio will ignore all of the SMS urls above and use those set on the application.
-     * Uri	The URI for this resource, relative to https://api.twilio.com.
      *
      * @param accountSidFrom         the account sid from where to get the number, leave empty to use {@link TwilioConnector#accountSid}
      * @param incomingPhoneNumberSid the incoming phone number sid to transfer
@@ -249,18 +147,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Returns a list of local AvailablePhoneNumber resource representations that match the specified filters, each representing a phone number that is currently available for provisioning within your account.
-     * <p/>
-     * Each phone number instance has the following properties:
-     * <p/>
-     * FriendlyName	A nicely-formatted version of the phone number.
-     * PhoneNumber	The phone number, in E.164 (i.e. "+1") format.
-     * Lata	The LATA of this phone number.
-     * RateCenter	The rate center of this phone number.
-     * Latitude	The latitude coordinate of this phone number.
-     * Longitude	The longitude coordinate of this phone number.
-     * Region	The two-letter state or province abbreviation of this phone number.
-     * PostalCode	The postal (zip) code of this phone number.
-     * IsoCountry	The ISO country code of this phone number.
      *
      * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param isoCountryCode a country code in ISO 3166-1 alpha-2 format (e.g. 'US' for United States, 'CA' for Canada).
@@ -282,18 +168,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Returns a list of local AvailablePhoneNumber resource representations that match the specified filters, each representing a phone number that is currently available for provisioning within your account.
-     * <p/>
-     * Each phone number instance has the following properties:
-     * <p/>
-     * FriendlyName	A nicely-formatted version of the phone number.
-     * PhoneNumber	The phone number, in E.164 (i.e. "+1") format.
-     * Lata	The LATA of this phone number.
-     * RateCenter	The rate center of this phone number.
-     * Latitude	The latitude coordinate of this phone number.
-     * Longitude	The longitude coordinate of this phone number.
-     * Region	The two-letter state or province abbreviation of this phone number.
-     * PostalCode	The postal (zip) code of this phone number.
-     * IsoCountry	The ISO country code of this phone number.
      *
      * @param accountSid      the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param isoCountryCode  a country code in ISO 3166-1 alpha-2 format (e.g. 'US' for United States, 'CA' for Canada).
@@ -325,18 +199,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Returns a list of toll-free AvailablePhoneNumber elements that match the specified filters, each representing a phone number that is currently available for provisioning within your account.
-     * <p/>
-     * Each phone number instance has the following properties:
-     * <p/>
-     * FriendlyName	A nicely-formatted version of the phone number.
-     * PhoneNumber	The phone number, in E.164 (i.e. "+1") format.
-     * Lata	The LATA of this phone number.
-     * RateCenter	The rate center of this phone number.
-     * Latitude	The latitude coordinate of this phone number.
-     * Longitude	The longitude coordinate of this phone number.
-     * Region	The two-letter state or province abbreviation of this phone number.
-     * PostalCode	The postal (zip) code of this phone number.
-     * IsoCountry	The ISO country code of this phone number.
      *
      * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param isoCountryCode a country code in ISO 3166-1 alpha-2 format (e.g. 'US' for United States, 'CA' for Canada).
@@ -352,16 +214,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Returns an outgoing caller id instance matching the given filters.
-     * <p/>
-     * Each outgoing caller id instance has the following properies:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this resource.
-     * DateCreated	The date that this resource was created, given in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
-     * FriendlyName	A human readable descriptive text for this resource, up to 64 characters long. By default, the FriendlyName is a nicely formatted version of the phone number.
-     * AccountSid	The unique id of the Account responsible for this Caller Id.
-     * PhoneNumber	The incoming phone number. Formatted with a '+' and country code e.g., +16175551212 (E.164 format).
-     * Uri	The URI for this resource, relative to https://api.twilio.com.
      *
      * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param outgoingCallerIdSid the outgoing caller id sid to use in the query
@@ -375,16 +227,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Updates the caller id, and returns the updated resource if successful.
-     * <p/>
-     * Each outgoing caller id instance has the following properies:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this resource.
-     * DateCreated	The date that this resource was created, given in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
-     * FriendlyName	A human readable descriptive text for this resource, up to 64 characters long. By default, the FriendlyName is a nicely formatted version of the phone number.
-     * AccountSid	The unique id of the Account responsible for this Caller Id.
-     * PhoneNumber	The incoming phone number. Formatted with a '+' and country code e.g., +16175551212 (E.164 format).
-     * Uri	The URI for this resource, relative to https://api.twilio.com.
      *
      * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param outgoingCallerIdSid the outgoing caller id sid to update
@@ -400,16 +242,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Returns a list of OutgoingCallerId resource representations, each representing a Caller ID number valid for an account. The list includes paging information.
-     * <p/>
-     * Each outgoing caller id instance has the following properies:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this resource.
-     * DateCreated	The date that this resource was created, given in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
-     * FriendlyName	A human readable descriptive text for this resource, up to 64 characters long. By default, the FriendlyName is a nicely formatted version of the phone number.
-     * AccountSid	The unique id of the Account responsible for this Caller Id.
-     * PhoneNumber	The incoming phone number. Formatted with a '+' and country code e.g., +16175551212 (E.164 format).
-     * Uri	The URI for this resource, relative to https://api.twilio.com.
      *
      * @param accountSid   the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param phoneNumber  Only show the caller id resource that exactly matches this phone number.
@@ -425,13 +257,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Adds a new CallerID to your account. After making this request, Twilio will return to you a validation code and Twilio will dial the phone number given to perform validation. The code returned must be entered via the phone before the CallerID will be added to your account.
-     * <p/>
-     * This will create a new CallerID validation request within Twilio, which initiates a call to the phone number provided and listens for a validation code. The validation request is represented in the response by the following properties:
-     * <p/>
-     * AccountSid	The unique id of the Account to which the Validation Request belongs.
-     * PhoneNumber	The incoming phone number being validated, formatted with a '+' and country code e.g., +16175551212 (E.164 format).
-     * FriendlyName	The friendly name you provided, if any.
-     * ValidationCode	The 6 digit validation code that must be entered via the phone to validate this phone number for Caller ID.
      *
      * @param accountSid   the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param phoneNumber  The phone number to verify. Should be formatted with a '+' and country code e.g., +16175551212 (E.164 format). Twilio will also accept unformatted US numbers e.g., (415) 555-1212, 415-555-1212.
@@ -467,30 +292,6 @@ public class TwilioConnector implements Initialisable {
      * Returns an incoming phone numbers matching the given query filters.
      * <p/>
      * An IncomingPhoneNumber instance resource represents a Twilio phone number purchased from Twilio or ported to Twilio.
-     * <p/>
-     * Each incoming phone number is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely idetifies this resource.
-     * DateCreated	The date that this resource was created, given as GMT RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given as GMT RFC 2822 format.
-     * FriendlyName	A human readable descriptive text for this resource, up to 64 characters long. By default, the FriendlyName is a nicely formatted version of the phone number.
-     * AccountSid	The unique id of the Account responsible for this phone number.
-     * PhoneNumber	The incoming phone number. e.g., +16175551212 (E.164 format)
-     * ApiVersion	Calls to this phone number will start a new TwiML session with this API version.
-     * VoiceCallerIdLookup	Look up the caller's caller-ID name from the CNAM database (additional charges apply). Either true or false.
-     * VoiceUrl	The URL Twilio will request when this phone number receives a call.
-     * VoiceMethod	The HTTP method Twilio will use when requesting the above Url. Either GET or POST.
-     * VoiceFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by Url.
-     * VoiceFallbackMethod	The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either GET or POST.
-     * StatusCallback	The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-     * StatusCallbackMethod	The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST.
-     * VoiceApplicationSid	The 34 character sid of the application Twilio should use to handle phone calls to this number. If a VoiceApplicationSid is present, Twilio will ignore all of the voice urls above and use those set on the application.
-     * SmsUrl	The URL Twilio will request when receiving an incoming SMS message to this number.
-     * SmsMethod	The HTTP method Twilio will use when making requests to the SmsUrl. Either GET or POST.
-     * SmsFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML from SmsUrl.
-     * SmsFallbackMethod	The HTTP method Twilio will use when requesting the above URL. Either GET or POST.
-     * SmsApplicationSid	The 34 character sid of the application Twilio should use to handle SMSs sent to this number. If a SmsApplicationSid is present, Twilio will ignore all of the SMS urls above and use those set on the application.
-     * Uri	The URI for this resource, relative to https://api.twilio.com.
      *
      * @param accountSid             the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param incomingPhoneNumberSid the incoming phone number sid to use in the query
@@ -507,29 +308,6 @@ public class TwilioConnector implements Initialisable {
      * <p/>
      * * An IncomingPhoneNumber instance resource represents a Twilio phone number purchased from Twilio or ported to Twilio.
      * <p/>
-     * Each incoming phone number is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely idetifies this resource.
-     * DateCreated	The date that this resource was created, given as GMT RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given as GMT RFC 2822 format.
-     * FriendlyName	A human readable descriptive text for this resource, up to 64 characters long. By default, the FriendlyName is a nicely formatted version of the phone number.
-     * AccountSid	The unique id of the Account responsible for this phone number.
-     * PhoneNumber	The incoming phone number. e.g., +16175551212 (E.164 format)
-     * ApiVersion	Calls to this phone number will start a new TwiML session with this API version.
-     * VoiceCallerIdLookup	Look up the caller's caller-ID name from the CNAM database (additional charges apply). Either true or false.
-     * VoiceUrl	The URL Twilio will request when this phone number receives a call.
-     * VoiceMethod	The HTTP method Twilio will use when requesting the above Url. Either GET or POST.
-     * VoiceFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by Url.
-     * VoiceFallbackMethod	The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either GET or POST.
-     * StatusCallback	The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-     * StatusCallbackMethod	The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST.
-     * VoiceApplicationSid	The 34 character sid of the application Twilio should use to handle phone calls to this number. If a VoiceApplicationSid is present, Twilio will ignore all of the voice urls above and use those set on the application.
-     * SmsUrl	The URL Twilio will request when receiving an incoming SMS message to this number.
-     * SmsMethod	The HTTP method Twilio will use when making requests to the SmsUrl. Either GET or POST.
-     * SmsFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML from SmsUrl.
-     * SmsFallbackMethod	The HTTP method Twilio will use when requesting the above URL. Either GET or POST.
-     * SmsApplicationSid	The 34 character sid of the application Twilio should use to handle SMSs sent to this number. If a SmsApplicationSid is present, Twilio will ignore all of the SMS urls above and use those set on the application.
-     * Uri	The URI for this resource, relative to https://api.twilio.com.
      *
      * @param accountSid             the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param incomingPhoneNumberSid the incoming phone number sid to use
@@ -593,29 +371,6 @@ public class TwilioConnector implements Initialisable {
      * <p/>
      * An IncomingPhoneNumber instance resource represents a Twilio phone number purchased from Twilio or ported to Twilio.
      * <p/>
-     * Each incoming phone number is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely idetifies this resource.
-     * DateCreated	The date that this resource was created, given as GMT RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given as GMT RFC 2822 format.
-     * FriendlyName	A human readable descriptive text for this resource, up to 64 characters long. By default, the FriendlyName is a nicely formatted version of the phone number.
-     * AccountSid	The unique id of the Account responsible for this phone number.
-     * PhoneNumber	The incoming phone number. e.g., +16175551212 (E.164 format)
-     * ApiVersion	Calls to this phone number will start a new TwiML session with this API version.
-     * VoiceCallerIdLookup	Look up the caller's caller-ID name from the CNAM database (additional charges apply). Either true or false.
-     * VoiceUrl	The URL Twilio will request when this phone number receives a call.
-     * VoiceMethod	The HTTP method Twilio will use when requesting the above Url. Either GET or POST.
-     * VoiceFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by Url.
-     * VoiceFallbackMethod	The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either GET or POST.
-     * StatusCallback	The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-     * StatusCallbackMethod	The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST.
-     * VoiceApplicationSid	The 34 character sid of the application Twilio should use to handle phone calls to this number. If a VoiceApplicationSid is present, Twilio will ignore all of the voice urls above and use those set on the application.
-     * SmsUrl	The URL Twilio will request when receiving an incoming SMS message to this number.
-     * SmsMethod	The HTTP method Twilio will use when making requests to the SmsUrl. Either GET or POST.
-     * SmsFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML from SmsUrl.
-     * SmsFallbackMethod	The HTTP method Twilio will use when requesting the above URL. Either GET or POST.
-     * SmsApplicationSid	The 34 character sid of the application Twilio should use to handle SMSs sent to this number. If a SmsApplicationSid is present, Twilio will ignore all of the SMS urls above and use those set on the application.
-     * Uri	The URI for this resource, relative to https://api.twilio.com.
      *
      * @param accountSid   the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param phoneNumber  Only show the incoming phone number resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
@@ -633,29 +388,6 @@ public class TwilioConnector implements Initialisable {
      * Adds a new phone number to your account. If a phone number is found for your request, Twilio will add it to your account and bill you for the first month's cost of the phone number. If Twilio can't find a phone number to match your request, you will receive an HTTP 400 with Twilio error code 21452.
      * If successful, Twilio responds with a representation of the new phone number that was assigned to your account.
      * <p/>
-     * Each incoming phone number is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely idetifies this resource.
-     * DateCreated	The date that this resource was created, given as GMT RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given as GMT RFC 2822 format.
-     * FriendlyName	A human readable descriptive text for this resource, up to 64 characters long. By default, the FriendlyName is a nicely formatted version of the phone number.
-     * AccountSid	The unique id of the Account responsible for this phone number.
-     * PhoneNumber	The incoming phone number. e.g., +16175551212 (E.164 format)
-     * ApiVersion	Calls to this phone number will start a new TwiML session with this API version.
-     * VoiceCallerIdLookup	Look up the caller's caller-ID name from the CNAM database (additional charges apply). Either true or false.
-     * VoiceUrl	The URL Twilio will request when this phone number receives a call.
-     * VoiceMethod	The HTTP method Twilio will use when requesting the above Url. Either GET or POST.
-     * VoiceFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by Url.
-     * VoiceFallbackMethod	The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either GET or POST.
-     * StatusCallback	The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-     * StatusCallbackMethod	The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST.
-     * VoiceApplicationSid	The 34 character sid of the application Twilio should use to handle phone calls to this number. If a VoiceApplicationSid is present, Twilio will ignore all of the voice urls above and use those set on the application.
-     * SmsUrl	The URL Twilio will request when receiving an incoming SMS message to this number.
-     * SmsMethod	The HTTP method Twilio will use when making requests to the SmsUrl. Either GET or POST.
-     * SmsFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML from SmsUrl.
-     * SmsFallbackMethod	The HTTP method Twilio will use when requesting the above URL. Either GET or POST.
-     * SmsApplicationSid	The 34 character sid of the application Twilio should use to handle SMSs sent to this number. If a SmsApplicationSid is present, Twilio will ignore all of the SMS urls above and use those set on the application.
-     * Uri	The URI for this resource, relative to https://api.twilio.com.
      *
      * @param accountSid           the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param phoneNumber          The phone number you want to purchase. The number should be formated starting with a '+' followed by the country code and the number in E.164 format e.g., '+15105555555'.
@@ -700,29 +432,6 @@ public class TwilioConnector implements Initialisable {
      * Adds a new phone number to your account. If a phone number is found for your request, Twilio will add it to your account and bill you for the first month's cost of the phone number. If Twilio can't find a phone number to match your request, you will receive an HTTP 400 with Twilio error code 21452.
      * If successful, Twilio responds with a representation of the new phone number that was assigned to your account.
      * <p/>
-     * Each incoming phone number is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely idetifies this resource.
-     * DateCreated	The date that this resource was created, given as GMT RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given as GMT RFC 2822 format.
-     * FriendlyName	A human readable descriptive text for this resource, up to 64 characters long. By default, the FriendlyName is a nicely formatted version of the phone number.
-     * AccountSid	The unique id of the Account responsible for this phone number.
-     * PhoneNumber	The incoming phone number. e.g., +16175551212 (E.164 format)
-     * ApiVersion	Calls to this phone number will start a new TwiML session with this API version.
-     * VoiceCallerIdLookup	Look up the caller's caller-ID name from the CNAM database (additional charges apply). Either true or false.
-     * VoiceUrl	The URL Twilio will request when this phone number receives a call.
-     * VoiceMethod	The HTTP method Twilio will use when requesting the above Url. Either GET or POST.
-     * VoiceFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by Url.
-     * VoiceFallbackMethod	The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either GET or POST.
-     * StatusCallback	The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-     * StatusCallbackMethod	The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST.
-     * VoiceApplicationSid	The 34 character sid of the application Twilio should use to handle phone calls to this number. If a VoiceApplicationSid is present, Twilio will ignore all of the voice urls above and use those set on the application.
-     * SmsUrl	The URL Twilio will request when receiving an incoming SMS message to this number.
-     * SmsMethod	The HTTP method Twilio will use when making requests to the SmsUrl. Either GET or POST.
-     * SmsFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML from SmsUrl.
-     * SmsFallbackMethod	The HTTP method Twilio will use when requesting the above URL. Either GET or POST.
-     * SmsApplicationSid	The 34 character sid of the application Twilio should use to handle SMSs sent to this number. If a SmsApplicationSid is present, Twilio will ignore all of the SMS urls above and use those set on the application.
-     * Uri	The URI for this resource, relative to https://api.twilio.com.
      *
      * @param accountSid           the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param areaCode             The area code in which you'd like a new incoming phone number. Any three digit, US area code is valid. Twilio will provision a random phone number within this area code for you.
@@ -768,27 +477,6 @@ public class TwilioConnector implements Initialisable {
      * <p/>
      * An Application instance resource represents an application that you have created with Twilio. An application inside of Twilio is just a set of URLs and other configuration data that tells Twilio how to behave when one of your Twilio numbers receives a call or SMS message.
      * <p/>
-     * An application resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely idetifies this resource.
-     * DateCreated	The date that this resource was created, given as GMT RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given as GMT RFC 2822 format.
-     * FriendlyName	A human readable descriptive text for this resource, up to 64 characters long.
-     * AccountSid	The unique id of the Account that created this application.
-     * ApiVersion	Requests to this application will start a new TwiML session with this API version.
-     * VoiceUrl	The URL Twilio will request when a phone number assigned to this application receives a call.
-     * VoiceMethod	The HTTP method Twilio will use when requesting the above Url. Either GET or POST.
-     * VoiceFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by Url.
-     * VoiceFallbackMethod	The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either GET or POST.
-     * StatusCallback	The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-     * StatusCallbackMethod	The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST.
-     * VoiceCallerIdLookup	Look up the caller's caller-ID name from the CNAM database (additional charges apply). Either true or false.
-     * SmsUrl	The URL Twilio will request when a phone number assigned to this application receives an incoming SMS message.
-     * SmsMethod	The HTTP method Twilio will use when making requests to the SmsUrl. Either GET or POST.
-     * SmsFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML from SmsUrl.
-     * SmsFallbackMethod	The HTTP method Twilio will use when requesting the above URL. Either GET or POST.
-     * SmsStatusCallback	Twilio will make a POST request to this URL to pass status parameters (such as sent or failed) to your application if you specify this application's Sid as the ApplicationSid on an outgoing SMS request.
-     * Uri	The URI for this resource, relative to https://api.twilio.com.
      *
      * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param applicationSid the application sid to use in the query
@@ -804,27 +492,6 @@ public class TwilioConnector implements Initialisable {
     /**
      * Tries to update the application's properties, and returns the updated resource representation if successful.
      * <p/>
-     * An application resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely idetifies this resource.
-     * DateCreated	The date that this resource was created, given as GMT RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given as GMT RFC 2822 format.
-     * FriendlyName	A human readable descriptive text for this resource, up to 64 characters long.
-     * AccountSid	The unique id of the Account that created this application.
-     * ApiVersion	Requests to this application will start a new TwiML session with this API version.
-     * VoiceUrl	The URL Twilio will request when a phone number assigned to this application receives a call.
-     * VoiceMethod	The HTTP method Twilio will use when requesting the above Url. Either GET or POST.
-     * VoiceFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by Url.
-     * VoiceFallbackMethod	The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either GET or POST.
-     * StatusCallback	The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-     * StatusCallbackMethod	The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST.
-     * VoiceCallerIdLookup	Look up the caller's caller-ID name from the CNAM database (additional charges apply). Either true or false.
-     * SmsUrl	The URL Twilio will request when a phone number assigned to this application receives an incoming SMS message.
-     * SmsMethod	The HTTP method Twilio will use when making requests to the SmsUrl. Either GET or POST.
-     * SmsFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML from SmsUrl.
-     * SmsFallbackMethod	The HTTP method Twilio will use when requesting the above URL. Either GET or POST.
-     * SmsStatusCallback	Twilio will make a POST request to this URL to pass status parameters (such as sent or failed) to your application if you specify this application's Sid as the ApplicationSid on an outgoing SMS request.
-     * Uri	The URI for this resource, relative to https://api.twilio.com.
      *
      * @param accountSid           the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param applicationSid       the application sid to update
@@ -881,27 +548,6 @@ public class TwilioConnector implements Initialisable {
     /**
      * Returns a list of Application resource representations, each representing an application within your account. The list includes paging information.
      * <p/>
-     * An application resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely idetifies this resource.
-     * DateCreated	The date that this resource was created, given as GMT RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given as GMT RFC 2822 format.
-     * FriendlyName	A human readable descriptive text for this resource, up to 64 characters long.
-     * AccountSid	The unique id of the Account that created this application.
-     * ApiVersion	Requests to this application will start a new TwiML session with this API version.
-     * VoiceUrl	The URL Twilio will request when a phone number assigned to this application receives a call.
-     * VoiceMethod	The HTTP method Twilio will use when requesting the above Url. Either GET or POST.
-     * VoiceFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by Url.
-     * VoiceFallbackMethod	The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either GET or POST.
-     * StatusCallback	The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-     * StatusCallbackMethod	The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST.
-     * VoiceCallerIdLookup	Look up the caller's caller-ID name from the CNAM database (additional charges apply). Either true or false.
-     * SmsUrl	The URL Twilio will request when a phone number assigned to this application receives an incoming SMS message.
-     * SmsMethod	The HTTP method Twilio will use when making requests to the SmsUrl. Either GET or POST.
-     * SmsFallbackUrl	The URL that Twilio will request if an error occurs retrieving or executing the TwiML from SmsUrl.
-     * SmsFallbackMethod	The HTTP method Twilio will use when requesting the above URL. Either GET or POST.
-     * SmsStatusCallback	Twilio will make a POST request to this URL to pass status parameters (such as sent or failed) to your application if you specify this application's Sid as the ApplicationSid on an outgoing SMS request.
-     * Uri	The URI for this resource, relative to https://api.twilio.com.
      *
      * @param accountSid   the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param friendlyName Only return the Application resources with friendly names that exactly match this name.
@@ -959,26 +605,6 @@ public class TwilioConnector implements Initialisable {
      * <p/>
      * A Call instance resource represents a connection between a telephone and Twilio. This may be inbound, when a person calls your application, or outbound, when your application initiates the call, either via the REST API (see Making Calls) or during a call via the TwiML <Dial> verb. The Calls list resource represents the set of phone calls made to and from an account.
      * <p/>
-     * A Call instance resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this resource.
-     * ParentCallSid	A 34 character string that uniquely identifies the call that created this leg.
-     * DateCreated	The date that this resource was created, given as GMT in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given as GMT in RFC 2822 format.
-     * AccountSid	The unique id of the Account responsible for creating this call.
-     * To	The phone number that received this call. e.g., +16175551212 (E.164 format)
-     * From	The phone number that made this call. e.g., +16175551212 (E.164 format)
-     * PhoneNumberSid	If the call was inbound, this is the Sid of the IncomingPhoneNumber that received the call. If the call was outbound, it is the Sid of the OutgoingCallerId from which the call was placed.
-     * Status	A string representing the status of the call. May be queued, ringing, in-progress, completed, failed, busy or no-answer.
-     * StartTime	The start time of the call, given as GMT in RFC 2822 format. Empty if the call has not yet been dialed.
-     * EndTime	The end time of the call, given as GMT in RFC 2822 format. Empty if the call did not complete successfully.
-     * Duration	The length of the call in seconds. This value is empty for busy, failed, unanswered or ongoing calls.
-     * Price	The charge for this call in USD. Populated after the call is completed. May not be immediately available.
-     * Direction	A string describing the direction of the call. inbound for inbound calls, outbound-api for calls initiated via the REST API or outbound-dial for calls initiated by a <Dial> verb.
-     * AnsweredBy	If this call was initiated with answering machine detection, either human or machine. Empty otherwise.
-     * ForwardedFrom	If this call was an incoming call forwarded from another number, the forwarding phone number (depends on carrier supporting forwarding). Empty otherwise.
-     * CallerName	If this call was an incoming call from a phone number with Caller ID Lookup enabled, the caller's name. Empty otherwise.
-     * Uri	The URI for this resource, relative to https://api.twilio.com
      *
      * @param accountSid the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param callSid    the call sid to use in the query
@@ -993,26 +619,6 @@ public class TwilioConnector implements Initialisable {
     /**
      * Returns a list of phone calls made to and from the account identified by the given account sid. The list includes paging information and is sorted by DateUpdated with most-recent calls first.
      * <p/>
-     * A Call instance resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this resource.
-     * ParentCallSid	A 34 character string that uniquely identifies the call that created this leg.
-     * DateCreated	The date that this resource was created, given as GMT in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given as GMT in RFC 2822 format.
-     * AccountSid	The unique id of the Account responsible for creating this call.
-     * To	The phone number that received this call. e.g., +16175551212 (E.164 format)
-     * From	The phone number that made this call. e.g., +16175551212 (E.164 format)
-     * PhoneNumberSid	If the call was inbound, this is the Sid of the IncomingPhoneNumber that received the call. If the call was outbound, it is the Sid of the OutgoingCallerId from which the call was placed.
-     * Status	A string representing the status of the call. May be queued, ringing, in-progress, completed, failed, busy or no-answer.
-     * StartTime	The start time of the call, given as GMT in RFC 2822 format. Empty if the call has not yet been dialed.
-     * EndTime	The end time of the call, given as GMT in RFC 2822 format. Empty if the call did not complete successfully.
-     * Duration	The length of the call in seconds. This value is empty for busy, failed, unanswered or ongoing calls.
-     * Price	The charge for this call in USD. Populated after the call is completed. May not be immediately available.
-     * Direction	A string describing the direction of the call. inbound for inbound calls, outbound-api for calls initiated via the REST API or outbound-dial for calls initiated by a <Dial> verb.
-     * AnsweredBy	If this call was initiated with answering machine detection, either human or machine. Empty otherwise.
-     * ForwardedFrom	If this call was an incoming call forwarded from another number, the forwarding phone number (depends on carrier supporting forwarding). Empty otherwise.
-     * CallerName	If this call was an incoming call from a phone number with Caller ID Lookup enabled, the caller's name. Empty otherwise.
-     * Uri	The URI for this resource, relative to https://api.twilio.com
      *
      * @param accountSid the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param to         Only show calls to this phone number.
@@ -1033,26 +639,6 @@ public class TwilioConnector implements Initialisable {
     /**
      * Initiates a call using the given paramaters. Only one of url or applicationSid parameters must be specified, not both. Returns the call representation.
      * <p/>
-     * A Call instance resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this resource.
-     * ParentCallSid	A 34 character string that uniquely identifies the call that created this leg.
-     * DateCreated	The date that this resource was created, given as GMT in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given as GMT in RFC 2822 format.
-     * AccountSid	The unique id of the Account responsible for creating this call.
-     * To	The phone number that received this call. e.g., +16175551212 (E.164 format)
-     * From	The phone number that made this call. e.g., +16175551212 (E.164 format)
-     * PhoneNumberSid	If the call was inbound, this is the Sid of the IncomingPhoneNumber that received the call. If the call was outbound, it is the Sid of the OutgoingCallerId from which the call was placed.
-     * Status	A string representing the status of the call. May be queued, ringing, in-progress, completed, failed, busy or no-answer.
-     * StartTime	The start time of the call, given as GMT in RFC 2822 format. Empty if the call has not yet been dialed.
-     * EndTime	The end time of the call, given as GMT in RFC 2822 format. Empty if the call did not complete successfully.
-     * Duration	The length of the call in seconds. This value is empty for busy, failed, unanswered or ongoing calls.
-     * Price	The charge for this call in USD. Populated after the call is completed. May not be immediately available.
-     * Direction	A string describing the direction of the call. inbound for inbound calls, outbound-api for calls initiated via the REST API or outbound-dial for calls initiated by a <Dial> verb.
-     * AnsweredBy	If this call was initiated with answering machine detection, either human or machine. Empty otherwise.
-     * ForwardedFrom	If this call was an incoming call forwarded from another number, the forwarding phone number (depends on carrier supporting forwarding). Empty otherwise.
-     * CallerName	If this call was an incoming call from a phone number with Caller ID Lookup enabled, the caller's name. Empty otherwise.
-     * Uri	The URI for this resource, relative to https://api.twilio.com
      *
      * @param accountSid           the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param from                 The phone number to use as the caller id. Format with a '+' and country code e.g., +16175551212 (E.164 format). Must be a Twilio number or a valid outgoing caller id for your account.
@@ -1090,26 +676,6 @@ public class TwilioConnector implements Initialisable {
     /**
      * Modify the state of a live call. Returns the call representation.
      * <p/>
-     * A Call instance resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this resource.
-     * ParentCallSid	A 34 character string that uniquely identifies the call that created this leg.
-     * DateCreated	The date that this resource was created, given as GMT in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given as GMT in RFC 2822 format.
-     * AccountSid	The unique id of the Account responsible for creating this call.
-     * To	The phone number that received this call. e.g., +16175551212 (E.164 format)
-     * From	The phone number that made this call. e.g., +16175551212 (E.164 format)
-     * PhoneNumberSid	If the call was inbound, this is the Sid of the IncomingPhoneNumber that received the call. If the call was outbound, it is the Sid of the OutgoingCallerId from which the call was placed.
-     * Status	A string representing the status of the call. May be queued, ringing, in-progress, completed, failed, busy or no-answer.
-     * StartTime	The start time of the call, given as GMT in RFC 2822 format. Empty if the call has not yet been dialed.
-     * EndTime	The end time of the call, given as GMT in RFC 2822 format. Empty if the call did not complete successfully.
-     * Duration	The length of the call in seconds. This value is empty for busy, failed, unanswered or ongoing calls.
-     * Price	The charge for this call in USD. Populated after the call is completed. May not be immediately available.
-     * Direction	A string describing the direction of the call. inbound for inbound calls, outbound-api for calls initiated via the REST API or outbound-dial for calls initiated by a <Dial> verb.
-     * AnsweredBy	If this call was initiated with answering machine detection, either human or machine. Empty otherwise.
-     * ForwardedFrom	If this call was an incoming call forwarded from another number, the forwarding phone number (depends on carrier supporting forwarding). Empty otherwise.
-     * CallerName	If this call was an incoming call from a phone number with Caller ID Lookup enabled, the caller's name. Empty otherwise.
-     * Uri	The URI for this resource, relative to https://api.twilio.com
      *
      * @param accountSid the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param callSid    the call sid to modify
@@ -1130,15 +696,6 @@ public class TwilioConnector implements Initialisable {
     /**
      * Returns a representation of the conference identified by the given conference id.
      * <p/>
-     * A Conference resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this conference.
-     * FriendlyName	A user provided string that identifies this conference room.
-     * Status	A string representing the status of the conference. May be init, in-progress, or completed.
-     * DateCreated	The date that this conference was created, given as GMT in RFC 2822 format.
-     * DateUpdated	The date that this conference was last updated, given as GMT in RFC 2822 format.
-     * AccountSid	The unique id of the Account responsible for creating this conference.
-     * Uri	The URI for this resource, relative to https://api.twilio.com.
      *
      * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param conferenceSid the conference sid to use in the query
@@ -1153,15 +710,6 @@ public class TwilioConnector implements Initialisable {
     /**
      * Returns a list of conferences within an account. The list includes paging information and is sorted by DateUpdated, with most recent conferences first.
      * <p/>
-     * A Conference resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this conference.
-     * FriendlyName	A user provided string that identifies this conference room.
-     * Status	A string representing the status of the conference. May be init, in-progress, or completed.
-     * DateCreated	The date that this conference was created, given as GMT in RFC 2822 format.
-     * DateUpdated	The date that this conference was last updated, given as GMT in RFC 2822 format.
-     * AccountSid	The unique id of the Account responsible for creating this conference.
-     * Uri	The URI for this resource, relative to https://api.twilio.com.
      *
      * @param accountSid   the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param status       Only show conferences currently in with this status. May be init, in-progress, or completed.
@@ -1182,17 +730,6 @@ public class TwilioConnector implements Initialisable {
     /**
      * Returns a representation of this participant.
      * <p/>
-     * A Participant resource is represented by the following properties:
-     * <p/>
-     * CallSid	A 34 character string that uniquely identifies the call that is connected to this conference
-     * ConferenceSid	A 34 character string that identifies the conference this participant is in
-     * DateCreated	The date that this resource was created, given in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
-     * AccountSid	The unique id of the Account that created this conference
-     * Muted	true if this participant is currently muted. false otherwise.
-     * StartConferenceOnEnter	Was the startConferenceOnEnter attribute set on this participant (true or false)?
-     * EndConferenceOnExit	Was the endConferenceOnExit attribute set on this participant (true or false)?
-     * Uri	The URI for this resource, relative to https://api.twilio.com.
      *
      * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param conferenceSid the conference sid to use in the query
@@ -1208,18 +745,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Updates the participant status. Returns the participant representation.
-     * <p/>
-     * A Participant resource is represented by the following properties:
-     * <p/>
-     * CallSid	A 34 character string that uniquely identifies the call that is connected to this conference
-     * ConferenceSid	A 34 character string that identifies the conference this participant is in
-     * DateCreated	The date that this resource was created, given in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
-     * AccountSid	The unique id of the Account that created this conference
-     * Muted	true if this participant is currently muted. false otherwise.
-     * StartConferenceOnEnter	Was the startConferenceOnEnter attribute set on this participant (true or false)?
-     * EndConferenceOnExit	Was the endConferenceOnExit attribute set on this participant (true or false)?
-     * Uri	The URI for this resource, relative to https://api.twilio.com.
      *
      * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param conferenceSid the conference sid to use
@@ -1253,18 +778,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Returns the list of participants in the conference identified by the given conference sid.
-     * <p/>
-     * A Participant resource is represented by the following properties:
-     * <p/>
-     * CallSid	A 34 character string that uniquely identifies the call that is connected to this conference
-     * ConferenceSid	A 34 character string that identifies the conference this participant is in
-     * DateCreated	The date that this resource was created, given in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
-     * AccountSid	The unique id of the Account that created this conference
-     * Muted	true if this participant is currently muted. false otherwise.
-     * StartConferenceOnEnter	Was the startConferenceOnEnter attribute set on this participant (true or false)?
-     * EndConferenceOnExit	Was the endConferenceOnExit attribute set on this participant (true or false)?
-     * Uri	The URI for this resource, relative to https://api.twilio.com.
      *
      * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param conferenceSid the conference sid to use in the query
@@ -1280,22 +793,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Returns a single SMS message specified by the provided SMS message sid.
-     * <p/>
-     * An SMS Message resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this resource.
-     * DateCreated	The date that this resource was created, given in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
-     * DateSent	The date that the SMS was sent, given in RFC 2822 format.
-     * AccountSid	The unique id of the Account that sent this SMS message.
-     * From	The phone number that initiated the message in E.164 format. For incoming messages, this will be the remote phone. For outgoing messages, this will be one of your Twilio phone numbers.
-     * To	The phone number that received the message in E.164 format. For incoming messages, this will be one of your Twilio phone numbers. For outgoing messages, this will be the remote phone.
-     * Body	The text body of the SMS message. Up to 160 characters long.
-     * Status	The status of this SMS message. Either queued, sending, sent, or failed.
-     * Direction	The direction of this SMS message. incoming for incoming messages, outbound-api for messages initiated via the REST API, outbound-call for messages initiated during a call or outbound-reply for messages initiated in response to an incoming SMS.
-     * Price	The amount billed for the message.
-     * ApiVersion	The version of the Twilio API used to process the SMS message.
-     * Uri	The URI for this resource, relative to https://api.twilio.com
      *
      * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param smsMessageSid the SMS message sid to use in the query.
@@ -1309,22 +806,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Returns a list of SMS messages associated with your account. The list includes paging information and is sorted by DateSent, with most recent messages first.
-     * <p/>
-     * An SMS Message resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this resource.
-     * DateCreated	The date that this resource was created, given in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
-     * DateSent	The date that the SMS was sent, given in RFC 2822 format.
-     * AccountSid	The unique id of the Account that sent this SMS message.
-     * From	The phone number that initiated the message in E.164 format. For incoming messages, this will be the remote phone. For outgoing messages, this will be one of your Twilio phone numbers.
-     * To	The phone number that received the message in E.164 format. For incoming messages, this will be one of your Twilio phone numbers. For outgoing messages, this will be the remote phone.
-     * Body	The text body of the SMS message. Up to 160 characters long.
-     * Status	The status of this SMS message. Either queued, sending, sent, or failed.
-     * Direction	The direction of this SMS message. incoming for incoming messages, outbound-api for messages initiated via the REST API, outbound-call for messages initiated during a call or outbound-reply for messages initiated in response to an incoming SMS.
-     * Price	The amount billed for the message.
-     * ApiVersion	The version of the Twilio API used to process the SMS message.
-     * Uri	The URI for this resource, relative to https://api.twilio.com
      *
      * @param accountSid the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param to         Only show SMS messages to this phone number.
@@ -1342,22 +823,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Send an outgoing SMS message. By specifying an SMS URL for your SMS enabled Twilio phone number, Twilio will make a request to your application to notify you when someone replies to a message you send.
-     * <p/>
-     * An SMS Message resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this resource.
-     * DateCreated	The date that this resource was created, given in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
-     * DateSent	The date that the SMS was sent, given in RFC 2822 format.
-     * AccountSid	The unique id of the Account that sent this SMS message.
-     * From	The phone number that initiated the message in E.164 format. For incoming messages, this will be the remote phone. For outgoing messages, this will be one of your Twilio phone numbers.
-     * To	The phone number that received the message in E.164 format. For incoming messages, this will be one of your Twilio phone numbers. For outgoing messages, this will be the remote phone.
-     * Body	The text body of the SMS message. Up to 160 characters long.
-     * Status	The status of this SMS message. Either queued, sending, sent, or failed.
-     * Direction	The direction of this SMS message. incoming for incoming messages, outbound-api for messages initiated via the REST API, outbound-call for messages initiated during a call or outbound-reply for messages initiated in response to an incoming SMS.
-     * Price	The amount billed for the message.
-     * ApiVersion	The version of the Twilio API used to process the SMS message.
-     * Uri	The URI for this resource, relative to https://api.twilio.com
      *
      * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param from           A Twilio number enabled for SMS. Only phone numbers purchased from Twilio work here; you cannot (for example) spoof SMS messages from your own cell phone number.
@@ -1379,17 +844,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Returns one of several representations depending on the given recording type.
-     * <p/>
-     * A Recording resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this resource.
-     * DateCreated	The date that this resource was created, given in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
-     * AccountSid	The unique id of the Account responsible for this recording.
-     * CallSid	The call during which the recording was made.
-     * Duration	The length of the recording, in seconds.
-     * ApiVersion	The version of the API in use during the recording.
-     * Uri	The URI for this resource, relative to https://api.twilio.com
      *
      * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param recordingSid  the recording sid to use in the query
@@ -1418,17 +872,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Returns a list of Recording resource representations, each representing a recording generated during the course of a phone call. The list includes paging information.
-     * <p/>
-     * A Recording resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this resource.
-     * DateCreated	The date that this resource was created, given in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
-     * AccountSid	The unique id of the Account responsible for this recording.
-     * CallSid	The call during which the recording was made.
-     * Duration	The length of the recording, in seconds.
-     * ApiVersion	The version of the API in use during the recording.
-     * Uri	The URI for this resource, relative to https://api.twilio.com
      *
      * @param accountSid  the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param callSid     Show only recordings made during the call given by this sid.
@@ -1444,19 +887,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Returns a single Transcription resource representation identified by the given transcription sid.
-     * <p/>
-     * A Transcription resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this resource.
-     * DateCreated	The date that this resource was created, given in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
-     * AccountSid	The unique id of the Account responsible for this transcription.
-     * Status	A string representing the status of the transcription: in-progress, completed or failed.
-     * RecordingSid	The unique id of the Recording this Transcription was made of.
-     * Duration	The duration of the transcribed audio, in seconds.
-     * TranscriptionText	The text content of the transcription.
-     * Price	The charge for this transcript in USD. Populated after the transcript is completed. Note, this value may not be immediately available.
-     * Uri	The URI for this resource, relative to https://api.twilio.com
      *
      * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param transcriptionSid    the transcription sid to use in the query.
@@ -1472,19 +902,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Returns a set of Transcription resource representations that includes paging information, sorted by 'DateUpdated', with most recent transcripts first.
-     * <p/>
-     * A Transcription resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this resource.
-     * DateCreated	The date that this resource was created, given in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
-     * AccountSid	The unique id of the Account responsible for this transcription.
-     * Status	A string representing the status of the transcription: in-progress, completed or failed.
-     * RecordingSid	The unique id of the Recording this Transcription was made of.
-     * Duration	The duration of the transcribed audio, in seconds.
-     * TranscriptionText	The text content of the transcription.
-     * Price	The charge for this transcript in USD. Populated after the transcript is completed. Note, this value may not be immediately available.
-     * Uri	The URI for this resource, relative to https://api.twilio.com
      *
      * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param recordingSid        the recording sid to use in the query
@@ -1500,34 +917,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Return a notificaction resource for the given notification sid.
-     * <p/>
-     * A Notification resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this resource.
-     * DateCreated	The date that this resource was created, given in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
-     * AccountSid	The unique id of the Account responsible for this notification.
-     * CallSid	CallSid is the unique id of the call during which the notification was generated. Empty if the notification was generated by the REST API without regard to a specific phone call.
-     * ApiVersion	The version of the Twilio in use when this notification was generated.
-     * Log	An integer log level corresponding to the type of notification: 0 is ERROR, 1 is WARNING.
-     * ErrorCode	A unique error code for the error condition. You can lookup errors, with possible causes and solutions, in our Error Dictionary.
-     * MoreInfo	A URL for more information about the error condition. The URL is a page in our Error Dictionary.
-     * MessageText	The text of the notification.
-     * MessageDate	The date the notification was actually generated, given in RFC 2822 format. Due to buffering, this may be slightly different than the DateCreated date.
-     * RequestUrl	The URL of the resource that generated the notification.
-     * If the notification was generated during a phone call:
-     * This is the URL of the resource on YOUR SERVER that caused the notification.
-     * If the notification was generated by your use of the REST API:
-     * This is the URL of the REST resource you were attempting to request on Twilio's servers.
-     * RequestMethod	The HTTP method in use for the request that generated the notification.
-     * If the notification was generated during a phone call:
-     * The HTTP Method use to request the resource on your server.
-     * If the notification was generated by your use of the REST API:
-     * This is the HTTP method used in your request to the REST resource on Twilio's servers.
-     * RequestVariables	The Twilio-generated HTTP GET or POST variables sent to your server. Alternatively, if the notification was generated by the REST API, this field will include any HTTP POST or PUT variables you sent to the REST API.
-     * ResponseHeaders	The HTTP headers returned by your server.
-     * ResponseBody	The HTTP body returned by your server.
-     * Uri	The URI for this resource, relative to https://api.twilio.com
      *
      * @param accountSid      the account sid to use in the query
      * @param notificationSid the notification sid to use in the query
@@ -1552,34 +941,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Returns a list of notifications generated for an account. The list includes paging information and is sorted by DateUpdated, with most recent notifications first.
-     * <p/>
-     * A Notification resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this resource.
-     * DateCreated	The date that this resource was created, given in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
-     * AccountSid	The unique id of the Account responsible for this notification.
-     * CallSid	CallSid is the unique id of the call during which the notification was generated. Empty if the notification was generated by the REST API without regard to a specific phone call.
-     * ApiVersion	The version of the Twilio in use when this notification was generated.
-     * Log	An integer log level corresponding to the type of notification: 0 is ERROR, 1 is WARNING.
-     * ErrorCode	A unique error code for the error condition. You can lookup errors, with possible causes and solutions, in our Error Dictionary.
-     * MoreInfo	A URL for more information about the error condition. The URL is a page in our Error Dictionary.
-     * MessageText	The text of the notification.
-     * MessageDate	The date the notification was actually generated, given in RFC 2822 format. Due to buffering, this may be slightly different than the DateCreated date.
-     * RequestUrl	The URL of the resource that generated the notification.
-     * If the notification was generated during a phone call:
-     * This is the URL of the resource on YOUR SERVER that caused the notification.
-     * If the notification was generated by your use of the REST API:
-     * This is the URL of the REST resource you were attempting to request on Twilio's servers.
-     * RequestMethod	The HTTP method in use for the request that generated the notification.
-     * If the notification was generated during a phone call:
-     * The HTTP Method use to request the resource on your server.
-     * If the notification was generated by your use of the REST API:
-     * This is the HTTP method used in your request to the REST resource on Twilio's servers.
-     * RequestVariables	The Twilio-generated HTTP GET or POST variables sent to your server. Alternatively, if the notification was generated by the REST API, this field will include any HTTP POST or PUT variables you sent to the REST API.
-     * ResponseHeaders	The HTTP headers returned by your server.
-     * ResponseBody	The HTTP body returned by your server.
-     * Uri	The URI for this resource, relative to https://api.twilio.com
      *
      * @param accountSid  the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param log         An integer log level corresponding to the type of notification: 0 is ERROR, 1 is WARNING.
@@ -1595,34 +956,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Returns a list of notifications generated for an account. The list includes paging information and is sorted by DateUpdated, with most recent notifications first.
-     * <p/>
-     * A Notification resource is represented by the following properties:
-     * <p/>
-     * Sid	A 34 character string that uniquely identifies this resource.
-     * DateCreated	The date that this resource was created, given in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
-     * AccountSid	The unique id of the Account responsible for this notification.
-     * CallSid	CallSid is the unique id of the call during which the notification was generated. Empty if the notification was generated by the REST API without regard to a specific phone call.
-     * ApiVersion	The version of the Twilio in use when this notification was generated.
-     * Log	An integer log level corresponding to the type of notification: 0 is ERROR, 1 is WARNING.
-     * ErrorCode	A unique error code for the error condition. You can lookup errors, with possible causes and solutions, in our Error Dictionary.
-     * MoreInfo	A URL for more information about the error condition. The URL is a page in our Error Dictionary.
-     * MessageText	The text of the notification.
-     * MessageDate	The date the notification was actually generated, given in RFC 2822 format. Due to buffering, this may be slightly different than the DateCreated date.
-     * RequestUrl	The URL of the resource that generated the notification.
-     * If the notification was generated during a phone call:
-     * This is the URL of the resource on YOUR SERVER that caused the notification.
-     * If the notification was generated by your use of the REST API:
-     * This is the URL of the REST resource you were attempting to request on Twilio's servers.
-     * RequestMethod	The HTTP method in use for the request that generated the notification.
-     * If the notification was generated during a phone call:
-     * The HTTP Method use to request the resource on your server.
-     * If the notification was generated by your use of the REST API:
-     * This is the HTTP method used in your request to the REST resource on Twilio's servers.
-     * RequestVariables	The Twilio-generated HTTP GET or POST variables sent to your server. Alternatively, if the notification was generated by the REST API, this field will include any HTTP POST or PUT variables you sent to the REST API.
-     * ResponseHeaders	The HTTP headers returned by your server.
-     * ResponseBody	The HTTP body returned by your server.
-     * Uri	The URI for this resource, relative to https://api.twilio.com
      *
      * @param accountSid  the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param callSid     the call sid to use in the query
@@ -1643,19 +976,6 @@ public class TwilioConnector implements Initialisable {
      * <p/>
      * The Sandbox resource gives you programatic access to your Twilio Developer Sandbox phone number. Using this resource you can get the phone number and PIN for your sandbox, view the current voice and SMS URLs and update those URLs just like any other IncomingPhoneNumber resource on a Full Twilio Account.
      * <p/>
-     * The Sandbox resource is represented by the following properties:
-     * <p/>
-     * Property	Description
-     * Pin	An 8 digit number that gives access to this sandbox.
-     * AccountSid	The unique id of the Account connected to this sandbox.
-     * PhoneNumber	The phone number of the sandbox. Formatted with a '+' and country code e.g., +16175551212 (E.164 format).
-     * VoiceUrl	The URL Twilio will request when the sandbox number is called.
-     * VoiceMethod	The HTTP method to use when requesting the above URL. Either GET or POST.
-     * SmsUrl	The URL Twilio will request when receiving an incoming SMS message to the sandbox number.
-     * SmsMethod	The HTTP method to use when requesting the sms URL. Either GET or POST.
-     * DateCreated	The date that this resource was created, given in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
-     * Uri	The URI for this resource, relative to https://api.twilio.com
      *
      * @param accountSid the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @return the Sandbox resource associated with the account identified by {YourAccountSid}. Twilio accounts upgraded prior to February 2010 may not have a Sandbox resource, and in this case you will receive a 404 (Not Found) response.
@@ -1670,19 +990,6 @@ public class TwilioConnector implements Initialisable {
      * <p/>
      * The Sandbox resource gives you programatic access to your Twilio Developer Sandbox phone number. Using this resource you can get the phone number and PIN for your sandbox, view the current voice and SMS URLs and update those URLs just like any other IncomingPhoneNumber resource on a Full Twilio Account.
      * <p/>
-     * The Sandbox resource is represented by the following properties:
-     * <p/>
-     * Property	Description
-     * Pin	An 8 digit number that gives access to this sandbox.
-     * AccountSid	The unique id of the Account connected to this sandbox.
-     * PhoneNumber	The phone number of the sandbox. Formatted with a '+' and country code e.g., +16175551212 (E.164 format).
-     * VoiceUrl	The URL Twilio will request when the sandbox number is called.
-     * VoiceMethod	The HTTP method to use when requesting the above URL. Either GET or POST.
-     * SmsUrl	The URL Twilio will request when receiving an incoming SMS message to the sandbox number.
-     * SmsMethod	The HTTP method to use when requesting the sms URL. Either GET or POST.
-     * DateCreated	The date that this resource was created, given in RFC 2822 format.
-     * DateUpdated	The date that this resource was last updated, given in RFC 2822 format.
-     * Uri	The URI for this resource, relative to https://api.twilio.com
      *
      * @param accountSid  the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param voiceUrl    The URL that Twilio should request when somebody calls this sandbox.
