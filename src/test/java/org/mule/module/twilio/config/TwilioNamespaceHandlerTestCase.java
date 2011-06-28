@@ -136,7 +136,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "POST";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/OutgoingCallerIds/";
-        String expectedParams = "{CallDelay=some-call-delay, Extension=some-extension, FriendlyName=some-friendly-name, PhoneNumber=some-phone-number}";
+        String expectedParams = "{CallDelay=1, Extension=some-extension, FriendlyName=some-friendly-name, PhoneNumber=some-phone-number}";
         assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
     }
 
@@ -271,7 +271,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "POST";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Calls/";
-        String expectedParams = "{SendDigits=some-digits, ApplicationSid=some-application-sid, FallbackMethod=some-method, Timeout=123, IfMachine=continue, StatusCallback=some-status-callback, Method=some-method, To=some-to, StatusCallbackMethod=GET, FallbackUrl=some-url, From=some-from}";
+        String expectedParams = "{SendDigits=some-digits, ApplicationSid=some-application-sid, FallbackMethod=GET, Timeout=123, IfMachine=continue, StatusCallback=some-status-callback, Method=GET, To=some-to, StatusCallbackMethod=GET, FallbackUrl=some-url, From=some-from}";
         assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
     }
 
@@ -280,7 +280,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "POST";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Calls/some-call-sid";
-        String expectedParams = "{Status=some-status, Url=some-url, Method=some-method}";
+        String expectedParams = "{Status=some-status, Url=some-url, Method=GET}";
         assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
     }
 

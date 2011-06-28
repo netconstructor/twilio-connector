@@ -96,7 +96,7 @@ public class TwilioClient {
         return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/OutgoingCallerIds/", optionalParams);
     }
 
-    public String addNewCallerId(String accountSid, String phoneNumber, String friendlyName, String callDelay, String extension) {
+    public String addNewCallerId(String accountSid, String phoneNumber, String friendlyName, Integer callDelay, String extension) {
         TwilioParameters requiredParams = new TwilioParameters(TwilioParametersStategy.ALL_REQUIRED).
                 addIfValueNotNull(TwilioParamater.PHONE_NUMBER, phoneNumber);
         TwilioParameters optionalParams = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL).
@@ -266,7 +266,7 @@ public class TwilioClient {
         return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/Calls/", optionalParams);
     }
 
-    public String makeCall(String accountSid, String from, String to, String url, String applicationSid, String method, String fallbackUrl, String fallbackMethod,
+    public String makeCall(String accountSid, String from, String to, String url, String applicationSid, String method, String fallbackUrl, HttpMethod fallbackMethod,
                            String statusCallback, HttpMethod statusCallbackMethod, String sendDigits, String ifMachine, String timeout) {
         TwilioParameters toFromParams = new TwilioParameters(TwilioParametersStategy.ALL_REQUIRED).
                 addIfValueNotNull(TwilioParamater.TO, to).
@@ -286,7 +286,7 @@ public class TwilioClient {
         return twilioRequestExecutor.executePostRequest(getUri(accountSid) + "/Calls/", toFromParams, urlOrApplicationSidParams, optionalParams);
     }
 
-    public String changeCallState(String accountSid, String callSid, String url, String method, String status) {
+    public String changeCallState(String accountSid, String callSid, String url, HttpMethod method, String status) {
         TwilioParameters optionalParams = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL).
                 addIfValueNotNull(TwilioParamater.URL, url).
                 addIfValueNotNull(TwilioParamater.METHOD, method).
@@ -393,7 +393,7 @@ public class TwilioClient {
         return twilioRequestExecutor.executeGetRequest(getUri(accountSid) + "/Notifications/", optionalParams);
     }
 
-    public String getNotifications(String accountSid, String callSid, String log, String messageDate) {
+    public String getNotifications(String accountSid, String callSid, Integer log, String messageDate) {
         TwilioParameters optionalParams = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL).
                 addIfValueNotNull(TwilioParamater.LOG, log).
                 addIfValueNotNull(TwilioParamater.MESSAGE_DATE, messageDate);

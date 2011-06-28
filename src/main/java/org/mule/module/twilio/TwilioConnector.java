@@ -444,7 +444,7 @@ public class TwilioConnector implements Initialisable {
     public String addNewCallerId(@Parameter(optional = true) String accountSid,
                                  @Parameter String phoneNumber,
                                  @Parameter(optional = true) String friendlyName,
-                                 @Parameter(optional = true) String callDelay,
+                                 @Parameter(optional = true) Integer callDelay,
                                  @Parameter(optional = true) String extension) {
         return twilioClient.addNewCallerId(accountSid, phoneNumber, friendlyName, callDelay, extension);
     }
@@ -1077,7 +1077,7 @@ public class TwilioConnector implements Initialisable {
                            @Parameter(optional = true) String applicationSid,
                            @Parameter(optional = true) String method,
                            @Parameter(optional = true) String fallbackUrl,
-                           @Parameter(optional = true) String fallbackMethod,
+                           @Parameter(optional = true) HttpMethod fallbackMethod,
                            @Parameter(optional = true) String statusCallback,
                            @Parameter(optional = true) HttpMethod statusCallbackMethod,
                            @Parameter(optional = true) String sendDigits,
@@ -1122,7 +1122,7 @@ public class TwilioConnector implements Initialisable {
     public String changeCallState(@Parameter(optional = true) String accountSid,
                                   @Parameter String callSid,
                                   @Parameter(optional = true) String url,
-                                  @Parameter(optional = true) String method,
+                                  @Parameter(optional = true) HttpMethod method,
                                   @Parameter(optional = true) String status) {
         return twilioClient.changeCallState(accountSid, callSid, url, method, status);
     }
@@ -1633,7 +1633,7 @@ public class TwilioConnector implements Initialisable {
     @Operation
     public String getNotificationsByCallSid(@Parameter(optional = true) String accountSid,
                                             @Parameter String callSid,
-                                            @Parameter(optional = true) String log,
+                                            @Parameter(optional = true) Integer log,
                                             @Parameter(optional = true) String messageDate) {
         return twilioClient.getNotifications(accountSid, callSid, log, messageDate);
     }
