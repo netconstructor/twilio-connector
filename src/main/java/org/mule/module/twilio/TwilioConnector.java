@@ -20,8 +20,14 @@ import org.mule.tools.cloudconnect.annotations.Property;
 @Connector(namespacePrefix = "twilio")
 public class TwilioConnector implements Initialisable {
 
+    /**
+     * The account sid to be used to connect to Twilio.
+     */
     @Property
     private String accountSid;
+    /**
+     * The authentication token to be used to connect to Twilio
+     */
     @Property
     private String authToken;
 
@@ -276,7 +282,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Returns a list of local AvailablePhoneNumber resource representations that match the specified filters, each representing a phone number that is currently available for provisioning within your account.
-     * <p/>
      * <p/>
      * Each phone number instance has the following properties:
      * <p/>
@@ -1110,7 +1115,7 @@ public class TwilioConnector implements Initialisable {
      * @param url        A valid URL that returns TwiML. Twilio will immediately redirect the call to the new TwiML.
      * @param method     The HTTP method Twilio should use when requesting the above URL. Defaults to POST.
      * @param status     Either canceled or completed. Specifying canceled will attempt to hangup calls that are queued or ringing but not affect calls already in progress. Specifying completed will attempt to hang up a call even if it's already in progress.
-     * @return
+     * @return the call representation
      */
     @Operation
     public String changeCallState(@Parameter(optional = true) String accountSid,
@@ -1387,7 +1392,7 @@ public class TwilioConnector implements Initialisable {
      *
      * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param recordingSid  the recording sid to use in the query
-     * @param recordingType
+     * @param recordingType the recording type to use
      * @return a recording representation.
      */
     @Operation
@@ -1494,7 +1499,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * Return a notificaction resource for the given notification sid.
-     * <p/>
      * <p/>
      * A Notification resource is represented by the following properties:
      * <p/>
@@ -1662,7 +1666,6 @@ public class TwilioConnector implements Initialisable {
 
     /**
      * You can POST to the Sandbox resource to update the TwiML voice and SMS URLs associated with the sandbox number.
-     * <p/>
      * <p/>
      * The Sandbox resource gives you programatic access to your Twilio Developer Sandbox phone number. Using this resource you can get the phone number and PIN for your sandbox, view the current voice and SMS URLs and update those URLs just like any other IncomingPhoneNumber resource on a Full Twilio Account.
      * <p/>
