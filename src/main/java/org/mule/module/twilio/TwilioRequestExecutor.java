@@ -25,7 +25,7 @@ public class TwilioRequestExecutor {
     public String executePostRequest(String path, TwilioParameters... twilioParameters) {
         Map<String, String> parameters = new HashMap<String, String>();
         for (TwilioParameters eachTwilioParameters : twilioParameters) {
-            if (eachTwilioParameters != null) {
+            if (eachTwilioParameters != null && eachTwilioParameters.getMap() != null) {
                 parameters.putAll(eachTwilioParameters.getMap());
             }
         }
