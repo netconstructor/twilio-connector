@@ -12,7 +12,7 @@ public class FakeTwilioRestClient implements ITwilioRestClient {
         return new FakeTwilioResponse(path, method, vars);
     }
 
-    class FakeTwilioResponse extends TwilioRestResponse {
+    static final class FakeTwilioResponse extends TwilioRestResponse {
 
         // build a fake response from twilio using the url requested, the method and the arguments
         FakeTwilioResponse(String path, String method, Map<String, String> vars) {

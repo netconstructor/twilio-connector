@@ -2,12 +2,14 @@ package org.mule.module.twilio;
 
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
+import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class TwilioRequestExecutor {
 
+    private static final Logger LOGGER = Logger.getLogger(TwilioRequestExecutor.class);
     private ITwilioRestClient twilioRestClient;
 
     public TwilioRequestExecutor(String accountSid, String authToken) {
@@ -43,6 +45,7 @@ public class TwilioRequestExecutor {
     private String executeRequest(String path, String method, Map<String, String> vars) {
         try {
             TwilioRestResponse response = twilioRestClient.request(path, method, vars);
+            LOGGER.debug("Response from Twilio: " + response);
             if (response.isError()) {
                 throw new TwilioConnectorException(response);
             }

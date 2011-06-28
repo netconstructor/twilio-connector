@@ -15,10 +15,6 @@ public class TwilioClient {
         twilioRequestExecutor = new TwilioRequestExecutor(accountSid, authToken);
     }
 
-    TwilioClient(TwilioRequestExecutor twilioRequestExecutor) {
-        this.twilioRequestExecutor = twilioRequestExecutor;
-    }
-
     public String getAccountDetails(String accountSid) {
         return twilioRequestExecutor.executeGetRequestNoParams(getUri(accountSid));
     }
@@ -424,10 +420,7 @@ public class TwilioClient {
         twilioParameters.addIfValueNotNull(TwilioParamater.IN_POSTAL_CODE, inPostalCode);
     }
 
-    /**
-     * If the request made to Twilio includes the account sid then use it, otherwise use the account sid used to create
-     * the client.
-     */
+    // If the request made to Twilio includes the account sid then use it, otherwise use the account sid used to create the client.
     private String getUri(String accountSid) {
         if (accountSid == null) {
             return ACCOUNT_URI + this.accountSid;
