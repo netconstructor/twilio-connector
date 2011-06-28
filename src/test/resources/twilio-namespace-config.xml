@@ -11,12 +11,308 @@
       xmlns:twilio="http://www.mulesoft.org/schema/mule/twilio"
       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
-                          http://www.mulesoft.org/schema/mule/twilio http://www.mulesoft.org/schema/mule/twilio/1.0SNAPSHOT/mule-twilio.xsd">
+                          http://www.mulesoft.org/schema/mule/twilio http://www.mulesoft.org/schema/mule/twilio/1.0-SNAPSHOT/mule-twilio.xsd">
 
 
     <twilio:config accountSid="THIS IS A TEST" authToken="THIS IS A TEST"/>
 
-    <flow name="yo">
+    <flow name="getAccountDetails">
         <twilio:get-account-details accountSid="AC970e46372f082a4947642b9cf19cafa7"/>
     </flow>
+
+    <flow name="getAllAccountsDetails">
+        <twilio:get-all-accounts-details accountStatus="SUSPENDED" friendlyName="coco"/>
+    </flow>
+
+    <flow name="updateAccount">
+        <twilio:update-account accountSid="AC970e46372f082a4947642b9cf19cafa7" accountStatus="CLOSED"
+                               friendlyName="juan"/>
+    </flow>
+
+    <flow name="createSubAccount">
+        <twilio:create-sub-account friendlyName="raul"/>
+    </flow>
+
+    <flow name="getSubAccountByAccountSid">
+        <twilio:get-sub-account-by-account-sid accountSid="AC970e46372f082a4947642b9cf19cafa7"/>
+    </flow>
+
+    <flow name="getSubAccountByFriendlyName">
+        <twilio:get-sub-account-by-friendly-name friendlyName="fede"/>
+    </flow>
+
+    <flow name="exchangePhoneNumbersBetweenSubaccounts">
+        <twilio:exchange-phone-numbers-between-subaccounts accountSidFrom="AC8e51fecefbf0b501caced6266d723b3c"
+                                                           accountSidTo="AC970e46372f082a4947642b9cf19cafa7"
+                                                           incomingPhoneNumberSid="321"/>
+    </flow>
+
+    <flow name="getAvailablePhoneNumbers">
+        <twilio:get-available-phone-numbers accountSid="AC8e51fecefbf0b501caced6266d723b3c" isoCountryCode="AR"
+                                            areaCode="some-area-code" contains="*" inRegion="in-some-region"
+                                            inPostalCode="in-some-postal-code"/>
+    </flow>
+
+    <flow name="getAvailablePhoneNumbersAdvancedSeach">
+        <twilio:get-available-phone-numbers-advanced-seach accountSid="AC8e51fecefbf0b501caced6266d723b3c"
+                                                           isoCountryCode="AR" areaCode="some-area-code" contains="*"
+                                                           inRegion="inSomeRegion"
+                                                           inPostalCode="inSomePostalCode" nearLatLong="nearSomeLatLong"
+                                                           nearPhoneNumber="nearSomePhoneNumber" inLata="inSomeLata"
+                                                           inRateCenter="inSomeRateCenter" distance="someDistance"/>
+    </flow>
+
+    <flow name="getAvailableTollFreeNumbers">
+        <twilio:get-available-toll-free-numbers accountSid="AC8e51fecefbf0b501caced6266d723b3c" isoCountryCode="AR"
+                                                contains="*"/>
+    </flow>
+
+    <flow name="getOutgoingCallerIdByOutgoingCallerIdSid">
+        <twilio:get-outgoing-caller-id-by-outgoing-caller-id-sid accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                                                 outgoingCallerIdSid="some-outgoing-caller-id-sid"/>
+    </flow>
+
+    <flow name="updateOutgoingCallerIdByOutgoingCallerIdSid">
+        <twilio:update-outgoing-caller-id-by-outgoing-caller-id-sid accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                                                    outgoingCallerIdSid="some-outgoing-caller-id-sid"
+                                                                    friendlyName="some-friendly-name"/>
+    </flow>
+
+    <flow name="getAllOutgoingCallerIds">
+        <twilio:get-all-outgoing-caller-ids accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                            phoneNumber="some-phone-number" friendlyName="some-friendly-name"/>
+    </flow>
+
+    <flow name="addNewCallerId">
+        <twilio:add-new-caller-id accountSid="AC970e46372f082a4947642b9cf19cafa7" phoneNumber="some-phone-number"
+                                  friendlyName="some-friendly-name" callDelay="some-call-delay"
+                                  extension="some-extension"/>
+    </flow>
+
+    <flow name="deleteOutgoingCallerId">
+        <twilio:delete-outgoing-caller-id accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                          outgoingCallerIdSid="some-outgoing-caller-id-sid"/>
+    </flow>
+
+    <flow name="getIncomingPhoneNumbersByIncomingPhoneNumberSid">
+        <twilio:get-incoming-phone-numbers-by-incoming-phone-number-sid accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                                                        incomingPhoneNumberSid="some-incoming-phone-number-sid"/>
+    </flow>
+
+    <flow name="updateIncomingPhoneNumbers">
+        <twilio:update-incoming-phone-numbers accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                              incomingPhoneNumberSid="some-incoming-phone-number-sid"
+                                              friendlyName="some-friendly-name" apiVersion="2010-04-01"
+                                              voiceUrl="some-voice-url" voiceMethod="some-voice-method"
+                                              voiceFallbackUrl="some-voice-fallback-url"
+                                              voiceFallbackMethod="some-voice-fallback-method"
+                                              statusCallback="some-status-callback"
+                                              statusCallbackMethod="some-status-callback-method"
+                                              voiceCallerIdLookup="true"
+                                              voiceApplicationSid="some-voice-application-sid" smsUrl="some-sms-url"
+                                              smsMethod="some-sms-method" smsFallbackUrl="some-fallback-url"
+                                              smsFallbackMethod="some-sms-fallback-method"
+                                              smsApplicationSid="some-sms-application-sid"
+                                              accountSidDestination="some-account-sid-destination"/>
+    </flow>
+
+    <flow name="deleteIncomingPhoneNumber">
+        <twilio:delete-incoming-phone-number accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                             incomingPhoneNumberSid="some-incoming-phone-number-sid"/>
+    </flow>
+
+    <flow name="getIncomingPhoneNumbers">
+        <twilio:get-incoming-phone-numbers accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                           phoneNumber="some-phone-number" friendlyName="some-friendly-name"/>
+    </flow>
+
+    <flow name="addIncomingPhoneNumberByPhoneNumber">
+        <twilio:add-incoming-phone-number-by-phone-number accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                                          phoneNumber="some-phone-number"
+                                                          friendlyName="some-friendly-name" voiceUrl="some-voice-url"
+                                                          voiceMethod="some-voice-method"
+                                                          voiceFallbackUrl="some-voice-fallback-url"
+                                                          voiceFallbackMethod="some-voice-fallback-method"
+                                                          smsApplicationSid="some-sms-application-sid"
+                                                          smsFallbackMethod="some-sms-fallback-method"
+                                                          smsFallbackUrl="some-fallback-url" smsMethod="some-sms-method"
+                                                          smsUrl="some-sms-url" statusCallback="some-status-callback"
+                                                          statusCallbackMethod="some-status-callback-method"
+                                                          voiceApplicationSid="some-voice-application-sid"
+                                                          voiceCallerIdLookup="false"/>
+    </flow>
+
+    <flow name="addIncomingPhoneNumberByAreaCode">
+        <twilio:add-incoming-phone-number-by-area-code accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                                       areaCode="some-area-code" statusCallback="some-status-callback"
+                                                       statusCallbackMethod="some-status-callback-method"
+                                                       voiceApplicationSid="some-voice-application-sid"
+                                                       voiceCallerIdLookup="false" friendlyName="some-friendly-name"
+                                                       smsApplicationSid="some-sms-application-sid"
+                                                       smsFallbackMethod="some-sms-fallback-method"
+                                                       smsFallbackUrl="some-fallback-url" smsMethod="some-sms-method"
+                                                       smsUrl="some-sms-url"
+                                                       voiceFallbackMethod="some-voice-fallback-method"
+                                                       voiceFallbackUrl="some-voice-fallback-url"
+                                                       voiceMethod="some-voice-method" voiceUrl="some-voice-url"/>
+    </flow>
+
+    <flow name="getApplication">
+        <twilio:get-application accountSid="AC970e46372f082a4947642b9cf19cafa7" applicationSid="some-application-sid"/>
+    </flow>
+
+    <flow name="updateApplication">
+        <twilio:update-application accountSid="AC970e46372f082a4947642b9cf19cafa7" applicationSid="some-application-sid"
+                                   apiVersion="2010-04-01" friendlyName="some-friendly-name"
+                                   smsFallbackMethod="some-sms-fallback-method" smsFallbackUrl="some-fallback-url"
+                                   smsMethod="some-sms-method" smsStatusCallback="some-status-callback"
+                                   smsUrl="some-sms-url" statusCallback="some-status-callback"
+                                   statusCallbackMethod="some-status-callback-method" voiceCallerIdLookup="false"
+                                   voiceFallbackMethod="some-voice-fallback-method"
+                                   voiceFallbackUrl="some-voice-fallback-url" voiceMethod="some-voice-method"
+                                   voiceUrl="some-voice-url"/>
+    </flow>
+
+    <flow name="deleteApplication">
+        <twilio:delete-application accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                   applicationSid="some-application-sid"/>
+    </flow>
+
+    <flow name="getAllApplications">
+        <twilio:get-all-applications accountSid="AC970e46372f082a4947642b9cf19cafa7" friendlyName="some-friendly-name"/>
+    </flow>
+
+    <flow name="createApplication">
+        <twilio:create-application accountSid="AC970e46372f082a4947642b9cf19cafa7" friendlyName="some-friendly-name"
+                                   apiVersion="2010-04-01" voiceCallerIdLookup="false"
+                                   smsFallbackMethod="some-sms-fallback-method" smsFallbackUrl="some-fallback-url"
+                                   smsMethod="some-sms-method" smsStatusCallback="some-status-callback"
+                                   smsUrl="some-sms-url" statusCallback="some-status-callback"
+                                   statusCallbackMethod="some-status-callback-method"
+                                   voiceFallbackMethod="some-voice-fallback-method"
+                                   voiceFallbackUrl="some-voice-fallback-url" voiceMethod="some-voice-method"
+                                   voiceUrl="some-voice-url"/>
+    </flow>
+
+    <flow name="getCall">
+        <twilio:get-call accountSid="AC970e46372f082a4947642b9cf19cafa7" callSid="some-call-sid"/>
+    </flow>
+
+    <flow name="getCalls">
+        <twilio:get-calls accountSid="AC970e46372f082a4947642b9cf19cafa7" to="some-to" from="some-from"
+                          status="some-status" startTime="start-time"/>
+    </flow>
+
+    <flow name="makeCall">
+        <twilio:make-call accountSid="AC970e46372f082a4947642b9cf19cafa7" from="some-from" to="some-to"
+                          applicationSid="some-application-sid" method="some-method" fallbackUrl="some-url"
+                          fallbackMethod="some-method" statusCallback="some-status-callback"
+                          statusCallbackMethod="some-status-callback-method" sendDigits="some-digits"
+                          ifMachine="continue" timeout="123"/>
+    </flow>
+
+    <flow name="changeCallState">
+        <twilio:change-call-state accountSid="AC970e46372f082a4947642b9cf19cafa7" callSid="some-call-sid" url="some-url"
+                                  method="some-method" status="some-status"/>
+    </flow>
+
+    <flow name="getConference">
+        <twilio:get-conference accountSid="AC970e46372f082a4947642b9cf19cafa7" conferenceSid="some-conference-sid"/>
+    </flow>
+
+    <flow name="getConferences">
+        <twilio:get-conferences accountSid="AC970e46372f082a4947642b9cf19cafa7" status="some-status"
+                                friendlyName="some-friendly-name" dateCreated="some-date-created"
+                                dateUpdated="some-date-updated"/>
+    </flow>
+
+    <flow name="getParticipant">
+        <twilio:get-participant accountSid="AC970e46372f082a4947642b9cf19cafa7" conferenceSid="some-conference-sid"
+                                callSid="some-call-sid"/>
+    </flow>
+
+    <flow name="updateParticipantStatus">
+        <twilio:update-participant-status accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                          conferenceSid="some-conference-sid" callSid="some-call-sid" muted="false"/>
+    </flow>
+
+    <flow name="deleteParticipant">
+        <twilio:delete-participant accountSid="AC970e46372f082a4947642b9cf19cafa7" conferenceSid="some-conference-sid"
+                                   callSid="some-call-sid"/>
+    </flow>
+
+    <flow name="getParticipants">
+        <twilio:get-participants accountSid="AC970e46372f082a4947642b9cf19cafa7" conferenceSid="some-conference-sid"
+                                 muted="false"/>
+    </flow>
+
+    <flow name="getSmsMessage">
+        <twilio:get-sms-message accountSid="AC970e46372f082a4947642b9cf19cafa7" smsMessageSid="some-sms-message-id"/>
+    </flow>
+
+    <flow name="getAllSmsMessages">
+        <twilio:get-all-sms-messages accountSid="AC970e46372f082a4947642b9cf19cafa7" to="some-to" from="some-from"
+                                     dateSent="some-date-sent"/>
+    </flow>
+
+    <flow name="sendSmsMessage">
+        <twilio:send-sms-message accountSid="AC970e46372f082a4947642b9cf19cafa7" from="some-from" to="some-to"
+                                 body="some-body" statusCallback="some-status-callback"
+                                 applicationSid="some-application-sid"/>
+    </flow>
+
+    <flow name="getRecording">
+        <twilio:get-recording accountSid="AC970e46372f082a4947642b9cf19cafa7" recordingSid="some-recording-sid"
+                              recordingType="MP3"/>
+    </flow>
+
+    <flow name="deleteRecording">
+        <twilio:delete-recording accountSid="AC970e46372f082a4947642b9cf19cafa7" recordingSid="some-recording-sid"/>
+    </flow>
+
+    <flow name="getRecordings">
+        <twilio:get-recordings accountSid="AC970e46372f082a4947642b9cf19cafa7" callSid="some-call-sid"
+                               dateCreated="some-date-created"/>
+    </flow>
+
+    <flow name="getTranscriptionByTranscriptionSid">
+        <twilio:get-transcription-by-transcription-sid accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                                       transcriptionSid="some-transcription-sid"
+                                                       transcriptionFormat="TXT"/>
+    </flow>
+
+    <flow name="getTranscriptions">
+        <twilio:get-transcriptions accountSid="AC970e46372f082a4947642b9cf19cafa7" recordingSid="some-recording-sid"
+                                   transcriptionFormat="XML"/>
+    </flow>
+
+    <flow name="getNotification">
+        <twilio:get-notification accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                 notificationSid="some-notification-sid"/>
+    </flow>
+
+    <flow name="deleteNotification">
+        <twilio:delete-notification accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                    notificationSid="some-notification-sid"/>
+    </flow>
+
+    <flow name="getAllNotifications">
+        <twilio:get-all-notifications accountSid="AC970e46372f082a4947642b9cf19cafa7" log="1"
+                                      messageDate="some-message-date"/>
+    </flow>
+
+    <flow name="getNotificationsByCallSid">
+        <twilio:get-notifications-by-call-sid accountSid="AC970e46372f082a4947642b9cf19cafa7" callSid="some-call-sid"
+                                              log="1" messageDate="some-message-date"/>
+    </flow>
+
+    <flow name="getSandbox">
+        <twilio:get-sandbox accountSid="AC970e46372f082a4947642b9cf19cafa7"/>
+    </flow>
+
+    <flow name="updateSandbox">
+        <twilio:update-sandbox accountSid="AC970e46372f082a4947642b9cf19cafa7" voiceUrl="some-voice-url"
+                               voiceMethod="some-voice-method" smsUrl="some-sms-url" smsMethod="some-sms-method"/>
+    </flow>
+
 </mule>

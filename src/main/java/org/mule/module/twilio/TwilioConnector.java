@@ -110,7 +110,7 @@ public class TwilioConnector implements Initialisable {
     public String updateAccount(@Parameter(optional = true) String accountSid,
                                 @Parameter(optional = true) AccountStatus accountStatus,
                                 @Parameter(optional = true) String friendlyName) {
-        return twilioClient.changeAccountStatus(accountSid, accountStatus, friendlyName);
+        return twilioClient.updateAccount(accountSid, accountStatus, friendlyName);
     }
 
     /**
@@ -574,12 +574,13 @@ public class TwilioConnector implements Initialisable {
     /**
      * Release this phone number from your account. Twilio will no longer answer calls to this number, and you will stop being billed the monthly phone number fee. The phone number will eventually be recycled and potentially given to another customer, so use with care.
      *
-     * @param accountSid the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid             the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param incomingPhoneNumberSid the incoming phone number sid to delete
      * @return if succesful, returns an HTTP 204 response with no body.
      */
     @Operation
-    public String deleteIncomingPhoneNumber(@Parameter(optional = true) String accountSid) {
-        return twilioClient.deleteIncomingPhoneNumber(accountSid);
+    public String deleteIncomingPhoneNumber(@Parameter(optional = true) String accountSid, @Parameter String incomingPhoneNumberSid) {
+        return twilioClient.deleteIncomingPhoneNumber(accountSid, incomingPhoneNumberSid);
     }
 
     /**
@@ -746,7 +747,7 @@ public class TwilioConnector implements Initialisable {
                                                    @Parameter(optional = true) String voiceFallbackMethod,
                                                    @Parameter(optional = true) String statusCallback,
                                                    @Parameter(optional = true) String statusCallbackMethod,
-                                                   @Parameter(optional = true) String voiceCallerIdLookup,
+                                                   @Parameter(optional = true) Boolean voiceCallerIdLookup,
                                                    @Parameter(optional = true) String voiceApplicationSid,
                                                    @Parameter(optional = true) String smsUrl,
                                                    @Parameter(optional = true) String smsMethod,

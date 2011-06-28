@@ -8,35 +8,460 @@ import org.mule.construct.SimpleFlowConstruct;
 import org.mule.tck.FunctionalTestCase;
 
 public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
+
     @Override
     protected String getConfigResources() {
         return "twilio-namespace-config.xml";
     }
 
-    public void testSendMessageToFlow() throws Exception {
-        /*
-            This test case tests your Mule integration.
+    public void testGetAccoundDetails() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getAccountDetails");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
 
-            To test your flow directly (i.e. without any inbound endpoints, declare a flow in
-            twilio-namespace-config.xml and put the element from your
-            cloud connector's namespace that you want to test into it.
-            A proper example was put into twilio-namespace-config.xml
+    public void testGetAllAccoundDetails() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getAllAccountsDetails");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/";
+        String expectedParams = "{Status=SUSPENDED, FriendlyName=coco}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
 
-            Now you can send data to your test flow from the unit test:
+    public void testUpdateAccount() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("updateAccount");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "POST";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7";
+        String expectedParams = "{Status=CLOSED, FriendlyName=juan}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
 
-            String payload = <your input to the flow here>;
-            SimpleFlowConstruct flow = lookupFlowConstruct("theFlow");
-            MuleEvent event = getTestEvent(payload);
-            MuleEvent responseEvent = flow.process(event);
-            assertEquals(<expected test output>, responseEvent.getMessage().getPayloadAsString());
-        */
+    public void testCreateSubAccount() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("createSubAccount");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "POST";
+        String expectedUri = "/2010-04-01/Accounts/";
+        String expectedParams = "{FriendlyName=raul}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
 
-        String payload = "<cococ/>";
-        SimpleFlowConstruct flow = lookupFlowConstruct("yo");
-        MuleEvent event = getTestEvent(payload);
-        MuleEvent responseEvent = flow.process(event);
-        System.out.println(responseEvent.getMessage().getPayloadAsString());
+    public void testGetSubAccountByAccountSid() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getSubAccountByAccountSid");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
 
+    public void testGetSubAccountByFriendlyName() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getSubAccountByFriendlyName");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/";
+        String expectedParams = "{FriendlyName=fede}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testExchangePhoneNumbersBetweenSubaccounts() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("exchangePhoneNumbersBetweenSubaccounts");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "POST";
+        String expectedUri = "/2010-04-01/Accounts/AC8e51fecefbf0b501caced6266d723b3c/IncomingPhoneNumbers/321";
+        String expectedParams = "{AccountSid=AC970e46372f082a4947642b9cf19cafa7}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetAvailablePhoneNumbers() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getAvailablePhoneNumbers");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC8e51fecefbf0b501caced6266d723b3c/AvailablePhoneNumbers/AR/Local";
+        String expectedParams = "{AreaCode=some-area-code, InPostalCode=in-some-postal-code, Contains=*, InRegion=in-some-region}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetAvailablePhoneNumbersAdvancedSeach() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getAvailablePhoneNumbersAdvancedSeach");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC8e51fecefbf0b501caced6266d723b3c/AvailablePhoneNumbers/AR/Local";
+        String expectedParams = "{NearLatLong=nearSomeLatLong, AreaCode=some-area-code, Distance=someDistance, InPostalCode=inSomePostalCode, Contains=*, InRateCenter=inSomeRateCenter, InRegion=inSomeRegion, InLata=inSomeLata, NearNumber=nearSomePhoneNumber}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetAvailableTollFreeNumbers() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getAvailableTollFreeNumbers");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC8e51fecefbf0b501caced6266d723b3c/AvailablePhoneNumbers/AR/TollFree";
+        String expectedParams = "{Contains=*}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetOutgoingCallerIdByOutgoingCallerIdSid() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getOutgoingCallerIdByOutgoingCallerIdSid");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/OutgoingCallerIds/some-outgoing-caller-id-sid";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testUpdateOutgoingCallerIdByOutgoingCallerIdSid() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("updateOutgoingCallerIdByOutgoingCallerIdSid");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "POST";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/OutgoingCallerIds/some-outgoing-caller-id-sid";
+        String expectedParams = "{FriendlyName=some-friendly-name}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetAllOutgoingCallerIds() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getAllOutgoingCallerIds");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/OutgoingCallerIds/";
+        String expectedParams = "{FriendlyName=some-friendly-name, PhoneNumber=some-phone-number}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testAddNewCallerId() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("addNewCallerId");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "POST";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/OutgoingCallerIds/";
+        String expectedParams = "{CallDelay=some-call-delay, Extension=some-extension, FriendlyName=some-friendly-name, PhoneNumber=some-phone-number}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testDeleteOutgoingCallerId() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("deleteOutgoingCallerId");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "DELETE";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/OutgoingCallerIds/some-outgoing-caller-id-sid";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetIncomingPhoneNumbersByIncomingPhoneNumberSid() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getIncomingPhoneNumbersByIncomingPhoneNumberSid");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/IncomingPhoneNumbers/some-incoming-phone-number-sid";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testUpdateIncomingPhoneNumbers() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("updateIncomingPhoneNumbers");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "POST";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/IncomingPhoneNumbers/some-incoming-phone-number-sid";
+        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, AccountSid=some-account-sid-destination, FriendlyName=some-friendly-name, VoiceApplicationSid=some-voice-application-sid, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, ApiVersion=2010-04-01, VoiceFallbackMethod=some-voice-fallback-method, VoiceMethod=some-voice-method, StatusCallback=some-status-callback, SmsApplicationSid=some-sms-application-sid, SmsFallbackMethod=some-sms-fallback-method, VoiceCallerIdLookup=true, StatusCallbackMethod=some-status-callback-method, SmsFallbackUrl=some-fallback-url, SmsMethod=some-sms-method}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testDeleteIncomingPhoneNumber() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("deleteIncomingPhoneNumber");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "DELETE";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/IncomingPhoneNumbers/some-incoming-phone-number-sid";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetIncomingPhoneNumbers() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getIncomingPhoneNumbers");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/IncomingPhoneNumbers";
+        String expectedParams = "{FriendlyName=some-friendly-name, PhoneNumber=some-phone-number}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testAddIncomingPhoneNumberByPhoneNumber() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("addIncomingPhoneNumberByPhoneNumber");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "POST";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/IncomingPhoneNumbers";
+        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, FriendlyName=some-friendly-name, PhoneNumber=some-phone-number, VoiceApplicationSid=some-voice-application-sid, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, VoiceFallbackMethod=some-voice-fallback-method, VoiceMethod=some-voice-method, StatusCallback=some-status-callback, SmsApplicationSid=some-sms-application-sid, SmsFallbackMethod=some-sms-fallback-method, VoiceCallerIdLookup=false, StatusCallbackMethod=some-status-callback-method, SmsFallbackUrl=some-fallback-url, SmsMethod=some-sms-method}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testAddIncomingPhoneNumberByAreaCode() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("addIncomingPhoneNumberByAreaCode");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "POST";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/IncomingPhoneNumbers";
+        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, FriendlyName=some-friendly-name, VoiceApplicationSid=some-voice-application-sid, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, VoiceFallbackMethod=some-voice-fallback-method, VoiceMethod=some-voice-method, AreaCode=some-area-code, StatusCallback=some-status-callback, SmsApplicationSid=some-sms-application-sid, SmsFallbackMethod=some-sms-fallback-method, VoiceCallerIdLookup=false, StatusCallbackMethod=some-status-callback-method, SmsFallbackUrl=some-fallback-url, SmsMethod=some-sms-method}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetApplication() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getApplication");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Applications/some-application-sid";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testUpdateApplication() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("updateApplication");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "POST";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Applications/some-application-sid";
+        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, FriendlyName=some-friendly-name, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, ApiVersion=2010-04-01, VoiceFallbackMethod=some-voice-fallback-method, VoiceMethod=some-voice-method, StatusCallback=some-status-callback, SmsFallbackMethod=some-sms-fallback-method, SmsStatusCallback=some-status-callback, VoiceCallerIdLookup=false, StatusCallbackMethod=some-status-callback-method, SmsFallbackUrl=some-fallback-url, SmsMethod=some-sms-method}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testDeleteApplication() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("deleteApplication");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "DELETE";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Applications/some-application-sid";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetAllApplications() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getAllApplications");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Applications";
+        String expectedParams = "{FriendlyName=some-friendly-name}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testCreateApplication() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("createApplication");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "POST";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Applications/";
+        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, FriendlyName=some-friendly-name, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, ApiVersion=2010-04-01, VoiceFallbackMethod=some-voice-fallback-method, VoiceMethod=some-voice-method, StatusCallback=some-status-callback, SmsFallbackMethod=some-sms-fallback-method, SmsStatusCallback=some-status-callback, VoiceCallerIdLookup=false, StatusCallbackMethod=some-status-callback-method, SmsFallbackUrl=some-fallback-url, SmsMethod=some-sms-method}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetCall() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getCall");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Calls/some-call-sid";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetCalls() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getCalls");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Calls/";
+        String expectedParams = "{Status=some-status, To=some-to, StartTime=start-time, From=some-from}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testMakeCall() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("makeCall");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "POST";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Calls/";
+        String expectedParams = "{SendDigits=some-digits, ApplicationSid=some-application-sid, FallbackMethod=some-method, Timeout=123, IfMachine=continue, StatusCallback=some-status-callback, Method=some-method, To=some-to, StatusCallbackMethod=some-status-callback-method, FallbackUrl=some-url, From=some-from}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testChangeCallState() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("changeCallState");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "POST";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Calls/some-call-sid";
+        String expectedParams = "{Status=some-status, Url=some-url, Method=some-method}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetConference() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getConference");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Conferences/some-conference-sid";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetConferences() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getConferences");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Conferences/";
+        String expectedParams = "{Status=some-status, FriendlyName=some-friendly-name, DateCreated=some-date-created, DateUpdated=some-date-updated}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetParticipant() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getParticipant");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Conferences/some-conference-sid/Participants/some-call-sid";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testUpdateParticipantStatus() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("updateParticipantStatus");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "POST";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Conferences/some-conference-sid/Participants/some-call-sid";
+        String expectedParams = "{Muted=false}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testDeleteParticipant() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("deleteParticipant");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "DELETE";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Conferences/some-conference-sid/Participants/some-call-sid";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetParticipants() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getParticipants");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Conferences/some-conference-sid/Participants/";
+        String expectedParams = "{Muted=false}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetSmsMessage() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getSmsMessage");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/SMS/Messages/some-sms-message-id";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetAllSmsMessages() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getAllSmsMessages");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/SMS/Messages/";
+        String expectedParams = "{DateSent=some-date-sent, To=some-to, From=some-from}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testSendSmsMessage() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("sendSmsMessage");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "POST";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/SMS/Messages/";
+        String expectedParams = "{ApplicationSid=some-application-sid, Body=some-body, StatusCallback=some-status-callback, To=some-to, From=some-from}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetRecording() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getRecording");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Recordings/some-recording-sid.mp3";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testDeleteRecording() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("deleteRecording");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "DELETE";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Recordings/some-recording-sid";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetRecordings() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getRecordings");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Recordings/";
+        String expectedParams = "{DateCreated=some-date-created, CallSid=some-call-sid}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetTranscriptionByTranscriptionSid() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getTranscriptionByTranscriptionSid");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Transcriptions/some-transcription-sid.txt";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetTranscriptions() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getTranscriptions");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Recordings/some-recording-sid.xml";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetNotification() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getNotification");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Notifications/some-notification-sid";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testDeleteNotification() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("deleteNotification");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "DELETE";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Notifications/some-notification-sid";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetAllNotifications() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getAllNotifications");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Notifications/";
+        String expectedParams = "{Log=1, MessageDate=some-message-date}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetNotificationsByCallSid() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getNotificationsByCallSid");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Calls/some-call-sid/Notifications/";
+        String expectedParams = "{Log=1, MessageDate=some-message-date}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testGetSandbox() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("getSandbox");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "GET";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Sandbox";
+        String expectedParams = "{}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+    }
+
+    public void testUpdateSandbox() throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct("updateSandbox");
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String expectedMethod = "POST";
+        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Sandbox";
+        String expectedParams = "{VoiceMethod=some-voice-method, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, SmsMethod=some-sms-method}";
+        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
     }
 
     private SimpleFlowConstruct lookupFlowConstruct(String name) {

@@ -30,7 +30,7 @@ public class TwilioClient {
         return twilioRequestExecutor.executeGetRequest(ACCOUNT_URI, optionalParams);
     }
 
-    public String changeAccountStatus(String accountSid, AccountStatus accountStatus, String friendlyName) {
+    public String updateAccount(String accountSid, AccountStatus accountStatus, String friendlyName) {
         TwilioParameters optionalParams = new TwilioParameters(TwilioParametersStategy.ALL_OPTIONAL).
                 addIfValueNotNull(TwilioParamater.FRIENDLY_NAME, friendlyName).
                 addIfValueNotNull(TwilioParamater.STATUS, accountStatus);
@@ -141,8 +141,8 @@ public class TwilioClient {
         return twilioRequestExecutor.executePostRequest(getUri(accountSid) + "/IncomingPhoneNumbers/" + incomingPhoneNumberSid, twilioParams);
     }
 
-    public String deleteIncomingPhoneNumber(String accountSid) {
-        return twilioRequestExecutor.executeDeleteRequest(getUri(accountSid) + "/IncomingPhoneNumbers");
+    public String deleteIncomingPhoneNumber(String accountSid, String incomingPhoneNumberSid) {
+        return twilioRequestExecutor.executeDeleteRequest(getUri(accountSid) + "/IncomingPhoneNumbers/" + incomingPhoneNumberSid);
     }
 
     public String getIncomingPhoneNumbers(String accountSid, String phoneNumber, String friendlyName) {
@@ -176,7 +176,7 @@ public class TwilioClient {
     }
 
     public String addIncomingPhoneNumberByAreaCode(String accountSid, String areaCode, String friendlyName, String voiceUrl, String voiceMethod, String voiceFallbackUrl, String voiceFallbackMethod,
-                                                   String statusCallback, String statusCallbackMethod, String voiceCallerIdLookup, String voiceApplicationSid, String smsUrl, String smsMethod,
+                                                   String statusCallback, String statusCallbackMethod, Boolean voiceCallerIdLookup, String voiceApplicationSid, String smsUrl, String smsMethod,
                                                    String smsFallbackUrl, String smsFallbackMethod, String smsApplicationSid) {
         TwilioParameters requiredParams = new TwilioParameters(TwilioParametersStategy.ALL_REQUIRED).
                 addIfValueNotNull(TwilioParamater.AREA_CODE, areaCode);

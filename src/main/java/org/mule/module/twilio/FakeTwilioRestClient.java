@@ -14,15 +14,9 @@ public class FakeTwilioRestClient implements ITwilioRestClient {
 
     class FakeTwilioResponse extends TwilioRestResponse {
 
-        private String path;
-        private String method;
-        private Map<String, String> vars;
-
+        // build a fake response from twilio using the url requested, the method and the arguments
         FakeTwilioResponse(String path, String method, Map<String, String> vars) {
-            super("this is a test", "this is a test", 0);
-            this.path = path;
-            this.method = method;
-            this.vars = vars;
+            super(path, method + " " + path + " " + vars, 0);
         }
     }
 }
