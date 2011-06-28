@@ -10,6 +10,10 @@ public class TwilioClient {
     private TwilioRequestExecutor twilioRequestExecutor;
     private String accountSid;
 
+    protected TwilioClient(TwilioRequestExecutor twilioRequestExecutor) {
+        this.twilioRequestExecutor = twilioRequestExecutor;
+    }
+
     public TwilioClient(String accountSid, String authToken) {
         this.accountSid = accountSid;
         twilioRequestExecutor = new TwilioRequestExecutor(accountSid, authToken);

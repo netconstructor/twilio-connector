@@ -20,13 +20,13 @@ public class TwilioClientTest {
         twilioClient = new TwilioClient(mockTwilioRequestExecutor);
     }
 
-    @Test
-    public void testGetAccount() throws Exception {
-        String requestedSid = "some requested sid";
-        String expectedUrlToUse = TwilioClient.PATH_PREFIX + "/Accounts/" + requestedSid;
-        twilioClient.getAccountDetails(requestedSid);
-        verify(mockTwilioRequestExecutor).executeGetRequest(expectedUrlToUse, TwilioParameters.NO_PARAMETERS);
-    }
+//    @Test
+//    public void testGetAccount() throws Exception {
+//        String requestedSid = "some requested sid";
+//        String expectedUrlToUse = TwilioClient.PATH_PREFIX + "/Accounts/" + requestedSid;
+//        twilioClient.getAccountDetails(requestedSid);
+//        verify(mockTwilioRequestExecutor).executeGetRequest(expectedUrlToUse, TwilioParameters.NO_PARAMETERS);
+ //   }
 
 //    @Test
 //    public void testGetAllCountsDetails() throws Exception {
