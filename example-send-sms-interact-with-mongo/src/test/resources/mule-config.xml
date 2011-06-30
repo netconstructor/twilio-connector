@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Mule MongoDB Cloud Connector
+
+    Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+
+    The software in this package is published under the terms of the CPAL v1.0
+    license, a copy of which has been included with this distribution in the
+    LICENSE.txt file.
+
+-->
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:mongo="http://www.mulesoft.org/schema/mule/mongo"
+      xmlns:json="http://www.mulesoft.org/schema/mule/json"
+      xmlns:spring="http://www.springframework.org/schema/beans"
+      xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+      xmlns:http="http://www.mulesoft.org/schema/mule/http"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:twilio="http://www.mulesoft.org/schema/mule/twilio"
+      xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.mulesoft.org/schema/mule/mongo http://www.mulesoft.org/schema/mule/mongo/1.0/mule-mongo.xsd
+       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
+       http://www.mulesoft.org/schema/mule/json    http://www.mulesoft.org/schema/mule/json/3.1/mule-json.xsd
+       http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/3.0/mule-http.xsd
+       http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/3.1/mule-scripting.xsd
+       http://www.mulesoft.org/schema/mule/twilio http://www.mulesoft.org/schema/mule/twilio/1.0-SNAPSHOT/mule-twilio.xsd">
+
+
+    <twilio:config name="twilio-default" accountSid="AC036af619b1d55b4da3db45f19b4c6338"
+                   authToken="d6e4bd519d5d8b9dfe1b44ba12a0f37c"/>
+
+    <mongo:config/>
+
+    <flow name="insertClients">
+        <http:inbound-endpoint host="localhost" port="9090" path="insert-clients"/>
+        <mongo:insert-object collection="clients">
+            <mongo:elementAttributes>
+                <mongo:elementAttribute key="name" value="#[header:inbound:name]"/>
+                <mongo:elementAttribute key="phone" value="#[header:inbound:phone]"/>
+                <mongo:elementAttribute key="message" value="#[header:inbound:message]"/>
+            </mongo:elementAttributes>
+        </mongo:insert-object>
+        <expression-transformer>
+            <return-argument expression="Successfully added client" evaluator="string"/>
+        </expression-transformer>
+    </flow>
+
+    <flow name="deleteClients">
+        <mongo:drop-collection collection="clients"/>
+        <expression-transformer>
+            <return-argument expression="Successfully deleted all clients" evaluator="string"/>
+        </expression-transformer>
+    </flow>
+
+    <flow name="sendSmsToClients">
+        <mongo:find-objects collection="clients"/>
+        <collection-splitter/>
+        <twilio:send-sms-message config-ref="twilio-default"
+                                 accountSid="AC036af619b1d55b4da3db45f19b4c6338"
+                                 from="+14086457888"
+                                 to="#[map-payload:phone]"
+                                 body="Hi #[map-payload:name]! Your account balance is USD#[map-payload:accountBalance]"/>
+    </flow>
+
+</mule>
