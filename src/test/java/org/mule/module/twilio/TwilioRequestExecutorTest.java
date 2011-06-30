@@ -5,6 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mule.module.twilio.TwilioParameters.TwilioParamater;
+import org.mule.module.twilio.TwilioParameters.TwilioParametersStategy;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -29,10 +31,10 @@ public class TwilioRequestExecutorTest {
     public void setUpTests() {
         MockitoAnnotations.initMocks(this);
         twilioRequestExecutor = new TwilioRequestExecutor(mockTwilioRestClient);
-        twilioParams1 = new TwilioParameters(TwilioParameters.TwilioParametersStategy.ALL_REQUIRED).
-                addIfValueNotNull(TwilioParameters.TwilioParamater.ACCOUNT_SID, "abc");
-        twilioParams2 = new TwilioParameters(TwilioParameters.TwilioParametersStategy.ALL_REQUIRED).
-                addIfValueNotNull(TwilioParameters.TwilioParamater.API_VERSION, "def");
+        twilioParams1 = new TwilioParameters(TwilioParametersStategy.ALL_REQUIRED).
+                addIfValueNotNull(TwilioParamater.ACCOUNT_SID, "abc");
+        twilioParams2 = new TwilioParameters(TwilioParametersStategy.ALL_REQUIRED).
+                addIfValueNotNull(TwilioParamater.API_VERSION, "def");
         when(mockTwilioResponse.getResponseText()).thenReturn(RESPONSE_TEXT);
     }
 
