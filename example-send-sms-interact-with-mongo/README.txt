@@ -9,9 +9,10 @@ INTRODUCTION
 HOW TO DEMO:
   In order to run this demo it is necessary to have mongodb running locally and an internet connection
   to access Twilio's API.
-  1. Run the TwilioAndMongoExampleTestDriver, or deploy this demo an a Mule Container
-   a. Some customers are inserted into Mongo by default, but if you wish to add more you can by querying
-      http://localhost:9090/insert-clients?name=some_name&phone=some_phone&accountBalance=some_number
+  1. Fill in your src/main/resources/config.properties file with you Twilio account details.
+  2. Open src/test/java/org/mule/module/twilio/example/TwilioAndMongoExampleTestDriver and go to the method doSetUp()
+   to fill clients details to be inserted into a Mongo collection
+  3. Run the TwilioAndMongoExampleTestDriver
 
 HOW IT WORKS:
    The sequence of the demo is as follows:

@@ -24,7 +24,9 @@ public class TwilioAndMongoExampleTestDriver extends FunctionalTestCase {
 
     @Override
     protected void doSetUp() throws Exception {
-        insertClientUsingMongoConnector("Federico", "(415)599-2671", "74303727 1234.59"); // last String is prefixed with a PIN number b/c this is mandatory to send SMSs to free accounts
+        // call this method the times you want to insert multiple clients
+        insertClientUsingMongoConnector("the name", "the phone number", "the account balance");
+        insertClientUsingMongoConnector("the name", "the phone number", "the account balance");
     }
 
     @Override
