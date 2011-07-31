@@ -25,7 +25,7 @@ Add the connector's maven repo to your pom.xml:
     <repositories>
         <repository>
             <id>muleforge-releases</id>
-            <name>MuleForge Snapshot Repository</name>
+            <name>MuleForge Releases Repository</name>
             <url>http://repository.mulesoft.org/releases/</url>
             <layout>default</layout>
         </repsitory>
@@ -38,7 +38,7 @@ application:
     <dependency>
         <groupId>org.mule.modules</groupId>
         <artifactId>mule-module-twilio</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.0</version>
     </dependency>
 
 Configuration
