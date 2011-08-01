@@ -3,12 +3,11 @@
  */
 package org.mule.module.twilio;
 
-import org.mule.api.lifecycle.Initialisable;
-import org.mule.api.lifecycle.InitialisationException;
-import org.mule.tools.cloudconnect.annotations.Connector;
-import org.mule.tools.cloudconnect.annotations.Operation;
-import org.mule.tools.cloudconnect.annotations.Parameter;
-import org.mule.tools.cloudconnect.annotations.Property;
+import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.Module;
+import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.lifecycle.Start;
+import org.mule.api.annotations.param.Optional;
 
 /**
  * You can use your master Twilio Account credentials (AccountSid and AuthToken) to access Twilio's REST API for
@@ -17,24 +16,24 @@ import org.mule.tools.cloudconnect.annotations.Property;
  * You can not use a subaccount's credentials to access the resources of your master Twilio account or any other
  * subaccounts.
  */
-@Connector(namespacePrefix = "twilio")
-public class TwilioConnector implements Initialisable {
+@Module(name = "twilio")
+public class TwilioConnector {
 
     /**
      * The account sid to be used to connect to Twilio.
      */
-    @Property
+    @Configurable
     private String accountSid;
     /**
      * The authentication token to be used to connect to Twilio
      */
-    @Property
+    @Configurable
     private String authToken;
 
     private TwilioClient twilioClient;
 
-    @Override
-    public void initialise() throws InitialisationException {
+    @Start
+    public void createTwilioClient() {
         twilioClient = new TwilioClient(accountSid, authToken);
     }
 
@@ -44,8 +43,8 @@ public class TwilioConnector implements Initialisable {
      * @param accountSid the account sid for which to get the details, leave empty to use to use {@link TwilioConnector#accountSid}
      * @return a representation of the account
      */
-    @Operation
-    public String getAccountDetails(@Parameter(optional = true) String accountSid) {
+    @Processor
+    public String getAccountDetails(@Optional String accountSid) {
         return twilioClient.getAccountDetails(accountSid);
     }
 
@@ -58,9 +57,9 @@ public class TwilioConnector implements Initialisable {
      * @return a list of the Account resources belonging to the account used to make the API request. This list will
      *         include that Account as well.
      */
-    @Operation
-    public String getAllAccountsDetails(@Parameter(optional = true) AccountStatus accountStatus,
-                                        @Parameter(optional = true) String friendlyName) {
+    @Processor
+    public String getAllAccountsDetails(@Optional AccountStatus accountStatus,
+                                        @Optional String friendlyName) {
         return twilioClient.getAllAcountsDetails(friendlyName, accountStatus);
     }
 
@@ -72,10 +71,10 @@ public class TwilioConnector implements Initialisable {
      * @param friendlyName  Update the human-readable description of this account.
      * @return a representation of the account
      */
-    @Operation
-    public String updateAccount(@Parameter(optional = true) String accountSid,
-                                @Parameter(optional = true) AccountStatus accountStatus,
-                                @Parameter(optional = true) String friendlyName) {
+    @Processor
+    public String updateAccount(@Optional String accountSid,
+                                @Optional AccountStatus accountStatus,
+                                @Optional String friendlyName) {
         return twilioClient.updateAccount(accountSid, accountStatus, friendlyName);
     }
 
@@ -94,8 +93,8 @@ public class TwilioConnector implements Initialisable {
      * @param friendlyName A human readable description of the new subaccount, up to 64 characters. Defaults to "SubAccount Created at {YYYY-MM-DD HH:MM meridiam}".
      * @return a representation of the account
      */
-    @Operation
-    public String createSubAccount(@Parameter(optional = true) String friendlyName) {
+    @Processor
+    public String createSubAccount(@Optional String friendlyName) {
         return twilioClient.createSubAccount(friendlyName);
     }
 
@@ -107,8 +106,8 @@ public class TwilioConnector implements Initialisable {
      * @param accountSid the account sid to use in the query
      * @return a representation of the subaccount
      */
-    @Operation
-    public String getSubAccountByAccountSid(@Parameter String accountSid) {
+    @Processor
+    public String getSubAccountByAccountSid(String accountSid) {
         return twilioClient.getSubAccountBySid(accountSid);
     }
 
@@ -124,8 +123,8 @@ public class TwilioConnector implements Initialisable {
      * @param friendlyName the friendly name to use in the query
      * @return a representation of the subaccount
      */
-    @Operation
-    public String getSubAccountByFriendlyName(@Parameter String friendlyName) {
+    @Processor
+    public String getSubAccountByFriendlyName(String friendlyName) {
         return twilioClient.getSubAccountByFriendlyName(friendlyName);
     }
 
@@ -137,10 +136,10 @@ public class TwilioConnector implements Initialisable {
      * @param accountSidTo           the account sid where to transfer the phone number.
      * @return an incoming phone number instance.
      */
-    @Operation
-    public String exchangePhoneNumbersBetweenSubaccounts(@Parameter(optional = true) String accountSidFrom,
-                                                         @Parameter String incomingPhoneNumberSid,
-                                                         @Parameter String accountSidTo) {
+    @Processor
+    public String exchangePhoneNumbersBetweenSubaccounts(@Optional String accountSidFrom,
+                                                         String incomingPhoneNumberSid,
+                                                         String accountSidTo) {
         return twilioClient.exchangePhoneNumbersBetweenSubaccounts(accountSidFrom, incomingPhoneNumberSid, accountSidTo);
 
     }
@@ -156,13 +155,13 @@ public class TwilioConnector implements Initialisable {
      * @param inPostalCode   Limit results to a particular postal code. Given a phone number, search within the same postal code as that number.
      * @return a list of local AvailablePhoneNumber resource representations that match the specified filters
      */
-    @Operation
-    public String getAvailablePhoneNumbers(@Parameter(optional = true) String accountSid,
-                                           @Parameter String isoCountryCode,
-                                           @Parameter(optional = true) String areaCode,
-                                           @Parameter(optional = true) String contains,
-                                           @Parameter(optional = true) String inRegion,
-                                           @Parameter(optional = true) String inPostalCode) {
+    @Processor
+    public String getAvailablePhoneNumbers(@Optional String accountSid,
+                                           String isoCountryCode,
+                                           @Optional String areaCode,
+                                           @Optional String contains,
+                                           @Optional String inRegion,
+                                           @Optional String inPostalCode) {
         return twilioClient.getAvailablePhoneNumbers(accountSid, isoCountryCode, areaCode, contains, inRegion, inPostalCode);
     }
 
@@ -182,18 +181,18 @@ public class TwilioConnector implements Initialisable {
      * @param distance        Specifies the search radius for a Near- query in miles. If not specified this defaults to 25 miles.
      * @return a list of local AvailablePhoneNumber resource representations that match the specified filters
      */
-    @Operation
-    public String getAvailablePhoneNumbersAdvancedSeach(@Parameter(optional = true) String accountSid,
-                                                        @Parameter String isoCountryCode,
-                                                        @Parameter(optional = true) String areaCode,
-                                                        @Parameter(optional = true) String contains,
-                                                        @Parameter(optional = true) String inRegion,
-                                                        @Parameter(optional = true) String inPostalCode,
-                                                        @Parameter(optional = true) String nearLatLong,
-                                                        @Parameter(optional = true) String nearPhoneNumber,
-                                                        @Parameter(optional = true) String inLata,
-                                                        @Parameter(optional = true) String inRateCenter,
-                                                        @Parameter(optional = true) String distance) {
+    @Processor
+    public String getAvailablePhoneNumbersAdvancedSeach(@Optional String accountSid,
+                                                        String isoCountryCode,
+                                                        @Optional String areaCode,
+                                                        @Optional String contains,
+                                                        @Optional String inRegion,
+                                                        @Optional String inPostalCode,
+                                                        @Optional String nearLatLong,
+                                                        @Optional String nearPhoneNumber,
+                                                        @Optional String inLata,
+                                                        @Optional String inRateCenter,
+                                                        @Optional String distance) {
         return twilioClient.getAvailablePhoneNumbersAdvancedSeach(accountSid, isoCountryCode, areaCode, contains, inRegion, inPostalCode, nearLatLong, nearPhoneNumber, inLata, inRateCenter, distance);
     }
 
@@ -205,10 +204,10 @@ public class TwilioConnector implements Initialisable {
      * @param contains       A pattern to match phone numbers on. Valid characters are '*' and [0-9a-zA-Z]. The '*' character will match any single digit.
      * @return a list of toll-free AvailablePhoneNumber elements that match the specified filters
      */
-    @Operation
-    public String getAvailableTollFreeNumbers(@Parameter(optional = true) String accountSid,
-                                              @Parameter String isoCountryCode,
-                                              @Parameter(optional = true) String contains) {
+    @Processor
+    public String getAvailableTollFreeNumbers(@Optional String accountSid,
+                                              String isoCountryCode,
+                                              @Optional String contains) {
         return twilioClient.getAvailableTollFreeNumbers(accountSid, isoCountryCode, contains);
     }
 
@@ -219,9 +218,9 @@ public class TwilioConnector implements Initialisable {
      * @param outgoingCallerIdSid the outgoing caller id sid to use in the query
      * @return an outgoing caller id instance matching the given filters.
      */
-    @Operation
-    public String getOutgoingCallerIdByOutgoingCallerIdSid(@Parameter(optional = true) String accountSid,
-                                                           @Parameter String outgoingCallerIdSid) {
+    @Processor
+    public String getOutgoingCallerIdByOutgoingCallerIdSid(@Optional String accountSid,
+                                                           String outgoingCallerIdSid) {
         return twilioClient.getOutgoingCallerIdByOutgoingCallerIdSid(accountSid, outgoingCallerIdSid);
     }
 
@@ -233,10 +232,10 @@ public class TwilioConnector implements Initialisable {
      * @param friendlyName        A human readable description of a Caller ID, with maximum length of 64 characters. Defaults to a nicely formatted version of the phone number.
      * @return returns the updated resource if successful.
      */
-    @Operation
-    public String updateOutgoingCallerIdByOutgoingCallerIdSid(@Parameter(optional = true) String accountSid,
-                                                              @Parameter String outgoingCallerIdSid,
-                                                              @Parameter String friendlyName) {
+    @Processor
+    public String updateOutgoingCallerIdByOutgoingCallerIdSid(@Optional String accountSid,
+                                                              String outgoingCallerIdSid,
+                                                              String friendlyName) {
         return twilioClient.updateOutgoingCallerIdByOutgoingCallerIdSid(accountSid, outgoingCallerIdSid, friendlyName);
     }
 
@@ -248,10 +247,10 @@ public class TwilioConnector implements Initialisable {
      * @param friendlyName Only show the caller id resource that exactly matches this name.
      * @return a list of OutgoingCallerId resource representations
      */
-    @Operation
-    public String getAllOutgoingCallerIds(@Parameter(optional = true) String accountSid,
-                                          @Parameter(optional = true) String phoneNumber,
-                                          @Parameter(optional = true) String friendlyName) {
+    @Processor
+    public String getAllOutgoingCallerIds(@Optional String accountSid,
+                                          @Optional String phoneNumber,
+                                          @Optional String friendlyName) {
         return twilioClient.getAllOutgoingCallerIds(accountSid, phoneNumber, friendlyName);
     }
 
@@ -265,12 +264,12 @@ public class TwilioConnector implements Initialisable {
      * @param extension    Digits to dial after connecting the validation call.
      * @return a validation request (see validation request propertie)
      */
-    @Operation
-    public String addNewCallerId(@Parameter(optional = true) String accountSid,
-                                 @Parameter String phoneNumber,
-                                 @Parameter(optional = true) String friendlyName,
-                                 @Parameter(optional = true) Integer callDelay,
-                                 @Parameter(optional = true) String extension) {
+    @Processor
+    public String addNewCallerId(@Optional String accountSid,
+                                 String phoneNumber,
+                                 @Optional String friendlyName,
+                                 @Optional Integer callDelay,
+                                 @Optional String extension) {
         return twilioClient.addNewCallerId(accountSid, phoneNumber, friendlyName, callDelay, extension);
     }
 
@@ -281,9 +280,9 @@ public class TwilioConnector implements Initialisable {
      * @param outgoingCallerIdSid the outgoing caller id sid to delete
      * @return an HTTP 204 response if successful, with no body.
      */
-    @Operation
-    public String deleteOutgoingCallerId(@Parameter(optional = true) String accountSid,
-                                         @Parameter String outgoingCallerIdSid) {
+    @Processor
+    public String deleteOutgoingCallerId(@Optional String accountSid,
+                                         String outgoingCallerIdSid) {
         return twilioClient.deleteOutgoingCallerId(accountSid, outgoingCallerIdSid);
 
     }
@@ -297,9 +296,9 @@ public class TwilioConnector implements Initialisable {
      * @param incomingPhoneNumberSid the incoming phone number sid to use in the query
      * @return an incoming phone number matching the given incoming phone number sid
      */
-    @Operation
-    public String getIncomingPhoneNumbersByIncomingPhoneNumberSid(@Parameter(optional = true) String accountSid,
-                                                                  @Parameter String incomingPhoneNumberSid) {
+    @Processor
+    public String getIncomingPhoneNumbersByIncomingPhoneNumberSid(@Optional String accountSid,
+                                                                  String incomingPhoneNumberSid) {
         return twilioClient.getIncomingPhoneNumbers(accountSid, incomingPhoneNumberSid);
     }
 
@@ -330,25 +329,25 @@ public class TwilioConnector implements Initialisable {
      * @return if successful the updated incoming phone number instance.
      */
 
-    @Operation
-    public String updateIncomingPhoneNumbers(@Parameter(optional = true) String accountSid,
-                                             @Parameter String incomingPhoneNumberSid,
-                                             @Parameter(optional = true) String friendlyName,
-                                             @Parameter(optional = true) String apiVersion,
-                                             @Parameter(optional = true) String voiceUrl,
-                                             @Parameter(optional = true) HttpMethod voiceMethod,
-                                             @Parameter(optional = true) String voiceFallbackUrl,
-                                             @Parameter(optional = true) HttpMethod voiceFallbackMethod,
-                                             @Parameter(optional = true) String statusCallback,
-                                             @Parameter(optional = true) HttpMethod statusCallbackMethod,
-                                             @Parameter(optional = true) Boolean voiceCallerIdLookup,
-                                             @Parameter(optional = true) String voiceApplicationSid,
-                                             @Parameter(optional = true) String smsUrl,
-                                             @Parameter(optional = true) HttpMethod smsMethod,
-                                             @Parameter(optional = true) String smsFallbackUrl,
-                                             @Parameter(optional = true) HttpMethod smsFallbackMethod,
-                                             @Parameter(optional = true) String smsApplicationSid,
-                                             @Parameter(optional = true) String accountSidDestination) {
+    @Processor
+    public String updateIncomingPhoneNumbers(@Optional String accountSid,
+                                             String incomingPhoneNumberSid,
+                                             @Optional String friendlyName,
+                                             @Optional String apiVersion,
+                                             @Optional String voiceUrl,
+                                             @Optional HttpMethod voiceMethod,
+                                             @Optional String voiceFallbackUrl,
+                                             @Optional HttpMethod voiceFallbackMethod,
+                                             @Optional String statusCallback,
+                                             @Optional HttpMethod statusCallbackMethod,
+                                             @Optional Boolean voiceCallerIdLookup,
+                                             @Optional String voiceApplicationSid,
+                                             @Optional String smsUrl,
+                                             @Optional HttpMethod smsMethod,
+                                             @Optional String smsFallbackUrl,
+                                             @Optional HttpMethod smsFallbackMethod,
+                                             @Optional String smsApplicationSid,
+                                             @Optional String accountSidDestination) {
         return twilioClient.updateIncomingPhoneNumbers(accountSid, incomingPhoneNumberSid, friendlyName, apiVersion, voiceUrl, voiceMethod, voiceFallbackUrl,
                 voiceFallbackMethod, statusCallback, statusCallbackMethod, voiceCallerIdLookup, voiceApplicationSid, smsUrl, smsMethod, smsFallbackUrl,
                 smsFallbackMethod, smsApplicationSid, accountSidDestination);
@@ -361,8 +360,8 @@ public class TwilioConnector implements Initialisable {
      * @param incomingPhoneNumberSid the incoming phone number sid to delete
      * @return if succesful, returns an HTTP 204 response with no body.
      */
-    @Operation
-    public String deleteIncomingPhoneNumber(@Parameter(optional = true) String accountSid, @Parameter String incomingPhoneNumberSid) {
+    @Processor
+    public String deleteIncomingPhoneNumber(@Optional String accountSid, String incomingPhoneNumberSid) {
         return twilioClient.deleteIncomingPhoneNumber(accountSid, incomingPhoneNumberSid);
     }
 
@@ -377,10 +376,10 @@ public class TwilioConnector implements Initialisable {
      * @param friendlyName Only show the incoming phone number resources with friendly names that exactly match this name.
      * @return a list of IncomingPhoneNumber resource representations
      */
-    @Operation
-    public String getIncomingPhoneNumbers(@Parameter(optional = true) String accountSid,
-                                          @Parameter(optional = true) String phoneNumber,
-                                          @Parameter(optional = true) String friendlyName) {
+    @Processor
+    public String getIncomingPhoneNumbers(@Optional String accountSid,
+                                          @Optional String phoneNumber,
+                                          @Optional String friendlyName) {
         return twilioClient.getIncomingPhoneNumbers(accountSid, phoneNumber, friendlyName);
     }
 
@@ -407,23 +406,23 @@ public class TwilioConnector implements Initialisable {
      * @param smsApplicationSid    The 34 character sid of the application Twilio should use to handle SMSs sent to the new number. If a SmsApplicationSid is present, Twilio will ignore all of the SMS urls above and use those set on the application.
      * @return If successful, Twilio responds with a representation of the new phone number that was assigned to your account.
      */
-    @Operation
-    public String addIncomingPhoneNumberByPhoneNumber(@Parameter(optional = true) String accountSid,
-                                                      @Parameter String phoneNumber,
-                                                      @Parameter(optional = true) String friendlyName,
-                                                      @Parameter(optional = true) String voiceUrl,
-                                                      @Parameter(optional = true) HttpMethod voiceMethod,
-                                                      @Parameter(optional = true) String voiceFallbackUrl,
-                                                      @Parameter(optional = true) HttpMethod voiceFallbackMethod,
-                                                      @Parameter(optional = true) String statusCallback,
-                                                      @Parameter(optional = true) HttpMethod statusCallbackMethod,
-                                                      @Parameter(optional = true) Boolean voiceCallerIdLookup,
-                                                      @Parameter(optional = true) String voiceApplicationSid,
-                                                      @Parameter(optional = true) String smsUrl,
-                                                      @Parameter(optional = true) HttpMethod smsMethod,
-                                                      @Parameter(optional = true) String smsFallbackUrl,
-                                                      @Parameter(optional = true) HttpMethod smsFallbackMethod,
-                                                      @Parameter(optional = true) String smsApplicationSid) {
+    @Processor
+    public String addIncomingPhoneNumberByPhoneNumber(@Optional String accountSid,
+                                                      String phoneNumber,
+                                                      @Optional String friendlyName,
+                                                      @Optional String voiceUrl,
+                                                      @Optional HttpMethod voiceMethod,
+                                                      @Optional String voiceFallbackUrl,
+                                                      @Optional HttpMethod voiceFallbackMethod,
+                                                      @Optional String statusCallback,
+                                                      @Optional HttpMethod statusCallbackMethod,
+                                                      @Optional Boolean voiceCallerIdLookup,
+                                                      @Optional String voiceApplicationSid,
+                                                      @Optional String smsUrl,
+                                                      @Optional HttpMethod smsMethod,
+                                                      @Optional String smsFallbackUrl,
+                                                      @Optional HttpMethod smsFallbackMethod,
+                                                      @Optional String smsApplicationSid) {
         return twilioClient.addIncomingPhoneNumberByPhoneNumber(accountSid, phoneNumber, friendlyName, voiceUrl, voiceMethod, voiceFallbackUrl, voiceFallbackMethod,
                 statusCallback, statusCallbackMethod, voiceCallerIdLookup, voiceApplicationSid, smsUrl, smsMethod, smsFallbackUrl, smsFallbackMethod, smsApplicationSid);
     }
@@ -451,23 +450,23 @@ public class TwilioConnector implements Initialisable {
      * @param smsApplicationSid    The 34 character sid of the application Twilio should use to handle SMSs sent to the new number. If a SmsApplicationSid is present, Twilio will ignore all of the SMS urls above and use those set on the application.
      * @return If successful, Twilio responds with a representation of the new phone number that was assigned to your account.
      */
-    @Operation
-    public String addIncomingPhoneNumberByAreaCode(@Parameter(optional = true) String accountSid,
-                                                   @Parameter String areaCode,
-                                                   @Parameter(optional = true) String friendlyName,
-                                                   @Parameter(optional = true) String voiceUrl,
-                                                   @Parameter(optional = true) HttpMethod voiceMethod,
-                                                   @Parameter(optional = true) String voiceFallbackUrl,
-                                                   @Parameter(optional = true) HttpMethod voiceFallbackMethod,
-                                                   @Parameter(optional = true) String statusCallback,
-                                                   @Parameter(optional = true) HttpMethod statusCallbackMethod,
-                                                   @Parameter(optional = true) Boolean voiceCallerIdLookup,
-                                                   @Parameter(optional = true) String voiceApplicationSid,
-                                                   @Parameter(optional = true) String smsUrl,
-                                                   @Parameter(optional = true) HttpMethod smsMethod,
-                                                   @Parameter(optional = true) String smsFallbackUrl,
-                                                   @Parameter(optional = true) HttpMethod smsFallbackMethod,
-                                                   @Parameter(optional = true) String smsApplicationSid) {
+    @Processor
+    public String addIncomingPhoneNumberByAreaCode(@Optional String accountSid,
+                                                   String areaCode,
+                                                   @Optional String friendlyName,
+                                                   @Optional String voiceUrl,
+                                                   @Optional HttpMethod voiceMethod,
+                                                   @Optional String voiceFallbackUrl,
+                                                   @Optional HttpMethod voiceFallbackMethod,
+                                                   @Optional String statusCallback,
+                                                   @Optional HttpMethod statusCallbackMethod,
+                                                   @Optional Boolean voiceCallerIdLookup,
+                                                   @Optional String voiceApplicationSid,
+                                                   @Optional String smsUrl,
+                                                   @Optional HttpMethod smsMethod,
+                                                   @Optional String smsFallbackUrl,
+                                                   @Optional HttpMethod smsFallbackMethod,
+                                                   @Optional String smsApplicationSid) {
         return twilioClient.addIncomingPhoneNumberByAreaCode(accountSid, areaCode, friendlyName, voiceUrl, voiceMethod, voiceFallbackUrl, voiceFallbackMethod,
                 statusCallback, statusCallbackMethod, voiceCallerIdLookup, voiceApplicationSid, smsUrl, smsMethod, smsFallbackUrl, smsFallbackMethod, smsApplicationSid);
     }
@@ -482,9 +481,9 @@ public class TwilioConnector implements Initialisable {
      * @param applicationSid the application sid to use in the query
      * @return an application resource matching the given application sid.
      */
-    @Operation
-    public String getApplication(@Parameter(optional = true) String accountSid,
-                                 @Parameter String applicationSid) {
+    @Processor
+    public String getApplication(@Optional String accountSid,
+                                 String applicationSid) {
         return twilioClient.getApplication(accountSid, applicationSid);
 
     }
@@ -511,23 +510,23 @@ public class TwilioConnector implements Initialisable {
      * @param smsStatusCallback    Twilio will make a POST request to this URL to pass status parameters (such as sent or failed) to your application if you specify this application's Sid as the ApplicationSid on an outgoing SMS request.
      * @return returns the updated resource representation if successful.
      */
-    @Operation
-    public String updateApplication(@Parameter(optional = true) String accountSid,
-                                    @Parameter String applicationSid,
-                                    @Parameter(optional = true) String friendlyName,
-                                    @Parameter(optional = true) String apiVersion,
-                                    @Parameter(optional = true) String voiceUrl,
-                                    @Parameter(optional = true) HttpMethod voiceMethod,
-                                    @Parameter(optional = true) String voiceFallbackUrl,
-                                    @Parameter(optional = true) HttpMethod voiceFallbackMethod,
-                                    @Parameter(optional = true) String statusCallback,
-                                    @Parameter(optional = true) HttpMethod statusCallbackMethod,
-                                    @Parameter(optional = true) Boolean voiceCallerIdLookup,
-                                    @Parameter(optional = true) String smsUrl,
-                                    @Parameter(optional = true) HttpMethod smsMethod,
-                                    @Parameter(optional = true) String smsFallbackUrl,
-                                    @Parameter(optional = true) HttpMethod smsFallbackMethod,
-                                    @Parameter(optional = true) String smsStatusCallback) {
+    @Processor
+    public String updateApplication(@Optional String accountSid,
+                                    String applicationSid,
+                                    @Optional String friendlyName,
+                                    @Optional String apiVersion,
+                                    @Optional String voiceUrl,
+                                    @Optional HttpMethod voiceMethod,
+                                    @Optional String voiceFallbackUrl,
+                                    @Optional HttpMethod voiceFallbackMethod,
+                                    @Optional String statusCallback,
+                                    @Optional HttpMethod statusCallbackMethod,
+                                    @Optional Boolean voiceCallerIdLookup,
+                                    @Optional String smsUrl,
+                                    @Optional HttpMethod smsMethod,
+                                    @Optional String smsFallbackUrl,
+                                    @Optional HttpMethod smsFallbackMethod,
+                                    @Optional String smsStatusCallback) {
         return twilioClient.updateApplication(accountSid, applicationSid, friendlyName, apiVersion, voiceUrl, voiceMethod, voiceFallbackUrl, voiceFallbackMethod, statusCallback, statusCallbackMethod, voiceCallerIdLookup,
                 smsUrl, smsMethod, smsFallbackUrl, smsFallbackMethod, smsStatusCallback);
     }
@@ -539,9 +538,9 @@ public class TwilioConnector implements Initialisable {
      * @param applicationSid the application sid to use
      * @return If succesful, Twilio will return an HTTP 204 response with no body.
      */
-    @Operation
-    public String deleteApplication(@Parameter(optional = true) String accountSid,
-                                    @Parameter String applicationSid) {
+    @Processor
+    public String deleteApplication(@Optional String accountSid,
+                                    String applicationSid) {
         return twilioClient.deleteApplication(accountSid, applicationSid);
     }
 
@@ -553,9 +552,9 @@ public class TwilioConnector implements Initialisable {
      * @param friendlyName Only return the Application resources with friendly names that exactly match this name.
      * @return a list of Application resource representations
      */
-    @Operation
-    public String getAllApplications(@Parameter(optional = true) String accountSid,
-                                     @Parameter(optional = true) String friendlyName) {
+    @Processor
+    public String getAllApplications(@Optional String accountSid,
+                                     @Optional String friendlyName) {
         return twilioClient.getAllApplications(accountSid, friendlyName);
     }
 
@@ -579,22 +578,22 @@ public class TwilioConnector implements Initialisable {
      * @param smsStatusCallback    Twilio will make a POST request to this URL to pass status parameters (such as sent or failed) to your application if you specify this application's Sid as the ApplicationSid on an outgoing SMS request.
      * @return If successful, Twilio responds with a representation of the new application.
      */
-    @Operation
-    public String createApplication(@Parameter(optional = true) String accountSid,
-                                    @Parameter String friendlyName,
-                                    @Parameter(optional = true) String apiVersion,
-                                    @Parameter(optional = true) String voiceUrl,
-                                    @Parameter(optional = true) HttpMethod voiceMethod,
-                                    @Parameter(optional = true) String voiceFallbackUrl,
-                                    @Parameter(optional = true) HttpMethod voiceFallbackMethod,
-                                    @Parameter(optional = true) String statusCallback,
-                                    @Parameter(optional = true) HttpMethod statusCallbackMethod,
-                                    @Parameter(optional = true) Boolean voiceCallerIdLookup,
-                                    @Parameter(optional = true) String smsUrl,
-                                    @Parameter(optional = true) HttpMethod smsMethod,
-                                    @Parameter(optional = true) String smsFallbackUrl,
-                                    @Parameter(optional = true) HttpMethod smsFallbackMethod,
-                                    @Parameter(optional = true) String smsStatusCallback) {
+    @Processor
+    public String createApplication(@Optional String accountSid,
+                                    String friendlyName,
+                                    @Optional String apiVersion,
+                                    @Optional String voiceUrl,
+                                    @Optional HttpMethod voiceMethod,
+                                    @Optional String voiceFallbackUrl,
+                                    @Optional HttpMethod voiceFallbackMethod,
+                                    @Optional String statusCallback,
+                                    @Optional HttpMethod statusCallbackMethod,
+                                    @Optional Boolean voiceCallerIdLookup,
+                                    @Optional String smsUrl,
+                                    @Optional HttpMethod smsMethod,
+                                    @Optional String smsFallbackUrl,
+                                    @Optional HttpMethod smsFallbackMethod,
+                                    @Optional String smsStatusCallback) {
         return twilioClient.createApplication(accountSid, friendlyName, apiVersion, voiceUrl, voiceMethod,
                 voiceFallbackUrl, voiceFallbackMethod, statusCallback, statusCallbackMethod, voiceCallerIdLookup, smsUrl,
                 smsMethod, smsFallbackUrl, smsFallbackMethod, smsStatusCallback);
@@ -610,9 +609,9 @@ public class TwilioConnector implements Initialisable {
      * @param callSid    the call sid to use in the query
      * @return the single Call resource identified by the given call sid.
      */
-    @Operation
-    public String getCall(@Parameter(optional = true) String accountSid,
-                          @Parameter String callSid) {
+    @Processor
+    public String getCall(@Optional String accountSid,
+                          String callSid) {
         return twilioClient.getCall(accountSid, callSid);
     }
 
@@ -627,12 +626,12 @@ public class TwilioConnector implements Initialisable {
      * @param startTime  Only show calls that started on this date, given as YYYY-MM-DD. Also supports inequalities, such as StartTime<=YYYY-MM-DD for calls that started at or before midnight on a date, and StartTime>=YYYY-MM-DD for calls that started at or after midnight on a date.
      * @return a list of phone calls made to and from the account identified by the given account sid
      */
-    @Operation
-    public String getCalls(@Parameter(optional = true) String accountSid,
-                           @Parameter(optional = true) String to,
-                           @Parameter(optional = true) String from,
-                           @Parameter(optional = true) String status,
-                           @Parameter(optional = true) String startTime) {
+    @Processor
+    public String getCalls(@Optional String accountSid,
+                           @Optional String to,
+                           @Optional String from,
+                           @Optional String status,
+                           @Optional String startTime) {
         return twilioClient.getCalls(accountSid, to, from, status, startTime);
     }
 
@@ -655,20 +654,20 @@ public class TwilioConnector implements Initialisable {
      * @param timeout              The integer number of seconds that Twilio should allow the phone to ring before assuming there is no answer. Default is 60 seconds, the maximum is 999 seconds. Note, you could set this to a low value, such as 15, to hangup before reaching an answering machine or voicemail.
      * @return the call representation.
      */
-    @Operation
-    public String makeCall(@Parameter(optional = true) String accountSid,
-                           @Parameter String from,
-                           @Parameter String to,
-                           @Parameter(optional = true) String url,
-                           @Parameter(optional = true) String applicationSid,
-                           @Parameter(optional = true) String method,
-                           @Parameter(optional = true) String fallbackUrl,
-                           @Parameter(optional = true) HttpMethod fallbackMethod,
-                           @Parameter(optional = true) String statusCallback,
-                           @Parameter(optional = true) HttpMethod statusCallbackMethod,
-                           @Parameter(optional = true) String sendDigits,
-                           @Parameter(optional = true) String ifMachine,
-                           @Parameter(optional = true) String timeout) {
+    @Processor
+    public String makeCall(@Optional String accountSid,
+                           String from,
+                           String to,
+                           @Optional String url,
+                           @Optional String applicationSid,
+                           @Optional String method,
+                           @Optional String fallbackUrl,
+                           @Optional HttpMethod fallbackMethod,
+                           @Optional String statusCallback,
+                           @Optional HttpMethod statusCallbackMethod,
+                           @Optional String sendDigits,
+                           @Optional String ifMachine,
+                           @Optional String timeout) {
         return twilioClient.makeCall(accountSid, from, to, url, applicationSid, method, fallbackUrl, fallbackMethod,
                 statusCallback, statusCallbackMethod, sendDigits, ifMachine, timeout);
     }
@@ -684,12 +683,12 @@ public class TwilioConnector implements Initialisable {
      * @param status     Either canceled or completed. Specifying canceled will attempt to hangup calls that are queued or ringing but not affect calls already in progress. Specifying completed will attempt to hang up a call even if it's already in progress.
      * @return the call representation
      */
-    @Operation
-    public String changeCallState(@Parameter(optional = true) String accountSid,
-                                  @Parameter String callSid,
-                                  @Parameter(optional = true) String url,
-                                  @Parameter(optional = true) HttpMethod method,
-                                  @Parameter(optional = true) String status) {
+    @Processor
+    public String changeCallState(@Optional String accountSid,
+                                  String callSid,
+                                  @Optional String url,
+                                  @Optional HttpMethod method,
+                                  @Optional String status) {
         return twilioClient.changeCallState(accountSid, callSid, url, method, status);
     }
 
@@ -701,9 +700,9 @@ public class TwilioConnector implements Initialisable {
      * @param conferenceSid the conference sid to use in the query
      * @return a representation of the conference identified by the given conference id.
      */
-    @Operation
-    public String getConference(@Parameter(optional = true) String accountSid,
-                                @Parameter String conferenceSid) {
+    @Processor
+    public String getConference(@Optional String accountSid,
+                                String conferenceSid) {
         return twilioClient.getConference(accountSid, conferenceSid);
     }
 
@@ -718,12 +717,12 @@ public class TwilioConnector implements Initialisable {
      * @param dateUpdated  Only show conferences that were last updated on this date, given as YYYY-MM-DD. You can also specify inequality, such as DateUpdated<=YYYY-MM-DD for conferences that were last updated at or before midnight on a date, and DateUpdated>=YYYY-MM-DD for conferences that were updated at or after midnight on a date.
      * @return a list of conferences within an account
      */
-    @Operation
-    public String getConferences(@Parameter(optional = true) String accountSid,
-                                 @Parameter(optional = true) String status,
-                                 @Parameter(optional = true) String friendlyName,
-                                 @Parameter(optional = true) String dateCreated,
-                                 @Parameter(optional = true) String dateUpdated) {
+    @Processor
+    public String getConferences(@Optional String accountSid,
+                                 @Optional String status,
+                                 @Optional String friendlyName,
+                                 @Optional String dateCreated,
+                                 @Optional String dateUpdated) {
         return twilioClient.getConferences(accountSid, status, friendlyName, dateCreated, dateUpdated);
     }
 
@@ -736,10 +735,10 @@ public class TwilioConnector implements Initialisable {
      * @param callSid       the call sid to use in the query
      * @return a representation of this participant.
      */
-    @Operation
-    public String getParticipant(@Parameter(optional = true) String accountSid,
-                                 @Parameter String conferenceSid,
-                                 @Parameter String callSid) {
+    @Processor
+    public String getParticipant(@Optional String accountSid,
+                                 String conferenceSid,
+                                 String callSid) {
         return twilioClient.getParticipant(accountSid, conferenceSid, callSid);
     }
 
@@ -752,11 +751,11 @@ public class TwilioConnector implements Initialisable {
      * @param muted         Specifying true will mute the participant, while false will un-mute.
      * @return the participant representation
      */
-    @Operation
-    public String updateParticipantStatus(@Parameter(optional = true) String accountSid,
-                                          @Parameter String conferenceSid,
-                                          @Parameter String callSid,
-                                          @Parameter Boolean muted) {
+    @Processor
+    public String updateParticipantStatus(@Optional String accountSid,
+                                          String conferenceSid,
+                                          String callSid,
+                                          Boolean muted) {
         return twilioClient.updateParticipantStauts(accountSid, conferenceSid, callSid, muted);
 
     }
@@ -769,10 +768,10 @@ public class TwilioConnector implements Initialisable {
      * @param callSid       the call sid to use
      * @return Returns HTTP 204 (No Content), with no body, if the participant was successfuly booted from the conference.
      */
-    @Operation
-    public String deleteParticipant(@Parameter(optional = true) String accountSid,
-                                    @Parameter String conferenceSid,
-                                    @Parameter String callSid) {
+    @Processor
+    public String deleteParticipant(@Optional String accountSid,
+                                    String conferenceSid,
+                                    String callSid) {
         return twilioClient.deleteParticipant(accountSid, conferenceSid, callSid);
     }
 
@@ -784,10 +783,10 @@ public class TwilioConnector implements Initialisable {
      * @param muted         Only show participants that are muted or unmuted. Either true or false.
      * @return he list of participants in the conference identified by the given conference sid.
      */
-    @Operation
-    public String getParticipants(@Parameter(optional = true) String accountSid,
-                                  @Parameter String conferenceSid,
-                                  @Parameter(optional = true) Boolean muted) {
+    @Processor
+    public String getParticipants(@Optional String accountSid,
+                                  String conferenceSid,
+                                  @Optional Boolean muted) {
         return twilioClient.getParticipants(accountSid, conferenceSid, muted);
     }
 
@@ -798,9 +797,9 @@ public class TwilioConnector implements Initialisable {
      * @param smsMessageSid the SMS message sid to use in the query.
      * @return a single SMS message specified by the provided SMS message sid.
      */
-    @Operation
-    public String getSmsMessage(@Parameter(optional = true) String accountSid,
-                                @Parameter String smsMessageSid) {
+    @Processor
+    public String getSmsMessage(@Optional String accountSid,
+                                String smsMessageSid) {
         return twilioClient.getSmsMessage(accountSid, smsMessageSid);
     }
 
@@ -813,11 +812,11 @@ public class TwilioConnector implements Initialisable {
      * @param dateSent   Only show SMS messages sent on this date, given as YYYY-MM-DD. Example: DateSent=2009-07-06. You can also specify inequality, such as DateSent<=YYYY-MM-DD for SMS messages that were sent on or before midnight on a date, and DateSent>=YYYY-MM-DD for SMS messages sent on or after midnight on a date.
      * @return a list of SMS messages associated with your account
      */
-    @Operation
-    public String getAllSmsMessages(@Parameter(optional = true) String accountSid,
-                                    @Parameter(optional = true) String to,
-                                    @Parameter(optional = true) String from,
-                                    @Parameter(optional = true) String dateSent) {
+    @Processor
+    public String getAllSmsMessages(@Optional String accountSid,
+                                    @Optional String to,
+                                    @Optional String from,
+                                    @Optional String dateSent) {
         return twilioClient.getAllSmsMessages(accountSid, to, from, dateSent);
     }
 
@@ -832,13 +831,13 @@ public class TwilioConnector implements Initialisable {
      * @param applicationSid Twilio will POST SmsSid as well as SmsStatus=sent or SmsStatus=failed to the URL in the SmsStatusCallback property of this Application. If the StatusCallback parameter above is also passed, the Application's SmsStatusCallback parameter will take precedence.
      * @return the SMS message representation.
      */
-    @Operation
-    public String sendSmsMessage(@Parameter(optional = true) String accountSid,
-                                 @Parameter String from,
-                                 @Parameter String to,
-                                 @Parameter String body,
-                                 @Parameter(optional = true) String statusCallback,
-                                 @Parameter(optional = true) String applicationSid) {
+    @Processor
+    public String sendSmsMessage(@Optional String accountSid,
+                                 String from,
+                                 String to,
+                                 String body,
+                                 @Optional String statusCallback,
+                                 @Optional String applicationSid) {
         return twilioClient.sendSmsMessage(accountSid, from, to, body, statusCallback, applicationSid);
     }
 
@@ -850,10 +849,10 @@ public class TwilioConnector implements Initialisable {
      * @param recordingType the recording type to use
      * @return a recording representation.
      */
-    @Operation
-    public String getRecording(@Parameter(optional = true) String accountSid,
-                               @Parameter String recordingSid,
-                               @Parameter RecordingType recordingType) {
+    @Processor
+    public String getRecording(@Optional String accountSid,
+                               String recordingSid,
+                               RecordingType recordingType) {
         return twilioClient.getRecording(accountSid, recordingSid, recordingType);
     }
 
@@ -864,8 +863,8 @@ public class TwilioConnector implements Initialisable {
      * @param recordingSid the recording sid to use.
      * @return If successful, returns HTTP 204 (No Content) with no body.
      */
-    @Operation
-    public String deleteRecording(@Parameter(optional = true) String accountSid, @Parameter String recordingSid) {
+    @Processor
+    public String deleteRecording(@Optional String accountSid, String recordingSid) {
         return twilioClient.deleteRecording(accountSid, recordingSid);
 
     }
@@ -878,10 +877,10 @@ public class TwilioConnector implements Initialisable {
      * @param dateCreated Only show recordings created on the given date. Should be formatted as YYYY-MM-DD. You can also specify inequality, such as DateCreated<=YYYY-MM-DD for recordings generated at or before midnight on a date, and DateCreated>=YYYY-MM-DD for recordings generated at or after midnight on a date.
      * @return a list of Recording resource representations.
      */
-    @Operation
-    public String getRecordings(@Parameter(optional = true) String accountSid,
-                                @Parameter(optional = true) String callSid,
-                                @Parameter(optional = true) String dateCreated) {
+    @Processor
+    public String getRecordings(@Optional String accountSid,
+                                @Optional String callSid,
+                                @Optional String dateCreated) {
         return twilioClient.getRecordings(accountSid, callSid, dateCreated);
     }
 
@@ -893,10 +892,10 @@ public class TwilioConnector implements Initialisable {
      * @param transcriptionFormat the transcription format of the response
      * @return a single Transcription resource representation identified by the given transcription sid.
      */
-    @Operation
-    public String getTranscriptionByTranscriptionSid(@Parameter(optional = true) String accountSid,
-                                                     @Parameter String transcriptionSid,
-                                                     @Parameter TranscriptionFormat transcriptionFormat) {
+    @Processor
+    public String getTranscriptionByTranscriptionSid(@Optional String accountSid,
+                                                     String transcriptionSid,
+                                                     TranscriptionFormat transcriptionFormat) {
         return twilioClient.getTranscriptionByTranscriptionSid(accountSid, transcriptionSid, transcriptionFormat);
     }
 
@@ -908,10 +907,10 @@ public class TwilioConnector implements Initialisable {
      * @param transcriptionFormat the transcription format for the response
      * @return a set of Transcription resource representations
      */
-    @Operation
-    public String getTranscriptions(@Parameter(optional = true) String accountSid,
-                                    @Parameter(optional = true) String recordingSid,
-                                    @Parameter TranscriptionFormat transcriptionFormat) {
+    @Processor
+    public String getTranscriptions(@Optional String accountSid,
+                                    @Optional String recordingSid,
+                                    TranscriptionFormat transcriptionFormat) {
         return twilioClient.getTranscriptions(accountSid, recordingSid, transcriptionFormat);
     }
 
@@ -922,8 +921,8 @@ public class TwilioConnector implements Initialisable {
      * @param notificationSid the notification sid to use in the query
      * @return a notificaction resource for the given notification sid.
      */
-    @Operation
-    public String getNotification(@Parameter(optional = true) String accountSid, @Parameter String notificationSid) {
+    @Processor
+    public String getNotification(@Optional String accountSid, String notificationSid) {
         return twilioClient.getNotification(accountSid, notificationSid);
     }
 
@@ -934,8 +933,8 @@ public class TwilioConnector implements Initialisable {
      * @param notificationSid the notification sid to use
      * @return If successful, returns HTTP status 204 (No Content) with no body.
      */
-    @Operation
-    public String deleteNotification(@Parameter(optional = true) String accountSid, @Parameter String notificationSid) {
+    @Processor
+    public String deleteNotification(@Optional String accountSid, String notificationSid) {
         return twilioClient.deleteNotification(accountSid, notificationSid);
     }
 
@@ -947,10 +946,10 @@ public class TwilioConnector implements Initialisable {
      * @param messageDate Only show notifications for this date. Should be formatted as YYYY-MM-DD. You can also specify inequality, such as MessageDate<=YYYY-MM-DD for messages logged at or before midnight on a date, and MessageDate>=YYYY-MM-DD for messages logged at or after midnight on a date.
      * @return a list of notifications generated for an account
      */
-    @Operation
-    public String getAllNotifications(@Parameter(optional = true) String accountSid,
-                                      @Parameter(optional = true) Integer log,
-                                      @Parameter(optional = true) String messageDate) {
+    @Processor
+    public String getAllNotifications(@Optional String accountSid,
+                                      @Optional Integer log,
+                                      @Optional String messageDate) {
         return twilioClient.getAllNotifications(accountSid, log, messageDate);
     }
 
@@ -963,11 +962,11 @@ public class TwilioConnector implements Initialisable {
      * @param messageDate Only show notifications for this date. Should be formatted as YYYY-MM-DD. You can also specify inequality, such as MessageDate<=YYYY-MM-DD for messages logged at or before midnight on a date, and MessageDate>=YYYY-MM-DD for messages logged at or after midnight on a date.
      * @return a list of notifications generated for an account for the given call sid.
      */
-    @Operation
-    public String getNotificationsByCallSid(@Parameter(optional = true) String accountSid,
-                                            @Parameter String callSid,
-                                            @Parameter(optional = true) Integer log,
-                                            @Parameter(optional = true) String messageDate) {
+    @Processor
+    public String getNotificationsByCallSid(@Optional String accountSid,
+                                            String callSid,
+                                            @Optional Integer log,
+                                            @Optional String messageDate) {
         return twilioClient.getNotifications(accountSid, callSid, log, messageDate);
     }
 
@@ -980,8 +979,8 @@ public class TwilioConnector implements Initialisable {
      * @param accountSid the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @return the Sandbox resource associated with the account identified by {YourAccountSid}. Twilio accounts upgraded prior to February 2010 may not have a Sandbox resource, and in this case you will receive a 404 (Not Found) response.
      */
-    @Operation
-    public String getSandbox(@Parameter(optional = true) String accountSid) {
+    @Processor
+    public String getSandbox(@Optional String accountSid) {
         return twilioClient.getSandbox(accountSid);
     }
 
@@ -998,12 +997,12 @@ public class TwilioConnector implements Initialisable {
      * @param smsMethod   The HTTP method that should be used to request the SmsUrl. Must be either GET or POST. Defaults to POST.
      * @return If successful, Twilio responds with an updated representation of the sandbox.
      */
-    @Operation
-    public String updateSandbox(@Parameter(optional = true) String accountSid,
-                                @Parameter(optional = true) String voiceUrl,
-                                @Parameter(optional = true) HttpMethod voiceMethod,
-                                @Parameter(optional = true) String smsUrl,
-                                @Parameter(optional = true) HttpMethod smsMethod) {
+    @Processor
+    public String updateSandbox(@Optional String accountSid,
+                                @Optional String voiceUrl,
+                                @Optional HttpMethod voiceMethod,
+                                @Optional String smsUrl,
+                                @Optional HttpMethod smsMethod) {
         return twilioClient.updateSandbox(accountSid, voiceUrl, voiceMethod, smsUrl, smsMethod);
     }
 
