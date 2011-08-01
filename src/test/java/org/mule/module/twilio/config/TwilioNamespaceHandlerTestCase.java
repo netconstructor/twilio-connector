@@ -3,15 +3,28 @@
  */
 package org.mule.module.twilio.config;
 
+import org.mule.api.MuleContext;
 import org.mule.api.MuleEvent;
 import org.mule.construct.SimpleFlowConstruct;
 import org.mule.tck.FunctionalTestCase;
+import org.mule.transport.http.HttpConnector;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
+
+    private static final String CALLBACK_URL = "http://localhost:";
 
     @Override
     protected String getConfigResources() {
         return "twilio-namespace-config.xml";
+    }
+
+    @Override
+    protected MuleContext createMuleContext() throws Exception {
+        MuleContext muleContext = super.createMuleContext();
+        muleContext.getRegistry().registerObject("connector.http.mule.default", new HttpConnector(muleContext));
+        return muleContext;
     }
 
     public void testGetAccoundDetails() throws Exception {
@@ -159,12 +172,23 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testUpdateIncomingPhoneNumbers() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("updateIncomingPhoneNumbers");
-        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
-        String expectedMethod = "POST";
-        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/IncomingPhoneNumbers/some-incoming-phone-number-sid";
-        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, AccountSid=some-account-sid-destination, FriendlyName=some-friendly-name, VoiceApplicationSid=some-voice-application-sid, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, ApiVersion=2010-04-01, VoiceFallbackMethod=GET, VoiceMethod=GET, StatusCallback=some-status-callback, SmsApplicationSid=some-sms-application-sid, SmsFallbackMethod=GET, VoiceCallerIdLookup=true, StatusCallbackMethod=GET, SmsFallbackUrl=some-fallback-url, SmsMethod=GET}";
-        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+        RequestToTwilio requestToTwilio = runFlow("updateIncomingPhoneNumbers");
+        assertEquals("POST", requestToTwilio.getHttpMethod());
+        assertEquals("/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/IncomingPhoneNumbers/some-incoming-phone-number-sid", requestToTwilio.getUrl());
+        assertThat(requestToTwilio.getParameters()).
+                contains("VoiceUrl=some-voice-url").
+                contains("VoiceMethod=GET").
+                contains("SmsUrl=some-sms-url").
+                contains("SmsMethod=GET").
+                contains("ApiVersion=2010-04-01").
+                contains("VoiceFallbackUrl=" + CALLBACK_URL).
+                contains("VoiceFallbackMethod=GET").
+                contains("StatusCallback=" + CALLBACK_URL).
+                contains("StatusCallbackMethod=GET").
+                contains("SmsApplicationSid=some-sms-application-sid").
+                contains("VoiceCallerIdLookup=true").
+                contains("SmsFallbackUrl=" + CALLBACK_URL).
+                contains("SmsFallbackMethod=GET");
     }
 
     public void testDeleteIncomingPhoneNumber() throws Exception {
@@ -186,21 +210,47 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testAddIncomingPhoneNumberByPhoneNumber() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("addIncomingPhoneNumberByPhoneNumber");
-        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
-        String expectedMethod = "POST";
-        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/IncomingPhoneNumbers";
-        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, FriendlyName=some-friendly-name, PhoneNumber=some-phone-number, VoiceApplicationSid=some-voice-application-sid, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, VoiceFallbackMethod=GET, VoiceMethod=GET, StatusCallback=some-status-callback, SmsApplicationSid=some-sms-application-sid, SmsFallbackMethod=GET, VoiceCallerIdLookup=false, StatusCallbackMethod=GET, SmsFallbackUrl=some-fallback-url, SmsMethod=GET}";
-        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+        RequestToTwilio requestToTwilio = runFlow("addIncomingPhoneNumberByPhoneNumber");
+        assertEquals("POST", requestToTwilio.getHttpMethod());
+        assertEquals("/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/IncomingPhoneNumbers", requestToTwilio.getUrl());
+        assertThat(requestToTwilio.getParameters()).
+                contains("VoiceFallbackUrl=" + CALLBACK_URL).
+                contains("FriendlyName=some-friendly-name").
+                contains("VoiceApplicationSid=some-voice-application-sid").
+                contains("VoiceUrl=some-voice-url").
+                contains("SmsUrl=some-sms-url").
+                contains("VoiceFallbackMethod=GET").
+                contains("VoiceMethod=GET").
+                contains("PhoneNumber=some-phone-number").
+                contains("StatusCallback=" + CALLBACK_URL).
+                contains("StatusCallbackMethod=GET").
+                contains("SmsApplicationSid=some-sms-application-sid").
+                contains("SmsFallbackMethod=GET").
+                contains("VoiceCallerIdLookup=false").
+                contains("SmsFallbackUrl=" + CALLBACK_URL).
+                contains("SmsMethod=GET");
     }
 
     public void testAddIncomingPhoneNumberByAreaCode() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("addIncomingPhoneNumberByAreaCode");
-        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
-        String expectedMethod = "POST";
-        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/IncomingPhoneNumbers";
-        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, FriendlyName=some-friendly-name, VoiceApplicationSid=some-voice-application-sid, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, VoiceFallbackMethod=GET, VoiceMethod=GET, AreaCode=some-area-code, StatusCallback=some-status-callback, SmsApplicationSid=some-sms-application-sid, SmsFallbackMethod=GET, VoiceCallerIdLookup=false, StatusCallbackMethod=GET, SmsFallbackUrl=some-fallback-url, SmsMethod=GET}";
-        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+        RequestToTwilio requestToTwilio = runFlow("addIncomingPhoneNumberByAreaCode");
+        assertEquals("POST", requestToTwilio.getHttpMethod());
+        assertEquals("/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/IncomingPhoneNumbers", requestToTwilio.getUrl());
+        assertThat(requestToTwilio.getParameters()).
+                contains("VoiceFallbackUrl=" + CALLBACK_URL).
+                contains("FriendlyName=some-friendly-name").
+                contains("VoiceApplicationSid=some-voice-application-sid").
+                contains("VoiceUrl=some-voice-url").
+                contains("SmsUrl=some-sms-url").
+                contains("VoiceFallbackMethod=GET").
+                contains("VoiceMethod=GET").
+                contains("AreaCode=some-area-code").
+                contains("StatusCallback=" + CALLBACK_URL).
+                contains("StatusCallbackMethod=GET").
+                contains("SmsApplicationSid=some-sms-application-sid").
+                contains("SmsFallbackMethod=GET").
+                contains("VoiceCallerIdLookup=false").
+                contains("SmsFallbackUrl=" + CALLBACK_URL).
+                contains("SmsMethod=GET");
     }
 
     public void testGetApplication() throws Exception {
@@ -213,12 +263,24 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testUpdateApplication() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("updateApplication");
-        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
-        String expectedMethod = "POST";
-        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Applications/some-application-sid";
-        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, FriendlyName=some-friendly-name, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, ApiVersion=2010-04-01, VoiceFallbackMethod=GET, VoiceMethod=GET, StatusCallback=some-status-callback, SmsFallbackMethod=GET, SmsStatusCallback=some-status-callback, VoiceCallerIdLookup=false, StatusCallbackMethod=GET, SmsFallbackUrl=some-fallback-url, SmsMethod=GET}";
-        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+        RequestToTwilio requestToTwilio = runFlow("updateApplication");
+        assertEquals("POST", requestToTwilio.getHttpMethod());
+        assertEquals("/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Applications/some-application-sid", requestToTwilio.getUrl());
+        assertThat(requestToTwilio.getParameters()).
+                contains("VoiceFallbackUrl=" + CALLBACK_URL).
+                contains("FriendlyName=some-friendly-name").
+                contains("VoiceUrl=some-voice-url").
+                contains("SmsUrl=some-sms-url").
+                contains("ApiVersion=2010-04-01").
+                contains("VoiceFallbackMethod=GET").
+                contains("VoiceMethod=GET").
+                contains("StatusCallback=" + CALLBACK_URL).
+                contains("SmsFallbackMethod=GET").
+                contains("SmsStatusCallback=" + CALLBACK_URL).
+                contains("VoiceCallerIdLookup=false").
+                contains("StatusCallbackMethod=GET").
+                contains("SmsFallbackUrl=" + CALLBACK_URL).
+                contains("SmsMethod=GET");
     }
 
     public void testDeleteApplication() throws Exception {
@@ -240,12 +302,24 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testCreateApplication() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("createApplication");
-        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
-        String expectedMethod = "POST";
-        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Applications/";
-        String expectedParams = "{VoiceFallbackUrl=some-voice-fallback-url, FriendlyName=some-friendly-name, VoiceUrl=some-voice-url, SmsUrl=some-sms-url, ApiVersion=2010-04-01, VoiceFallbackMethod=GET, VoiceMethod=GET, StatusCallback=some-status-callback, SmsFallbackMethod=GET, SmsStatusCallback=some-status-callback, VoiceCallerIdLookup=false, StatusCallbackMethod=GET, SmsFallbackUrl=some-fallback-url, SmsMethod=GET}";
-        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+        RequestToTwilio requestToTwilio = runFlow("createApplication");
+        assertEquals("POST", requestToTwilio.getHttpMethod());
+        assertEquals("/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Applications/", requestToTwilio.getUrl());
+        assertThat(requestToTwilio.getParameters()).
+                contains("VoiceFallbackUrl=" + CALLBACK_URL).
+                contains("FriendlyName=some-friendly-name").
+                contains("VoiceUrl=some-voice-url").
+                contains("SmsUrl=some-sms-url").
+                contains("ApiVersion=2010-04-01").
+                contains("VoiceFallbackMethod=GET").
+                contains("VoiceMethod=GET").
+                contains("StatusCallback=" + CALLBACK_URL).
+                contains("SmsFallbackMethod=GET").
+                contains("SmsStatusCallback=" + CALLBACK_URL).
+                contains("VoiceCallerIdLookup=false").
+                contains("StatusCallbackMethod=GET").
+                contains("SmsFallbackUrl=" + CALLBACK_URL).
+                contains("SmsMethod=GET");
     }
 
     public void testGetCall() throws Exception {
@@ -267,12 +341,21 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testMakeCall() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("makeCall");
-        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
-        String expectedMethod = "POST";
-        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Calls/";
-        String expectedParams = "{SendDigits=some-digits, ApplicationSid=some-application-sid, FallbackMethod=GET, Timeout=123, IfMachine=continue, StatusCallback=some-status-callback, Method=GET, To=some-to, StatusCallbackMethod=GET, FallbackUrl=some-url, From=some-from}";
-        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+        RequestToTwilio requestToTwilio = runFlow("makeCall");
+        assertEquals("POST", requestToTwilio.getHttpMethod());
+        assertEquals("/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Calls/", requestToTwilio.getUrl());
+        assertThat(requestToTwilio.getParameters()).
+                contains("SendDigits=some-digits").
+                contains("ApplicationSid=some-application-sid").
+                contains("FallbackMethod=GET").
+                contains("Timeout=123").
+                contains("IfMachine=continue").
+                contains("StatusCallback=" + CALLBACK_URL).
+                contains("Method=GET").
+                contains("To=some-to").
+                contains("StatusCallbackMethod=GET").
+                contains("FallbackUrl=" + CALLBACK_URL).
+                contains("From=some-from");
     }
 
     public void testChangeCallState() throws Exception {
@@ -357,12 +440,15 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testSendSmsMessage() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("sendSmsMessage");
-        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
-        String expectedMethod = "POST";
-        String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/SMS/Messages/";
-        String expectedParams = "{ApplicationSid=some-application-sid, Body=some-body, StatusCallback=some-status-callback, To=some-to, From=some-from}";
-        assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
+        RequestToTwilio requestToTwilio = runFlow("sendSmsMessage");
+        assertEquals("POST", requestToTwilio.getHttpMethod());
+        assertEquals("/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/SMS/Messages/", requestToTwilio.getUrl());
+        assertThat(requestToTwilio.getParameters()).
+                contains("ApplicationSid=some-application-sid").
+                contains("Body=some-body").
+                contains("StatusCallback=" + CALLBACK_URL).
+                contains("To=some-to").
+                contains("From=some-from");
     }
 
     public void testGetRecording() throws Exception {
@@ -466,5 +552,40 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
 
     private SimpleFlowConstruct lookupFlowConstruct(String name) {
         return (SimpleFlowConstruct) muleContext.getRegistry().lookupFlowConstruct(name);
+    }
+
+    private RequestToTwilio runFlow(String flowName) throws Exception {
+        SimpleFlowConstruct flow = lookupFlowConstruct(flowName);
+        MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
+        String request = responseEvent.getMessage().getPayloadAsString();
+        String httpMethod = request.substring(0, request.indexOf(" "));
+        String uri = request.substring(request.indexOf("/"), request.indexOf("{")).trim();
+        String parameters = request.substring(request.indexOf("{"));
+        return new RequestToTwilio(httpMethod, uri, parameters);
+    }
+
+    private final class RequestToTwilio {
+
+        private String httpMethod;
+        private String url;
+        private String parameters;
+
+        private RequestToTwilio(String httpMethod, String url, String parameters) {
+            this.httpMethod = httpMethod;
+            this.url = url;
+            this.parameters = parameters;
+        }
+
+        public String getHttpMethod() {
+            return httpMethod;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public String getParameters() {
+            return parameters;
+        }
     }
 }

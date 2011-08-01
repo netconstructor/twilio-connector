@@ -103,15 +103,15 @@
         <twilio:update-incoming-phone-numbers accountSid="AC970e46372f082a4947642b9cf19cafa7"
                                               incomingPhoneNumberSid="some-incoming-phone-number-sid"
                                               friendlyName="some-friendly-name" apiVersion="2010-04-01"
-                                              voiceUrl="some-voice-url" voiceMethod="GET"
-                                              voiceFallbackUrl="some-voice-fallback-url"
-                                              voiceFallbackMethod="GET"
-                                              statusCallback="some-status-callback"
-                                              statusCallbackMethod="GET"
+                                              voiceUrl="some-voice-url"
+                                              voiceMethod="GET"
+                                              voice-fallback-flow-ref="flowToExecuteOnVoiceFallback"
+                                              status-callback-flow-ref="flowToExecuteOnStatusCallback"
                                               voiceCallerIdLookup="true"
-                                              voiceApplicationSid="some-voice-application-sid" smsUrl="some-sms-url"
-                                              smsMethod="GET" smsFallbackUrl="some-fallback-url"
-                                              smsFallbackMethod="GET"
+                                              voiceApplicationSid="some-voice-application-sid"
+                                              smsUrl="some-sms-url"
+                                              smsMethod="GET"
+                                              sms-fallback-flow-ref="flowToExecuteOnSmsFallback"
                                               smsApplicationSid="some-sms-application-sid"
                                               accountSidDestination="some-account-sid-destination"/>
     </flow>
@@ -129,32 +129,32 @@
     <flow name="addIncomingPhoneNumberByPhoneNumber">
         <twilio:add-incoming-phone-number-by-phone-number accountSid="AC970e46372f082a4947642b9cf19cafa7"
                                                           phoneNumber="some-phone-number"
-                                                          friendlyName="some-friendly-name" voiceUrl="some-voice-url"
+                                                          friendlyName="some-friendly-name"
+                                                          voiceUrl="some-voice-url"
                                                           voiceMethod="GET"
-                                                          voiceFallbackUrl="some-voice-fallback-url"
-                                                          voiceFallbackMethod="GET"
+                                                          voice-fallback-flow-ref="flowToExecuteOnVoiceFallback"
                                                           smsApplicationSid="some-sms-application-sid"
-                                                          smsFallbackMethod="GET"
-                                                          smsFallbackUrl="some-fallback-url" smsMethod="GET"
-                                                          smsUrl="some-sms-url" statusCallback="some-status-callback"
-                                                          statusCallbackMethod="GET"
+                                                          sms-fallback-flow-ref="flowToExecuteOnSmsFallback"
+                                                          smsUrl="some-sms-url"
+                                                          smsMethod="GET"
+                                                          status-callback-flow-ref="flowToExecuteOnStatusCallback"
                                                           voiceApplicationSid="some-voice-application-sid"
                                                           voiceCallerIdLookup="false"/>
     </flow>
 
     <flow name="addIncomingPhoneNumberByAreaCode">
         <twilio:add-incoming-phone-number-by-area-code accountSid="AC970e46372f082a4947642b9cf19cafa7"
-                                                       areaCode="some-area-code" statusCallback="some-status-callback"
-                                                       statusCallbackMethod="GET"
+                                                       areaCode="some-area-code"
+                                                       status-callback-flow-ref="flowToExecuteOnStatusCallback"
                                                        voiceApplicationSid="some-voice-application-sid"
                                                        voiceCallerIdLookup="false" friendlyName="some-friendly-name"
                                                        smsApplicationSid="some-sms-application-sid"
-                                                       smsFallbackMethod="GET"
-                                                       smsFallbackUrl="some-fallback-url" smsMethod="GET"
+                                                       sms-fallback-flow-ref="flowToExecuteOnSmsFallback"
                                                        smsUrl="some-sms-url"
-                                                       voiceFallbackMethod="GET"
-                                                       voiceFallbackUrl="some-voice-fallback-url"
-                                                       voiceMethod="GET" voiceUrl="some-voice-url"/>
+                                                       smsMethod="GET"
+                                                       voice-fallback-flow-ref="flowToExecuteOnVoiceFallback"
+                                                       voiceUrl="some-voice-url"
+                                                       voiceMethod="GET"/>
     </flow>
 
     <flow name="getApplication">
@@ -164,13 +164,15 @@
     <flow name="updateApplication">
         <twilio:update-application accountSid="AC970e46372f082a4947642b9cf19cafa7" applicationSid="some-application-sid"
                                    apiVersion="2010-04-01" friendlyName="some-friendly-name"
-                                   smsFallbackMethod="GET" smsFallbackUrl="some-fallback-url"
-                                   smsMethod="GET" smsStatusCallback="some-status-callback"
-                                   smsUrl="some-sms-url" statusCallback="some-status-callback"
-                                   statusCallbackMethod="GET" voiceCallerIdLookup="false"
-                                   voiceFallbackMethod="GET"
-                                   voiceFallbackUrl="some-voice-fallback-url" voiceMethod="GET"
-                                   voiceUrl="some-voice-url"/>
+                                   sms-fallback-flow-ref="flowToExecuteOnSmsFallback"
+                                   sms-status-callback-flow-ref="flowToExecuteOnStatusCallback"
+                                   smsUrl="some-sms-url"
+                                   smsMethod="GET"
+                                   status-callback-flow-ref="flowToExecuteOnStatusCallback"
+                                   voiceCallerIdLookup="false"
+                                   voice-fallback-flow-ref="flowToExecuteOnVoiceFallback"
+                                   voiceUrl="some-voice-url"
+                                   voiceMethod="GET"/>
     </flow>
 
     <flow name="deleteApplication">
@@ -185,13 +187,14 @@
     <flow name="createApplication">
         <twilio:create-application accountSid="AC970e46372f082a4947642b9cf19cafa7" friendlyName="some-friendly-name"
                                    apiVersion="2010-04-01" voiceCallerIdLookup="false"
-                                   smsFallbackMethod="GET" smsFallbackUrl="some-fallback-url"
-                                   smsMethod="GET" smsStatusCallback="some-status-callback"
-                                   smsUrl="some-sms-url" statusCallback="some-status-callback"
-                                   statusCallbackMethod="GET"
-                                   voiceFallbackMethod="GET"
-                                   voiceFallbackUrl="some-voice-fallback-url" voiceMethod="GET"
-                                   voiceUrl="some-voice-url"/>
+                                   sms-fallback-flow-ref="flowToExecuteOnSmsFallback"
+                                   sms-status-callback-flow-ref="flowToExecuteOnStatusCallback"
+                                   smsUrl="some-sms-url"
+                                   smsMethod="GET"
+                                   status-callback-flow-ref="flowToExecuteOnStatusCallback"
+                                   voice-fallback-flow-ref="flowToExecuteOnVoiceFallback"
+                                   voiceUrl="some-voice-url"
+                                   voiceMethod="GET"/>
     </flow>
 
     <flow name="getCall">
@@ -205,9 +208,9 @@
 
     <flow name="makeCall">
         <twilio:make-call accountSid="AC970e46372f082a4947642b9cf19cafa7" from="some-from" to="some-to"
-                          applicationSid="some-application-sid" method="GET" fallbackUrl="some-url"
-                          fallbackMethod="GET" statusCallback="some-status-callback"
-                          statusCallbackMethod="GET" sendDigits="some-digits"
+                          applicationSid="some-application-sid" method="GET" fallback-flow-ref="flowToExecuteOnFallback"
+                          status-callback-flow-ref="flowToExecuteOnStatusCallback"
+                          sendDigits="some-digits"
                           ifMachine="continue" timeout="123"/>
     </flow>
 
@@ -257,7 +260,7 @@
 
     <flow name="sendSmsMessage">
         <twilio:send-sms-message accountSid="AC970e46372f082a4947642b9cf19cafa7" from="some-from" to="some-to"
-                                 body="some-body" statusCallback="some-status-callback"
+                                 body="some-body" status-callback-flow-ref="flowToExecuteOnStatusCallback"
                                  applicationSid="some-application-sid"/>
     </flow>
 
@@ -312,7 +315,21 @@
 
     <flow name="updateSandbox">
         <twilio:update-sandbox accountSid="AC970e46372f082a4947642b9cf19cafa7" voiceUrl="some-voice-url"
-                               voiceMethod="GET" smsUrl="some-sms-url" smsMethod="GET"/>
+                               voiceMethod="GET"
+                               smsUrl="some-sms-url" smsMethod="GET"/>
     </flow>
 
+    <!-- Flows referenced in HttpCallback-->
+    <flow name="flowToExecuteOnVoiceFallback">
+        <null-component/>
+    </flow>
+    <flow name="flowToExecuteOnStatusCallback">
+        <null-component/>
+    </flow>
+    <flow name="flowToExecuteOnSmsFallback">
+        <null-component/>
+    </flow>
+    <flow name="flowToExecuteOnFallback">
+        <null-component/>
+    </flow>
 </mule>

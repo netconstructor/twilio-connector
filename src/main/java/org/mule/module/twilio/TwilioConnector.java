@@ -6,6 +6,7 @@ package org.mule.module.twilio;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.callback.HttpCallback;
 import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.param.Optional;
 
@@ -312,18 +313,15 @@ public class TwilioConnector {
      * @param incomingPhoneNumberSid the incoming phone number sid to use
      * @param friendlyName           A human readable description of the new incoming phone number resource, with maximum length 64 characters.
      * @param apiVersion             Calls to this phone number will start a new TwiML session with this API version. Either 2010-04-01 or 2008-08-01.
-     * @param voiceUrl               The URL that Twilio should request when somebody dials the phone number.
-     * @param voiceMethod            The HTTP method that should be used to request the VoiceUrl. Either GET or POST.
-     * @param voiceFallbackUrl       A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by VoiceUrl.
-     * @param voiceFallbackMethod    The HTTP method that should be used to request the VoiceFallbackUrl. Either GET or POST.
-     * @param statusCallback         The URL that Twilio will request to pass status parameters (such as call ended) to your application
-     * @param statusCallbackMethod   The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST.
+     * @param voiceUrl               The URL that Twilio should request when somebody dials the new phone number.
+     * @param voiceMethod            The HTTP method that should be used to request the VoiceUrl. Must be either GET or POST. Defaults to POST.
+     * @param voiceFallback          A flow that Twilio will request if an error occurs requesting or executing the TwiML at Url.
+     * @param statusCallback         A flow that Twilio will request to pass statusCallback parameters (such as call ended) to your application.
      * @param voiceCallerIdLookup    Do a lookup of a caller's name from the CNAM database and post it to your app. Either true or false.
      * @param voiceApplicationSid    The 34 character sid of the application Twilio should use to handle phone calls to this number. If a VoiceApplicationSid is present, Twilio will ignore all of the voice urls above and use those set on the application instead.
-     * @param smsUrl                 The URL that Twilio should request when somebody sends an SMS to the new phone number.
-     * @param smsMethod              The HTTP method that should be used to request the SmsUrl. Either GET or POST.
-     * @param smsFallbackUrl         A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl.
-     * @param smsFallbackMethod      The HTTP method that should be used to request the SmsFallbackUrl. Either GET or POST.
+     * @param smsUrl                 The URL that Twilio should request when somebody sends an SMS to the phone number.
+     * @param smsMethod              The HTTP method that should be used to request the SmsUrl. Must be either GET or POST. Defaults to POST.
+     * @param smsFallback            A flow that Twilio will request if an error occurs requesting or executing the TwiML defined by sms.
      * @param smsApplicationSid      The 34 character sid of the application Twilio should use to handle SMSs sent to this number. If a SmsApplicationSid is present, Twilio will ignore all of the SMS urls above and use those set on the application instead.
      * @param accountSidDestination  The unique 34 character id of the account to which you wish to transfer this phone number.
      * @return if successful the updated incoming phone number instance.
@@ -336,21 +334,17 @@ public class TwilioConnector {
                                              @Optional String apiVersion,
                                              @Optional String voiceUrl,
                                              @Optional HttpMethod voiceMethod,
-                                             @Optional String voiceFallbackUrl,
-                                             @Optional HttpMethod voiceFallbackMethod,
-                                             @Optional String statusCallback,
-                                             @Optional HttpMethod statusCallbackMethod,
+                                             @Optional HttpCallback voiceFallback,
+                                             @Optional HttpCallback statusCallback,
                                              @Optional Boolean voiceCallerIdLookup,
                                              @Optional String voiceApplicationSid,
                                              @Optional String smsUrl,
                                              @Optional HttpMethod smsMethod,
-                                             @Optional String smsFallbackUrl,
-                                             @Optional HttpMethod smsFallbackMethod,
+                                             @Optional HttpCallback smsFallback,
                                              @Optional String smsApplicationSid,
                                              @Optional String accountSidDestination) {
-        return twilioClient.updateIncomingPhoneNumbers(accountSid, incomingPhoneNumberSid, friendlyName, apiVersion, voiceUrl, voiceMethod, voiceFallbackUrl,
-                voiceFallbackMethod, statusCallback, statusCallbackMethod, voiceCallerIdLookup, voiceApplicationSid, smsUrl, smsMethod, smsFallbackUrl,
-                smsFallbackMethod, smsApplicationSid, accountSidDestination);
+        return twilioClient.updateIncomingPhoneNumbers(accountSid, incomingPhoneNumberSid, friendlyName, apiVersion, voiceUrl,
+                voiceMethod, voiceFallback, statusCallback, voiceCallerIdLookup, voiceApplicationSid, smsUrl, smsMethod, smsFallback, smsApplicationSid, accountSidDestination);
     }
 
     /**
@@ -388,22 +382,19 @@ public class TwilioConnector {
      * If successful, Twilio responds with a representation of the new phone number that was assigned to your account.
      * <p/>
      *
-     * @param accountSid           the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
-     * @param phoneNumber          The phone number you want to purchase. The number should be formated starting with a '+' followed by the country code and the number in E.164 format e.g., '+15105555555'.
-     * @param friendlyName         A human readable description of the new incoming phone number. Maximum 64 characters. Defaults to a formatted version of the number.
-     * @param voiceUrl             The URL that Twilio should request when somebody dials the new phone number.
-     * @param voiceMethod          The HTTP method that should be used to request the VoiceUrl. Must be either GET or POST. Defaults to POST.
-     * @param voiceFallbackUrl     A URL that Twilio will request if an error occurs requesting or executing the TwiML at Url.
-     * @param voiceFallbackMethod  The HTTP method that should be used to request the VoiceFallbackUrl. Either GET or POST. Defaults to POST.
-     * @param statusCallback       The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-     * @param statusCallbackMethod The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST. Defaults to POST.
-     * @param voiceCallerIdLookup  Do a lookup of a caller's name from the CNAM database and post it to your app. Either true or false. Defaults to false.
-     * @param voiceApplicationSid  The 34 character sid of the application Twilio should use to handle phone calls to the new number. If a VoiceApplicationSid is present, Twilio will ignore all of the voice urls above and use those set on the application.
-     * @param smsUrl               The URL that Twilio should request when somebody sends an SMS to the phone number.
-     * @param smsMethod            The HTTP method that should be used to request the SmsUrl. Must be either GET or POST. Defaults to POST.
-     * @param smsFallbackUrl       A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl.
-     * @param smsFallbackMethod    The HTTP method that should be used to request the SmsFallbackUrl. Must be either GET or POST. Defaults to POST.
-     * @param smsApplicationSid    The 34 character sid of the application Twilio should use to handle SMSs sent to the new number. If a SmsApplicationSid is present, Twilio will ignore all of the SMS urls above and use those set on the application.
+     * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param phoneNumber         The phone number you want to purchase. The number should be formated starting with a '+' followed by the country code and the number in E.164 format e.g., '+15105555555'.
+     * @param friendlyName        A human readable description of the new incoming phone number. Maximum 64 characters. Defaults to a formatted version of the number.
+     * @param voiceUrl            The URL that Twilio should request when somebody dials the new phone number.
+     * @param voiceMethod         The HTTP method that should be used to request the VoiceUrl. Must be either GET or POST. Defaults to POST.
+     * @param voiceFallback       A flow that Twilio will request if an error occurs requesting or executing the TwiML at Url.
+     * @param statusCallback      A flow that Twilio will request to pass status parameters (such as call ended) to your application.
+     * @param voiceCallerIdLookup Do a lookup of a caller's name from the CNAM database and post it to your app. Either true or false. Defaults to false.
+     * @param voiceApplicationSid The 34 character sid of the application Twilio should use to handle phone calls to the new number. If a VoiceApplicationSid is present, Twilio will ignore all of the voice urls above and use those set on the application.
+     * @param smsUrl              The URL that Twilio should request when somebody sends an SMS to the phone number.
+     * @param smsMethod           The HTTP method that should be used to request the SmsUrl. Must be either GET or POST. Defaults to POST.
+     * @param smsFallback         A flow that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl.
+     * @param smsApplicationSid   The 34 character sid of the application Twilio should use to handle SMSs sent to the new number. If a SmsApplicationSid is present, Twilio will ignore all of the SMS urls above and use those set on the application.
      * @return If successful, Twilio responds with a representation of the new phone number that was assigned to your account.
      */
     @Processor
@@ -412,19 +403,16 @@ public class TwilioConnector {
                                                       @Optional String friendlyName,
                                                       @Optional String voiceUrl,
                                                       @Optional HttpMethod voiceMethod,
-                                                      @Optional String voiceFallbackUrl,
-                                                      @Optional HttpMethod voiceFallbackMethod,
-                                                      @Optional String statusCallback,
-                                                      @Optional HttpMethod statusCallbackMethod,
+                                                      @Optional HttpCallback voiceFallback,
+                                                      @Optional HttpCallback statusCallback,
                                                       @Optional Boolean voiceCallerIdLookup,
                                                       @Optional String voiceApplicationSid,
                                                       @Optional String smsUrl,
                                                       @Optional HttpMethod smsMethod,
-                                                      @Optional String smsFallbackUrl,
-                                                      @Optional HttpMethod smsFallbackMethod,
+                                                      @Optional HttpCallback smsFallback,
                                                       @Optional String smsApplicationSid) {
-        return twilioClient.addIncomingPhoneNumberByPhoneNumber(accountSid, phoneNumber, friendlyName, voiceUrl, voiceMethod, voiceFallbackUrl, voiceFallbackMethod,
-                statusCallback, statusCallbackMethod, voiceCallerIdLookup, voiceApplicationSid, smsUrl, smsMethod, smsFallbackUrl, smsFallbackMethod, smsApplicationSid);
+        return twilioClient.addIncomingPhoneNumberByPhoneNumber(accountSid, phoneNumber, friendlyName, voiceUrl, voiceMethod, voiceFallback,
+                statusCallback, voiceCallerIdLookup, voiceApplicationSid, smsUrl, smsMethod, smsFallback, smsApplicationSid);
     }
 
     /**
@@ -432,22 +420,19 @@ public class TwilioConnector {
      * If successful, Twilio responds with a representation of the new phone number that was assigned to your account.
      * <p/>
      *
-     * @param accountSid           the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
-     * @param areaCode             The area code in which you'd like a new incoming phone number. Any three digit, US area code is valid. Twilio will provision a random phone number within this area code for you.
-     * @param friendlyName         A human readable description of the new incoming phone number. Maximum 64 characters. Defaults to a formatted version of the number.
-     * @param voiceUrl             The URL that Twilio should request when somebody dials the new phone number.
-     * @param voiceMethod          The HTTP method that should be used to request the VoiceUrl. Must be either GET or POST. Defaults to POST.
-     * @param voiceFallbackUrl     A URL that Twilio will request if an error occurs requesting or executing the TwiML at Url.
-     * @param voiceFallbackMethod  The HTTP method that should be used to request the VoiceFallbackUrl. Either GET or POST. Defaults to POST.
-     * @param statusCallback       The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-     * @param statusCallbackMethod The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST. Defaults to POST.
-     * @param voiceCallerIdLookup  Do a lookup of a caller's name from the CNAM database and post it to your app. Either true or false. Defaults to false.
-     * @param voiceApplicationSid  The 34 character sid of the application Twilio should use to handle phone calls to the new number. If a VoiceApplicationSid is present, Twilio will ignore all of the voice urls above and use those set on the application.
-     * @param smsUrl               The URL that Twilio should request when somebody sends an SMS to the phone number.
-     * @param smsMethod            The HTTP method that should be used to request the SmsUrl. Must be either GET or POST. Defaults to POST.
-     * @param smsFallbackUrl       A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl.
-     * @param smsFallbackMethod    The HTTP method that should be used to request the SmsFallbackUrl. Must be either GET or POST. Defaults to POST.
-     * @param smsApplicationSid    The 34 character sid of the application Twilio should use to handle SMSs sent to the new number. If a SmsApplicationSid is present, Twilio will ignore all of the SMS urls above and use those set on the application.
+     * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param areaCode            The area code in which you'd like a new incoming phone number. Any three digit, US area code is valid. Twilio will provision a random phone number within this area code for you.
+     * @param friendlyName        A human readable description of the new incoming phone number. Maximum 64 characters. Defaults to a formatted version of the number.
+     * @param voiceUrl            The URL that Twilio should request when somebody dials the new phone number.
+     * @param voiceMethod         The HTTP method that should be used to request the VoiceUrl. Must be either GET or POST. Defaults to POST.
+     * @param voiceFallback       A flow that Twilio will request if an error occurs requesting or executing the TwiML at Url.
+     * @param statusCallback      A flow that Twilio will request to pass status parameters (such as call ended) to your application.
+     * @param voiceCallerIdLookup Do a lookup of a caller's name from the CNAM database and post it to your app. Either true or false. Defaults to false.
+     * @param voiceApplicationSid The 34 character sid of the application Twilio should use to handle phone calls to the new number. If a VoiceApplicationSid is present, Twilio will ignore all of the voice urls above and use those set on the application.
+     * @param smsUrl              The URL that Twilio should request when somebody sends an SMS to the phone number.
+     * @param smsMethod           The HTTP method that should be used to request the SmsUrl. Must be either GET or POST. Defaults to POST.
+     * @param smsFallback         A flow that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl.
+     * @param smsApplicationSid   The 34 character sid of the application Twilio should use to handle SMSs sent to the new number. If a SmsApplicationSid is present, Twilio will ignore all of the SMS urls above and use those set on the application.
      * @return If successful, Twilio responds with a representation of the new phone number that was assigned to your account.
      */
     @Processor
@@ -456,19 +441,16 @@ public class TwilioConnector {
                                                    @Optional String friendlyName,
                                                    @Optional String voiceUrl,
                                                    @Optional HttpMethod voiceMethod,
-                                                   @Optional String voiceFallbackUrl,
-                                                   @Optional HttpMethod voiceFallbackMethod,
-                                                   @Optional String statusCallback,
-                                                   @Optional HttpMethod statusCallbackMethod,
+                                                   @Optional HttpCallback voiceFallback,
+                                                   @Optional HttpCallback statusCallback,
                                                    @Optional Boolean voiceCallerIdLookup,
                                                    @Optional String voiceApplicationSid,
                                                    @Optional String smsUrl,
                                                    @Optional HttpMethod smsMethod,
-                                                   @Optional String smsFallbackUrl,
-                                                   @Optional HttpMethod smsFallbackMethod,
+                                                   @Optional HttpCallback smsFallback,
                                                    @Optional String smsApplicationSid) {
-        return twilioClient.addIncomingPhoneNumberByAreaCode(accountSid, areaCode, friendlyName, voiceUrl, voiceMethod, voiceFallbackUrl, voiceFallbackMethod,
-                statusCallback, statusCallbackMethod, voiceCallerIdLookup, voiceApplicationSid, smsUrl, smsMethod, smsFallbackUrl, smsFallbackMethod, smsApplicationSid);
+        return twilioClient.addIncomingPhoneNumberByAreaCode(accountSid, areaCode, friendlyName, voiceUrl, voiceMethod, voiceFallback,
+                statusCallback, voiceCallerIdLookup, voiceApplicationSid, smsUrl, smsMethod, smsFallback, smsApplicationSid);
     }
 
     /**
@@ -492,22 +474,19 @@ public class TwilioConnector {
      * Tries to update the application's properties, and returns the updated resource representation if successful.
      * <p/>
      *
-     * @param accountSid           the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
-     * @param applicationSid       the application sid to update
-     * @param friendlyName         A human readable description of the application, with maximum length 64 characters.
-     * @param apiVersion           Requests to this application's URLs will start a new TwiML session with this API version. Either 2010-04-01 or 2008-08-01.
-     * @param voiceUrl             The URL that Twilio should request when somebody dials a phone number assigned to this application.
-     * @param voiceMethod          The HTTP method that should be used to request the VoiceUrl. Either GET or POST.
-     * @param voiceFallbackUrl     A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by VoiceUrl.
-     * @param voiceFallbackMethod  The HTTP method that should be used to request the VoiceFallbackUrl. Either GET or POST.
-     * @param statusCallback       The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-     * @param statusCallbackMethod The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST.
-     * @param voiceCallerIdLookup  Do a lookup of a caller's name from the CNAM database and post it to your app. Either true or false.
-     * @param smsUrl               The URL that Twilio should request when somebody sends an SMS to a phone number assigned to this application.
-     * @param smsMethod            The HTTP method that should be used to request the SmsUrl. Either GET or POST.
-     * @param smsFallbackUrl       A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl.
-     * @param smsFallbackMethod    The HTTP method that should be used to request the SmsFallbackUrl. Either GET or POST.
-     * @param smsStatusCallback    Twilio will make a POST request to this URL to pass status parameters (such as sent or failed) to your application if you specify this application's Sid as the ApplicationSid on an outgoing SMS request.
+     * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param applicationSid      the application sid to update
+     * @param friendlyName        A human readable description of the application, with maximum length 64 characters.
+     * @param apiVersion          Requests to this application's URLs will start a new TwiML session with this API version. Either 2010-04-01 or 2008-08-01.
+     * @param voiceUrl            The URL that Twilio should request when somebody dials a phone number assigned to this application.
+     * @param voiceMethod         The HTTP method that should be used to request the VoiceUrl. Either GET or POST.
+     * @param voiceFallback       A flow that Twilio will request if an error occurs requesting or executing the TwiML defined by VoiceUrl.
+     * @param statusCallback      A flow that Twilio will request to pass status parameters (such as call ended) to your application.
+     * @param voiceCallerIdLookup Do a lookup of a caller's name from the CNAM database and post it to your app. Either true or false.
+     * @param smsUrl              The URL that Twilio should request when somebody sends an SMS to a phone number assigned to this application.
+     * @param smsMethod           The HTTP method that should be used to request the SmsUrl. Either GET or POST.
+     * @param smsFallback         A flow that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl.
+     * @param smsStatusCallback   Twilio will make a POST request to this flow to pass status parameters (such as sent or failed) to your application if you specify this application's Sid as the ApplicationSid on an outgoing SMS request.
      * @return returns the updated resource representation if successful.
      */
     @Processor
@@ -517,18 +496,15 @@ public class TwilioConnector {
                                     @Optional String apiVersion,
                                     @Optional String voiceUrl,
                                     @Optional HttpMethod voiceMethod,
-                                    @Optional String voiceFallbackUrl,
-                                    @Optional HttpMethod voiceFallbackMethod,
-                                    @Optional String statusCallback,
-                                    @Optional HttpMethod statusCallbackMethod,
+                                    @Optional HttpCallback voiceFallback,
+                                    @Optional HttpCallback statusCallback,
                                     @Optional Boolean voiceCallerIdLookup,
                                     @Optional String smsUrl,
                                     @Optional HttpMethod smsMethod,
-                                    @Optional String smsFallbackUrl,
-                                    @Optional HttpMethod smsFallbackMethod,
-                                    @Optional String smsStatusCallback) {
-        return twilioClient.updateApplication(accountSid, applicationSid, friendlyName, apiVersion, voiceUrl, voiceMethod, voiceFallbackUrl, voiceFallbackMethod, statusCallback, statusCallbackMethod, voiceCallerIdLookup,
-                smsUrl, smsMethod, smsFallbackUrl, smsFallbackMethod, smsStatusCallback);
+                                    @Optional HttpCallback smsFallback,
+                                    @Optional HttpCallback smsStatusCallback) {
+        return twilioClient.updateApplication(accountSid, applicationSid, friendlyName, apiVersion, voiceUrl, voiceMethod, voiceFallback, statusCallback, voiceCallerIdLookup,
+                smsUrl, smsMethod, smsFallback, smsStatusCallback);
     }
 
     /**
@@ -561,21 +537,18 @@ public class TwilioConnector {
     /**
      * Creates a new application within your account. If successful, Twilio responds with a representation of the new application.
      *
-     * @param accountSid           the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
-     * @param friendlyName         A human readable description of the new application. Maximum 64 characters.
-     * @param apiVersion           Requests to this application's URLs will start a new TwiML session with this API version. Either 2010-04-01 or 2008-08-01. Defaults to your account's default API version.
-     * @param voiceUrl             The URL that Twilio should request when somebody dials a phone number assigned to this application
-     * @param voiceMethod          The HTTP method that should be used to request the VoiceUrl. Must be either GET or POST. Defaults to POST.
-     * @param voiceFallbackUrl     A URL that Twilio will request if an error occurs requesting or executing the TwiML at Url.
-     * @param voiceFallbackMethod  The HTTP method that should be used to request the VoiceFallbackUrl. Either GET or POST. Defaults to POST.
-     * @param statusCallback       The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-     * @param statusCallbackMethod The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST. Defaults to POST.
-     * @param voiceCallerIdLookup  Do a lookup of a caller's name from the CNAM database and post it to your app. Either true or false. Defaults to false.
-     * @param smsUrl               The URL that Twilio should request when somebody sends an SMS to a phone number assigned to this application.
-     * @param smsMethod            The HTTP method that should be used to request the SmsUrl. Must be either GET or POST. Defaults to POST.
-     * @param smsFallbackUrl       A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl.
-     * @param smsFallbackMethod    The HTTP method that should be used to request the SmsFallbackUrl. Must be either GET or POST. Defaults to POST.
-     * @param smsStatusCallback    Twilio will make a POST request to this URL to pass status parameters (such as sent or failed) to your application if you specify this application's Sid as the ApplicationSid on an outgoing SMS request.
+     * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param friendlyName        A human readable description of the new application. Maximum 64 characters.
+     * @param apiVersion          Requests to this application's URLs will start a new TwiML session with this API version. Either 2010-04-01 or 2008-08-01. Defaults to your account's default API version.
+     * @param voiceUrl            The URL that Twilio should request when somebody dials a phone number assigned to this application
+     * @param voiceMethod         The HTTP method that should be used to request the VoiceUrl. Must be either GET or POST. Defaults to POST.
+     * @param voiceFallback       A flow that Twilio will request if an error occurs requesting or executing the TwiML at Url.
+     * @param statusCallback      A flow that Twilio will request to pass status parameters (such as call ended) to your application.
+     * @param voiceCallerIdLookup Do a lookup of a caller's name from the CNAM database and post it to your app. Either true or false. Defaults to false.
+     * @param smsUrl              The URL that Twilio should request when somebody sends an SMS to a phone number assigned to this application.
+     * @param smsMethod           The HTTP method that should be used to request the SmsUrl. Must be either GET or POST. Defaults to POST.
+     * @param smsFallback         A flow that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl.
+     * @param smsStatusCallback   Twilio will make a POST request to this flow to pass status parameters (such as sent or failed) to your application if you specify this application's Sid as the ApplicationSid on an outgoing SMS request.
      * @return If successful, Twilio responds with a representation of the new application.
      */
     @Processor
@@ -584,19 +557,15 @@ public class TwilioConnector {
                                     @Optional String apiVersion,
                                     @Optional String voiceUrl,
                                     @Optional HttpMethod voiceMethod,
-                                    @Optional String voiceFallbackUrl,
-                                    @Optional HttpMethod voiceFallbackMethod,
-                                    @Optional String statusCallback,
-                                    @Optional HttpMethod statusCallbackMethod,
+                                    @Optional HttpCallback voiceFallback,
+                                    @Optional HttpCallback statusCallback,
                                     @Optional Boolean voiceCallerIdLookup,
                                     @Optional String smsUrl,
                                     @Optional HttpMethod smsMethod,
-                                    @Optional String smsFallbackUrl,
-                                    @Optional HttpMethod smsFallbackMethod,
-                                    @Optional String smsStatusCallback) {
+                                    @Optional HttpCallback smsFallback,
+                                    @Optional HttpCallback smsStatusCallback) {
         return twilioClient.createApplication(accountSid, friendlyName, apiVersion, voiceUrl, voiceMethod,
-                voiceFallbackUrl, voiceFallbackMethod, statusCallback, statusCallbackMethod, voiceCallerIdLookup, smsUrl,
-                smsMethod, smsFallbackUrl, smsFallbackMethod, smsStatusCallback);
+                voiceFallback, statusCallback, voiceCallerIdLookup, smsUrl, smsMethod, smsFallback, smsStatusCallback);
     }
 
     /**
@@ -639,19 +608,17 @@ public class TwilioConnector {
      * Initiates a call using the given paramaters. Only one of url or applicationSid parameters must be specified, not both. Returns the call representation.
      * <p/>
      *
-     * @param accountSid           the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
-     * @param from                 The phone number to use as the caller id. Format with a '+' and country code e.g., +16175551212 (E.164 format). Must be a Twilio number or a valid outgoing caller id for your account.
-     * @param to                   The number to call formatted with a '+' and country code e.g., +16175551212 (E.164 format). Twilio will also accept unformatted US numbers e.g., (415) 555-1212, 415-555-1212.
-     * @param url                  The fully qualified URL that should be consulted when the call connects. Just like when you set a URL on a phone number for handling inbound calls.
-     * @param applicationSid       The 34 character sid of the application Twilio should use to handle this phone call. If this parameter is present, Twilio will ignore all of the voice URLs passed and use the URLs set on the application.
-     * @param method               The HTTP method Twilio should use when making its request to the above Url parameter's value. Defaults to POST. If an ApplicationSid parameter is present, this parameter is ignored.
-     * @param fallbackUrl          A URL that Twilio will request if an error occurs requesting or executing the TwiML at Url. If an ApplicationSid parameter is present, this parameter is ignored.
-     * @param fallbackMethod       The HTTP method that Twilio should use to request the FallbackUrl. Must be either GET or POST. Defaults to POST. If an ApplicationSid parameter is present, this parameter is ignored.
-     * @param statusCallback       A URL that Twilio will request when the call ends to notify your app. If an ApplicationSid parameter is present, this parameter is ignored.
-     * @param statusCallbackMethod The HTTP method Twilio should use when requesting the above URL. Defaults to POST. If an ApplicationSid parameter is present, this parameter is ignored.
-     * @param sendDigits           A string of keys to dial after connecting to the number. Valid digits in the string include: any digit (0-9), '#' and '*'. For example, if you connected to a company phone number, and wanted to dial extension 1234 and then the pound key, use SendDigits=1234#. Remember to URL-encode this string, since the '#' character has special meaning in a URL.
-     * @param ifMachine            Tell Twilio to try and determine if a machine (like voicemail) or a human has answered the call. Possible values are Continue and Hangup.
-     * @param timeout              The integer number of seconds that Twilio should allow the phone to ring before assuming there is no answer. Default is 60 seconds, the maximum is 999 seconds. Note, you could set this to a low value, such as 15, to hangup before reaching an answering machine or voicemail.
+     * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param from           The phone number to use as the caller id. Format with a '+' and country code e.g., +16175551212 (E.164 format). Must be a Twilio number or a valid outgoing caller id for your account.
+     * @param to             The number to call formatted with a '+' and country code e.g., +16175551212 (E.164 format). Twilio will also accept unformatted US numbers e.g., (415) 555-1212, 415-555-1212.
+     * @param url            The fully qualified URL that should be consulted when the call connects. Just like when you set a URL on a phone number for handling inbound calls.
+     * @param applicationSid The 34 character sid of the application Twilio should use to handle this phone call. If this parameter is present, Twilio will ignore all of the voice URLs passed and use the URLs set on the application.
+     * @param method         The HTTP method Twilio should use when making its request to the above Url parameter's value. Defaults to POST. If an ApplicationSid parameter is present, this parameter is ignored.
+     * @param fallback       A flow that Twilio will request if an error occurs requesting or executing the TwiML at Url. If an ApplicationSid parameter is present, this parameter is ignored.
+     * @param statusCallback A flow that Twilio will request when the call ends to notify your app. If an ApplicationSid parameter is present, this parameter is ignored.
+     * @param sendDigits     A string of keys to dial after connecting to the number. Valid digits in the string include: any digit (0-9), '#' and '*'. For example, if you connected to a company phone number, and wanted to dial extension 1234 and then the pound key, use SendDigits=1234#. Remember to URL-encode this string, since the '#' character has special meaning in a URL.
+     * @param ifMachine      Tell Twilio to try and determine if a machine (like voicemail) or a human has answered the call. Possible values are Continue and Hangup.
+     * @param timeout        The integer number of seconds that Twilio should allow the phone to ring before assuming there is no answer. Default is 60 seconds, the maximum is 999 seconds. Note, you could set this to a low value, such as 15, to hangup before reaching an answering machine or voicemail.
      * @return the call representation.
      */
     @Processor
@@ -660,16 +627,13 @@ public class TwilioConnector {
                            String to,
                            @Optional String url,
                            @Optional String applicationSid,
-                           @Optional String method,
-                           @Optional String fallbackUrl,
-                           @Optional HttpMethod fallbackMethod,
-                           @Optional String statusCallback,
-                           @Optional HttpMethod statusCallbackMethod,
+                           @Optional HttpMethod method,
+                           @Optional HttpCallback fallback,
+                           @Optional HttpCallback statusCallback,
                            @Optional String sendDigits,
                            @Optional String ifMachine,
                            @Optional String timeout) {
-        return twilioClient.makeCall(accountSid, from, to, url, applicationSid, method, fallbackUrl, fallbackMethod,
-                statusCallback, statusCallbackMethod, sendDigits, ifMachine, timeout);
+        return twilioClient.makeCall(accountSid, from, to, url, applicationSid, method, fallback, statusCallback, sendDigits, ifMachine, timeout);
     }
 
     /**
@@ -827,7 +791,7 @@ public class TwilioConnector {
      * @param from           A Twilio number enabled for SMS. Only phone numbers purchased from Twilio work here; you cannot (for example) spoof SMS messages from your own cell phone number.
      * @param to             The destination phone number. Format with a '+' and country code e.g., +16175551212 (E.164 format). Twilio will also accept unformatted US numbers e.g., (415) 555-1212, 415-555-1212.
      * @param body           The text of the message you want to send, limited to 160 characters.
-     * @param statusCallback A URL that Twilio will POST to when your message is processed. Twilio will POST the SmsSid as well as SmsStatus=sent or SmsStatus=failed.
+     * @param statusCallback A flow that Twilio will POST to when your message is processed. Twilio will POST the SmsSid as well as SmsStatus=sent or SmsStatus=failed.
      * @param applicationSid Twilio will POST SmsSid as well as SmsStatus=sent or SmsStatus=failed to the URL in the SmsStatusCallback property of this Application. If the StatusCallback parameter above is also passed, the Application's SmsStatusCallback parameter will take precedence.
      * @return the SMS message representation.
      */
@@ -836,7 +800,7 @@ public class TwilioConnector {
                                  String from,
                                  String to,
                                  String body,
-                                 @Optional String statusCallback,
+                                 @Optional HttpCallback statusCallback,
                                  @Optional String applicationSid) {
         return twilioClient.sendSmsMessage(accountSid, from, to, body, statusCallback, applicationSid);
     }
