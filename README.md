@@ -25,7 +25,7 @@ Add the connector's maven repo to your pom.xml:
     <repositories>
         <repository>
             <id>muleforge-releases</id>
-            <name>MuleForge Releases Repository</name>
+            <name>MuleForge Snapshot Repository</name>
             <url>http://repository.mulesoft.org/releases/</url>
             <layout>default</layout>
         </repsitory>
@@ -38,7 +38,7 @@ application:
     <dependency>
         <groupId>org.mule.modules</groupId>
         <artifactId>mule-module-twilio</artifactId>
-        <version>1.0</version>
+        <version>1.1-SNAPSHOT</version>
     </dependency>
 
 Configuration
@@ -64,6 +64,10 @@ Get Account Details
 
 Returns a representation of an account.
 
+
+
+     <twilio:get-account-details />
+
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
@@ -78,6 +82,10 @@ Get All Accounts Details
 
 Retrieve a list of the Account resources belonging to the account used to make the API request. This list will
 include that Account as well.
+
+
+
+     <twilio:get-all-accounts-details accountStatus="SUSPENDED" friendlyName="coco"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -94,6 +102,10 @@ Update Account
 
 Allows you to modify the properties of an account.
 
+
+
+     <twilio:update-account  accountStatus="CLOSED" friendlyName="juan"/>
+
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
@@ -109,15 +121,19 @@ Create Sub Account
 ------------------
 
 Creates a new subaccount.
-
+<p/>
 Subaccounts in Twilio are just accounts that are "owned" by another account. Using a subaccount you can segment
 each of your customers' use of Twilio and keep it separate from all the rest, allowing you to easily manage the
 activity and resources of each customer independently.
-
+<p/>
 For instance, if you are running a hosted service that relies on Twilio you can create a Twilio subaccount for
 each customer that signs up. Then if a customer closes his or her account with your service, you can simply
 deactivate the associated Twilio subaccount.
+<p/>
 
+
+
+     <twilio:create-sub-account friendlyName="raul"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -135,6 +151,10 @@ Subaccounts in Twilio are just accounts that are "owned" by another account. Usi
 each of your customers' use of Twilio and keep it separate from all the rest, allowing you to easily manage the
 activity and resources of each customer independently.
 
+
+
+     <twilio:get-sub-account-by-account-sid accountSid="some-account-sid"/>
+
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
@@ -150,10 +170,14 @@ Get Sub Account By Friendly Name
 Subaccounts in Twilio are just accounts that are "owned" by another account. Using a subaccount you can segment
 each of your customers' use of Twilio and keep it separate from all the rest, allowing you to easily manage the
 activity and resources of each customer independently.
-
+<p/>
 For instance, if you are running a hosted service that relies on Twilio you can create a Twilio subaccount for
 each customer that signs up. Then if a customer closes his or her account with your service, you can simply
 deactivate the associated Twilio subaccount.
+
+
+
+     <twilio:get-sub-account-by-friendly-name friendlyName="fede"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -168,6 +192,10 @@ Exchange Phone Numbers Between Subaccounts
 ------------------------------------------
 
 Trasfers a number between two subaccounts.
+
+
+
+      <twilio:exchange-phone-numbers-between-subaccounts accountSidFrom="account-sid-from" accountSidTo="account-sid-to" incomingPhoneNumberSid="321"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -184,6 +212,10 @@ Get Available Phone Numbers
 ---------------------------
 
 Returns a list of local AvailablePhoneNumber resource representations that match the specified filters, each representing a phone number that is currently available for provisioning within your account.
+
+
+
+     <twilio:get-available-phone-numbers aisoCountryCode="AR" areaCode="some-area-code" contains="*" inRegion="in-some-region" inPostalCode="in-some-postal-code"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -203,6 +235,14 @@ Get Available Phone Numbers Advanced Seach
 ------------------------------------------
 
 Returns a list of local AvailablePhoneNumber resource representations that match the specified filters, each representing a phone number that is currently available for provisioning within your account.
+
+
+
+     <twilio:get-available-phone-numbers-advanced-seach isoCountryCode="AR" areaCode="some-area-code" contains="*"
+    inRegion="inSomeRegion"
+    inPostalCode="inSomePostalCode" nearLatLong="nearSomeLatLong"
+    nearPhoneNumber="nearSomePhoneNumber" inLata="inSomeLata"
+    inRateCenter="inSomeRateCenter" distance="someDistance"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -228,6 +268,10 @@ Get Available Toll Free Numbers
 
 Returns a list of toll-free AvailablePhoneNumber elements that match the specified filters, each representing a phone number that is currently available for provisioning within your account.
 
+
+
+     <twilio:get-available-toll-free-numbers isoCountryCode="AR" contains="*"/>
+
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
@@ -244,6 +288,10 @@ Get Outgoing Caller Id By Outgoing Caller Id Sid
 
 Returns an outgoing caller id instance matching the given filters.
 
+
+
+     <twilio:get-outgoing-caller-id-by-outgoing-caller-id-sid outgoingCallerIdSid="some-outgoing-caller-id-sid"/>
+
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
@@ -258,6 +306,10 @@ Update Outgoing Caller Id By Outgoing Caller Id Sid
 ---------------------------------------------------
 
 Updates the caller id, and returns the updated resource if successful.
+
+
+
+     <twilio:update-outgoing-caller-id-by-outgoing-caller-id-sid  outgoingCallerIdSid="some-outgoing-caller-id-sid" friendlyName="some-friendly-name"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -275,6 +327,10 @@ Get All Outgoing Caller Ids
 
 Returns a list of OutgoingCallerId resource representations, each representing a Caller ID number valid for an account. The list includes paging information.
 
+
+
+     <twilio:get-all-outgoing-caller-ids phoneNumber="some-phone-number" friendlyName="some-friendly-name"/>
+
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
@@ -290,6 +346,10 @@ Add New Caller Id
 -----------------
 
 Adds a new CallerID to your account. After making this request, Twilio will return to you a validation code and Twilio will dial the phone number given to perform validation. The code returned must be entered via the phone before the CallerID will be added to your account.
+
+
+
+      <twilio:add-new-caller-id phoneNumber="some-phone-number" friendlyName="some-friendly-name" callDelay="1" extension="some-extension"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -309,6 +369,10 @@ Delete Outgoing Caller Id
 
 Deletes the caller ID from the account. Returns an HTTP 204 response if successful, with no body.
 
+
+
+     <twilio:delete-outgoing-caller-id outgoingCallerIdSid="some-outgoing-caller-id-sid"/>
+
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
@@ -323,8 +387,12 @@ Get Incoming Phone Numbers By Incoming Phone Number Sid
 -------------------------------------------------------
 
 Returns an incoming phone numbers matching the given query filters.
-
+<p/>
 An IncomingPhoneNumber instance resource represents a Twilio phone number purchased from Twilio or ported to Twilio.
+
+
+
+     <twilio:get-incoming-phone-numbers-by-incoming-phone-number-sid incomingPhoneNumberSid="some-incoming-phone-number-sid"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -340,9 +408,25 @@ Update Incoming Phone Numbers
 -----------------------------
 
 Tries to update the incoming phone number's properties, and returns the updated resource representation if successful.
-
+<p/>
 * An IncomingPhoneNumber instance resource represents a Twilio phone number purchased from Twilio or ported to Twilio.
+<p/>
 
+
+
+             <twilio:update-incoming-phone-numbers incomingPhoneNumberSid="some-incoming-phone-number-sid"
+    friendlyName="some-friendly-name" apiVersion="2010-04-01"
+    voiceUrl="some-voice-url" voiceMethod="GET"
+    voiceFallbackUrl="some-voice-fallback-url"
+    voiceFallbackMethod="GET"
+    statusCallback="some-status-callback"
+    statusCallbackMethod="GET"
+    voiceCallerIdLookup="true"
+    voiceApplicationSid="some-voice-application-sid" smsUrl="some-sms-url"
+    smsMethod="GET" smsFallbackUrl="some-fallback-url"
+    smsFallbackMethod="GET"
+    smsApplicationSid="some-sms-application-sid"
+    accountSidDestination="some-account-sid-destination"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -375,6 +459,10 @@ Delete Incoming Phone Number
 
 Release this phone number from your account. Twilio will no longer answer calls to this number, and you will stop being billed the monthly phone number fee. The phone number will eventually be recycled and potentially given to another customer, so use with care.
 
+
+
+     <twilio:delete-incoming-phone-number incomingPhoneNumberSid="some-incoming-phone-number-sid"/>
+
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
@@ -389,9 +477,13 @@ Get Incoming Phone Numbers
 --------------------------
 
 Returns a list of IncomingPhoneNumber resource representations, each representing a phone number given to your account. The list includes paging information.
-
+<p/>
 An IncomingPhoneNumber instance resource represents a Twilio phone number purchased from Twilio or ported to Twilio.
+<p/>
 
+
+
+     <twilio:get-incoming-phone-numbers phoneNumber="some-phone-number" friendlyName="some-friendly-name"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -409,7 +501,22 @@ Add Incoming Phone Number By Phone Number
 
 Adds a new phone number to your account. If a phone number is found for your request, Twilio will add it to your account and bill you for the first month's cost of the phone number. If Twilio can't find a phone number to match your request, you will receive an HTTP 400 with Twilio error code 21452.
 If successful, Twilio responds with a representation of the new phone number that was assigned to your account.
+<p/>
 
+
+
+             <twilio:add-incoming-phone-number-by-phone-number phoneNumber="some-phone-number"
+    friendlyName="some-friendly-name" voiceUrl="some-voice-url"
+    voiceMethod="GET"
+    voiceFallbackUrl="some-voice-fallback-url"
+    voiceFallbackMethod="GET"
+    smsApplicationSid="some-sms-application-sid"
+    smsFallbackMethod="GET"
+    smsFallbackUrl="some-fallback-url" smsMethod="GET"
+    smsUrl="some-sms-url" statusCallback="some-status-callback"
+    statusCallbackMethod="GET"
+    voiceApplicationSid="some-voice-application-sid"
+    voiceCallerIdLookup="false"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -440,7 +547,21 @@ Add Incoming Phone Number By Area Code
 
 Adds a new phone number to your account. If a phone number is found for your request, Twilio will add it to your account and bill you for the first month's cost of the phone number. If Twilio can't find a phone number to match your request, you will receive an HTTP 400 with Twilio error code 21452.
 If successful, Twilio responds with a representation of the new phone number that was assigned to your account.
+<p/>
 
+
+
+             <twilio:add-incoming-phone-number-by-area-code areaCode="some-area-code" statusCallback="some-status-callback"
+    statusCallbackMethod="GET"
+    voiceApplicationSid="some-voice-application-sid"
+    voiceCallerIdLookup="false" friendlyName="some-friendly-name"
+    smsApplicationSid="some-sms-application-sid"
+    smsFallbackMethod="GET"
+    smsFallbackUrl="some-fallback-url" smsMethod="GET"
+    smsUrl="some-sms-url"
+    voiceFallbackMethod="GET"
+    voiceFallbackUrl="some-voice-fallback-url"
+    voiceMethod="GET" voiceUrl="some-voice-url"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -470,9 +591,13 @@ Get Application
 ---------------
 
 Returns an application resource matching the given application sid.
-
+<p/>
 An Application instance resource represents an application that you have created with Twilio. An application inside of Twilio is just a set of URLs and other configuration data that tells Twilio how to behave when one of your Twilio numbers receives a call or SMS message.
+<p/>
 
+
+
+      <twilio:get-application applicationSid="some-application-sid"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -488,7 +613,19 @@ Update Application
 ------------------
 
 Tries to update the application's properties, and returns the updated resource representation if successful.
+<p/>
 
+
+
+             <twilio:update-application applicationSid="some-application-sid"
+    apiVersion="2010-04-01" friendlyName="some-friendly-name"
+    smsFallbackMethod="GET" smsFallbackUrl="some-fallback-url"
+    smsMethod="GET" smsStatusCallback="some-status-callback"
+    smsUrl="some-sms-url" statusCallback="some-status-callback"
+    statusCallbackMethod="GET" voiceCallerIdLookup="false"
+    voiceFallbackMethod="GET"
+    voiceFallbackUrl="some-voice-fallback-url" voiceMethod="GET"
+    voiceUrl="some-voice-url"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -519,6 +656,10 @@ Delete Application
 
 Delete this application. If this application's sid is assigned to any IncomingPhoneNumber resources as a VoiceApplicationSid or SmsApplicationSid it will be removed.
 
+
+
+     <twilio:delete-application applicationSid="some-application-sid"/>
+
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
@@ -533,7 +674,11 @@ Get All Applications
 --------------------
 
 Returns a list of Application resource representations, each representing an application within your account. The list includes paging information.
+<p/>
 
+
+
+     <twilio:get-all-applications friendlyName="some-friendly-name"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -549,6 +694,18 @@ Create Application
 ------------------
 
 Creates a new application within your account. If successful, Twilio responds with a representation of the new application.
+
+
+
+             <twilio:create-application friendlyName="some-friendly-name"
+    apiVersion="2010-04-01" voiceCallerIdLookup="false"
+    smsFallbackMethod="GET" smsFallbackUrl="some-fallback-url"
+    smsMethod="GET" smsStatusCallback="some-status-callback"
+    smsUrl="some-sms-url" statusCallback="some-status-callback"
+    statusCallbackMethod="GET"
+    voiceFallbackMethod="GET"
+    voiceFallbackUrl="some-voice-fallback-url" voiceMethod="GET"
+    voiceUrl="some-voice-url"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -577,9 +734,13 @@ Get Call
 --------
 
 Returns the single Call resource identified by the given call sid.
-
+<p/>
 A Call instance resource represents a connection between a telephone and Twilio. This may be inbound, when a person calls your application, or outbound, when your application initiates the call, either via the REST API (see Making Calls) or during a call via the TwiML <Dial> verb. The Calls list resource represents the set of phone calls made to and from an account.
+<p/>
 
+
+
+     <twilio:get-call callSid="some-call-sid"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -595,7 +756,11 @@ Get Calls
 ---------
 
 Returns a list of phone calls made to and from the account identified by the given account sid. The list includes paging information and is sorted by DateUpdated with most-recent calls first.
+<p/>
 
+
+
+     <twilio:get-calls to="some-to" from="some-from" status="some-status" startTime="start-time"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -614,7 +779,15 @@ Make Call
 ---------
 
 Initiates a call using the given paramaters. Only one of url or applicationSid parameters must be specified, not both. Returns the call representation.
+<p/>
 
+
+
+             <twilio:make-call from="some-from" to="some-to"
+    applicationSid="some-application-sid" method="GET" fallbackUrl="some-url"
+    fallbackMethod="GET" statusCallback="some-status-callback"
+    statusCallbackMethod="GET" sendDigits="some-digits"
+    ifMachine="continue" timeout="123"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -641,7 +814,11 @@ Change Call State
 -----------------
 
 Modify the state of a live call. Returns the call representation.
+<p/>
 
+
+
+     <twilio:change-call-state callSid="some-call-sid" url="some-url" method="GET" status="some-status"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -660,7 +837,11 @@ Get Conference
 --------------
 
 Returns a representation of the conference identified by the given conference id.
+<p/>
 
+
+
+      <twilio:get-conference conferenceSid="some-conference-sid"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -676,7 +857,11 @@ Get Conferences
 ---------------
 
 Returns a list of conferences within an account. The list includes paging information and is sorted by DateUpdated, with most recent conferences first.
+<p/>
 
+
+
+     <twilio:get-conferences status="some-status" friendlyName="some-friendly-name" dateCreated="some-date-created" dateUpdated="some-date-updated"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -695,7 +880,11 @@ Get Participant
 ---------------
 
 Returns a representation of this participant.
+<p/>
 
+
+
+     <twilio:get-participant conferenceSid="some-conference-sid" callSid="some-call-sid"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -712,6 +901,10 @@ Update Participant Status
 -------------------------
 
 Updates the participant status. Returns the participant representation.
+
+
+
+     <twilio:update-participant-status conferenceSid="some-conference-sid" callSid="some-call-sid" muted="false"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -730,6 +923,10 @@ Delete Participant
 
 Kick this participant from the conference. Returns HTTP 204 (No Content), with no body, if the participant was successfuly booted from the conference.
 
+
+
+     <twilio:delete-participant conferenceSid="some-conference-sid" callSid="some-call-sid"/>
+
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
@@ -745,6 +942,10 @@ Get Participants
 ----------------
 
 Returns the list of participants in the conference identified by the given conference sid.
+
+
+
+     <twilio:get-participants conferenceSid="some-conference-sid" muted="false"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -762,6 +963,10 @@ Get Sms Message
 
 Returns a single SMS message specified by the provided SMS message sid.
 
+
+
+     <twilio:get-sms-message smsMessageSid="some-sms-message-id"/>
+
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
@@ -776,6 +981,10 @@ Get All Sms Messages
 --------------------
 
 Returns a list of SMS messages associated with your account. The list includes paging information and is sorted by DateSent, with most recent messages first.
+
+
+
+     <twilio:get-all-sms-messages to="some-to" from="some-from" dateSent="some-date-sent"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -793,6 +1002,10 @@ Send Sms Message
 ----------------
 
 Send an outgoing SMS message. By specifying an SMS URL for your SMS enabled Twilio phone number, Twilio will make a request to your application to notify you when someone replies to a message you send.
+
+
+
+     <twilio:send-sms-message from="some-from" to="some-to" body="some-body" statusCallback="some-status-callback" applicationSid="some-application-sid"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -813,6 +1026,10 @@ Get Recording
 
 Returns one of several representations depending on the given recording type.
 
+
+
+     <twilio:get-recording recordingSid="some-recording-sid" recordingType="MP3"/>
+
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
@@ -829,6 +1046,10 @@ Delete Recording
 
 Deletes a recording from your account. If successful, returns HTTP 204 (No Content) with no body.
 
+
+
+     <twilio:delete-recording recordingSid="some-recording-sid"/>
+
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
@@ -843,6 +1064,10 @@ Get Recordings
 --------------
 
 Returns a list of Recording resource representations, each representing a recording generated during the course of a phone call. The list includes paging information.
+
+
+
+     <twilio:get-recordings callSid="some-call-sid" dateCreated="some-date-created"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -860,6 +1085,10 @@ Get Transcription By Transcription Sid
 
 Returns a single Transcription resource representation identified by the given transcription sid.
 
+
+
+     <twilio:get-transcription-by-transcription-sid transcriptionSid="some-transcription-sid" transcriptionFormat="TXT"/>
+
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
@@ -875,6 +1104,10 @@ Get Transcriptions
 ------------------
 
 Returns a set of Transcription resource representations that includes paging information, sorted by 'DateUpdated', with most recent transcripts first.
+
+
+
+     <twilio:get-transcriptions recordingSid="some-recording-sid" transcriptionFormat="XML"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -892,6 +1125,10 @@ Get Notification
 
 Return a notificaction resource for the given notification sid.
 
+
+
+     <twilio:get-notification notificationSid="some-notification-sid"/>
+
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
@@ -907,6 +1144,10 @@ Delete Notification
 
 Deletes the notification identified by {NotificationSid} from an account's log.
 
+
+
+     <twilio:delete-notification notificationSid="some-notification-sid"/>
+
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
@@ -921,6 +1162,10 @@ Get All Notifications
 ---------------------
 
 Returns a list of notifications generated for an account. The list includes paging information and is sorted by DateUpdated, with most recent notifications first.
+
+
+
+     <twilio:get-all-notifications log="1" messageDate="some-message-date"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -938,6 +1183,10 @@ Get Notifications By Call Sid
 
 Returns a list of notifications generated for an account. The list includes paging information and is sorted by DateUpdated, with most recent notifications first.
 
+
+
+     <twilio:get-notifications-by-call-sid callSid="some-call-sid" log="1" messageDate="some-message-date"/>
+
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
@@ -954,9 +1203,13 @@ Get Sandbox
 -----------
 
 Returns the Sandbox resource associated with the account identified by {YourAccountSid}. Twilio accounts upgraded prior to February 2010 may not have a Sandbox resource, and in this case you will receive a 404 (Not Found) response.
-
+<p/>
 The Sandbox resource gives you programatic access to your Twilio Developer Sandbox phone number. Using this resource you can get the phone number and PIN for your sandbox, view the current voice and SMS URLs and update those URLs just like any other IncomingPhoneNumber resource on a Full Twilio Account.
+<p/>
 
+
+
+     <twilio:get-sandbox />
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -971,9 +1224,13 @@ Update Sandbox
 --------------
 
 You can POST to the Sandbox resource to update the TwiML voice and SMS URLs associated with the sandbox number.
-
+<p/>
 The Sandbox resource gives you programatic access to your Twilio Developer Sandbox phone number. Using this resource you can get the phone number and PIN for your sandbox, view the current voice and SMS URLs and update those URLs just like any other IncomingPhoneNumber resource on a Full Twilio Account.
+<p/>
 
+
+
+     <twilio:update-sandbox voiceUrl="some-voice-url" voiceMethod="GET" smsUrl="some-sms-url" smsMethod="GET"/>
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
