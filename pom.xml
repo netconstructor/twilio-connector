@@ -14,6 +14,7 @@
         <mule.version>3.1.0</mule.version>
         <jdk.version>1.6</jdk.version>
         <mule.devkit.version>1.0-SNAPSHOT</mule.devkit.version>
+		<mule.dsl.version>0.7</mule.dsl.version>
     </properties>
 
     <build>
@@ -193,6 +194,12 @@
             <groupId>org.mule.tools.devkit</groupId>
             <artifactId>mule-devkit-annotations</artifactId>
             <version>${mule.devkit.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.dsl</groupId>
+            <artifactId>dsl-api</artifactId>
+            <version>${mule.dsl.version}</version>
             <scope>provided</scope>
         </dependency>
 
