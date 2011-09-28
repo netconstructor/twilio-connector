@@ -6,7 +6,7 @@ package org.mule.module.twilio;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
-import org.mule.api.annotations.callback.HttpCallback;
+import org.mule.api.callback.HttpCallback;
 import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.param.Optional;
 

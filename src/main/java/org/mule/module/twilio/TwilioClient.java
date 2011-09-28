@@ -1,6 +1,6 @@
 package org.mule.module.twilio;
 
-import org.mule.api.annotations.callback.HttpCallback;
+import org.mule.api.callback.HttpCallback;
 import org.mule.module.twilio.TwilioParameters.TwilioParamater;
 import org.mule.module.twilio.TwilioParameters.TwilioParametersStategy;
 

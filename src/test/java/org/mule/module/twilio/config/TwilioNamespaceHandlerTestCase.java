@@ -5,7 +5,7 @@ package org.mule.module.twilio.config;
 
 import org.mule.api.MuleContext;
 import org.mule.api.MuleEvent;
-import org.mule.construct.SimpleFlowConstruct;
+import org.mule.construct.Flow;
 import org.mule.tck.FunctionalTestCase;
 import org.mule.transport.http.HttpConnector;
 
@@ -28,7 +28,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetAccoundDetails() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getAccountDetails");
+        Flow flow = lookupFlowConstruct("getAccountDetails");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7";
@@ -37,7 +37,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetAllAccoundDetails() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getAllAccountsDetails");
+        Flow flow = lookupFlowConstruct("getAllAccountsDetails");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/";
@@ -46,7 +46,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testUpdateAccount() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("updateAccount");
+        Flow flow = lookupFlowConstruct("updateAccount");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "POST";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7";
@@ -55,7 +55,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testCreateSubAccount() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("createSubAccount");
+        Flow flow = lookupFlowConstruct("createSubAccount");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "POST";
         String expectedUri = "/2010-04-01/Accounts/";
@@ -64,7 +64,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetSubAccountByAccountSid() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getSubAccountByAccountSid");
+        Flow flow = lookupFlowConstruct("getSubAccountByAccountSid");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7";
@@ -73,7 +73,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetSubAccountByFriendlyName() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getSubAccountByFriendlyName");
+        Flow flow = lookupFlowConstruct("getSubAccountByFriendlyName");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/";
@@ -82,7 +82,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testExchangePhoneNumbersBetweenSubaccounts() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("exchangePhoneNumbersBetweenSubaccounts");
+        Flow flow = lookupFlowConstruct("exchangePhoneNumbersBetweenSubaccounts");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "POST";
         String expectedUri = "/2010-04-01/Accounts/AC8e51fecefbf0b501caced6266d723b3c/IncomingPhoneNumbers/321";
@@ -91,7 +91,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetAvailablePhoneNumbers() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getAvailablePhoneNumbers");
+        Flow flow = lookupFlowConstruct("getAvailablePhoneNumbers");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC8e51fecefbf0b501caced6266d723b3c/AvailablePhoneNumbers/AR/Local";
@@ -100,7 +100,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetAvailablePhoneNumbersAdvancedSeach() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getAvailablePhoneNumbersAdvancedSeach");
+        Flow flow = lookupFlowConstruct("getAvailablePhoneNumbersAdvancedSeach");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC8e51fecefbf0b501caced6266d723b3c/AvailablePhoneNumbers/AR/Local";
@@ -109,7 +109,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetAvailableTollFreeNumbers() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getAvailableTollFreeNumbers");
+        Flow flow = lookupFlowConstruct("getAvailableTollFreeNumbers");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC8e51fecefbf0b501caced6266d723b3c/AvailablePhoneNumbers/AR/TollFree";
@@ -118,7 +118,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetOutgoingCallerIdByOutgoingCallerIdSid() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getOutgoingCallerIdByOutgoingCallerIdSid");
+        Flow flow = lookupFlowConstruct("getOutgoingCallerIdByOutgoingCallerIdSid");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/OutgoingCallerIds/some-outgoing-caller-id-sid";
@@ -127,7 +127,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testUpdateOutgoingCallerIdByOutgoingCallerIdSid() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("updateOutgoingCallerIdByOutgoingCallerIdSid");
+        Flow flow = lookupFlowConstruct("updateOutgoingCallerIdByOutgoingCallerIdSid");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "POST";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/OutgoingCallerIds/some-outgoing-caller-id-sid";
@@ -136,7 +136,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetAllOutgoingCallerIds() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getAllOutgoingCallerIds");
+        Flow flow = lookupFlowConstruct("getAllOutgoingCallerIds");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/OutgoingCallerIds/";
@@ -145,7 +145,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testAddNewCallerId() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("addNewCallerId");
+        Flow flow = lookupFlowConstruct("addNewCallerId");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "POST";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/OutgoingCallerIds/";
@@ -154,7 +154,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testDeleteOutgoingCallerId() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("deleteOutgoingCallerId");
+        Flow flow = lookupFlowConstruct("deleteOutgoingCallerId");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "DELETE";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/OutgoingCallerIds/some-outgoing-caller-id-sid";
@@ -163,7 +163,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetIncomingPhoneNumbersByIncomingPhoneNumberSid() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getIncomingPhoneNumbersByIncomingPhoneNumberSid");
+        Flow flow = lookupFlowConstruct("getIncomingPhoneNumbersByIncomingPhoneNumberSid");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/IncomingPhoneNumbers/some-incoming-phone-number-sid";
@@ -192,7 +192,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testDeleteIncomingPhoneNumber() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("deleteIncomingPhoneNumber");
+        Flow flow = lookupFlowConstruct("deleteIncomingPhoneNumber");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "DELETE";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/IncomingPhoneNumbers/some-incoming-phone-number-sid";
@@ -201,7 +201,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetIncomingPhoneNumbers() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getIncomingPhoneNumbers");
+        Flow flow = lookupFlowConstruct("getIncomingPhoneNumbers");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/IncomingPhoneNumbers";
@@ -254,7 +254,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetApplication() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getApplication");
+        Flow flow = lookupFlowConstruct("getApplication");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Applications/some-application-sid";
@@ -284,7 +284,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testDeleteApplication() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("deleteApplication");
+        Flow flow = lookupFlowConstruct("deleteApplication");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "DELETE";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Applications/some-application-sid";
@@ -293,7 +293,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetAllApplications() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getAllApplications");
+        Flow flow = lookupFlowConstruct("getAllApplications");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Applications";
@@ -323,7 +323,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetCall() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getCall");
+        Flow flow = lookupFlowConstruct("getCall");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Calls/some-call-sid";
@@ -332,7 +332,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetCalls() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getCalls");
+        Flow flow = lookupFlowConstruct("getCalls");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Calls/";
@@ -359,7 +359,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testChangeCallState() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("changeCallState");
+        Flow flow = lookupFlowConstruct("changeCallState");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "POST";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Calls/some-call-sid";
@@ -368,7 +368,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetConference() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getConference");
+        Flow flow = lookupFlowConstruct("getConference");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Conferences/some-conference-sid";
@@ -377,7 +377,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetConferences() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getConferences");
+        Flow flow = lookupFlowConstruct("getConferences");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Conferences/";
@@ -386,7 +386,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetParticipant() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getParticipant");
+        Flow flow = lookupFlowConstruct("getParticipant");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Conferences/some-conference-sid/Participants/some-call-sid";
@@ -395,7 +395,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testUpdateParticipantStatus() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("updateParticipantStatus");
+        Flow flow = lookupFlowConstruct("updateParticipantStatus");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "POST";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Conferences/some-conference-sid/Participants/some-call-sid";
@@ -404,7 +404,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testDeleteParticipant() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("deleteParticipant");
+        Flow flow = lookupFlowConstruct("deleteParticipant");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "DELETE";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Conferences/some-conference-sid/Participants/some-call-sid";
@@ -413,7 +413,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetParticipants() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getParticipants");
+        Flow flow = lookupFlowConstruct("getParticipants");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Conferences/some-conference-sid/Participants/";
@@ -422,7 +422,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetSmsMessage() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getSmsMessage");
+        Flow flow = lookupFlowConstruct("getSmsMessage");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/SMS/Messages/some-sms-message-id";
@@ -431,7 +431,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetAllSmsMessages() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getAllSmsMessages");
+        Flow flow = lookupFlowConstruct("getAllSmsMessages");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/SMS/Messages/";
@@ -452,7 +452,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetRecording() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getRecording");
+        Flow flow = lookupFlowConstruct("getRecording");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Recordings/some-recording-sid.mp3";
@@ -461,7 +461,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testDeleteRecording() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("deleteRecording");
+        Flow flow = lookupFlowConstruct("deleteRecording");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "DELETE";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Recordings/some-recording-sid";
@@ -470,7 +470,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetRecordings() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getRecordings");
+        Flow flow = lookupFlowConstruct("getRecordings");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Recordings/";
@@ -479,7 +479,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetTranscriptionByTranscriptionSid() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getTranscriptionByTranscriptionSid");
+        Flow flow = lookupFlowConstruct("getTranscriptionByTranscriptionSid");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Transcriptions/some-transcription-sid.txt";
@@ -488,7 +488,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetTranscriptions() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getTranscriptions");
+        Flow flow = lookupFlowConstruct("getTranscriptions");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Recordings/some-recording-sid.xml";
@@ -497,7 +497,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetNotification() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getNotification");
+        Flow flow = lookupFlowConstruct("getNotification");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Notifications/some-notification-sid";
@@ -506,7 +506,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testDeleteNotification() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("deleteNotification");
+        Flow flow = lookupFlowConstruct("deleteNotification");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "DELETE";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Notifications/some-notification-sid";
@@ -515,7 +515,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetAllNotifications() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getAllNotifications");
+        Flow flow = lookupFlowConstruct("getAllNotifications");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Notifications/";
@@ -524,7 +524,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetNotificationsByCallSid() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getNotificationsByCallSid");
+        Flow flow = lookupFlowConstruct("getNotificationsByCallSid");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Calls/some-call-sid/Notifications/";
@@ -533,7 +533,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testGetSandbox() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("getSandbox");
+        Flow flow = lookupFlowConstruct("getSandbox");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "GET";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Sandbox";
@@ -542,7 +542,7 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
     }
 
     public void testUpdateSandbox() throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct("updateSandbox");
+        Flow flow = lookupFlowConstruct("updateSandbox");
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String expectedMethod = "POST";
         String expectedUri = "/2010-04-01/Accounts/AC970e46372f082a4947642b9cf19cafa7/Sandbox";
@@ -550,12 +550,12 @@ public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
         assertEquals(expectedMethod + " " + expectedUri + " " + expectedParams, responseEvent.getMessage().getPayloadAsString());
     }
 
-    private SimpleFlowConstruct lookupFlowConstruct(String name) {
-        return (SimpleFlowConstruct) muleContext.getRegistry().lookupFlowConstruct(name);
+    private Flow lookupFlowConstruct(String name) {
+        return (Flow) muleContext.getRegistry().lookupFlowConstruct(name);
     }
 
     private RequestToTwilio runFlow(String flowName) throws Exception {
-        SimpleFlowConstruct flow = lookupFlowConstruct(flowName);
+        Flow flow = lookupFlowConstruct(flowName);
         MuleEvent responseEvent = flow.process(getTestEvent("<anyPayload/>"));
         String request = responseEvent.getMessage().getPayloadAsString();
         String httpMethod = request.substring(0, request.indexOf(" "));
