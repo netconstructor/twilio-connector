@@ -11,7 +11,7 @@
     <url>http://www.muleforge.org/projects/mule-module-twilio</url>
 
     <properties>
-        <mule.version>3.1.0</mule.version>
+        <mule.version>3.2.0</mule.version>
         <jdk.version>1.6</jdk.version>
         <mule.devkit.version>3.0-SNAPSHOT</mule.devkit.version>
 		<mule.dsl.version>0.7</mule.dsl.version>
