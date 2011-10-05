@@ -6,9 +6,9 @@ package org.mule.module.twilio;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
-import org.mule.api.callback.HttpCallback;
 import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.param.Optional;
+import org.mule.api.callback.HttpCallback;
 
 /**
  * You can use your master Twilio Account credentials (AccountSid and AuthToken) to access Twilio's REST API for
@@ -16,6 +16,8 @@ import org.mule.api.annotations.param.Optional;
  * to access the resources of that subaccount.
  * You can not use a subaccount's credentials to access the resources of your master Twilio account or any other
  * subaccounts.
+ *
+ *  @author MuleSoft, Inc.
  */
 @Module(name = "twilio")
 public class TwilioConnector {
@@ -41,6 +43,8 @@ public class TwilioConnector {
     /**
      * Returns a representation of an account.
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getAccountDetails}
+     *
      * @param accountSid the account sid for which to get the details, leave empty to use to use {@link TwilioConnector#accountSid}
      * @return a representation of the account
      */
@@ -52,6 +56,8 @@ public class TwilioConnector {
     /**
      * Retrieve a list of the Account resources belonging to the account used to make the API request. This list will
      * include that Account as well.
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getAllAccountsDetails}
      *
      * @param accountStatus Only return Account resources with the given status. Can be closed, suspended or active.
      * @param friendlyName  Only return the Account resources with friendly names that exactly match this name.
@@ -66,6 +72,8 @@ public class TwilioConnector {
 
     /**
      * Allows you to modify the properties of an account.
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:updateAccount}
      *
      * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param accountStatus Alter the status of this account: use closed to irreversibly close this account, suspended to temporarily suspend it, or active to reactivate it.
@@ -90,6 +98,7 @@ public class TwilioConnector {
      * each customer that signs up. Then if a customer closes his or her account with your service, you can simply
      * deactivate the associated Twilio subaccount.
      * <p/>
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:createSubAccount}
      *
      * @param friendlyName A human readable description of the new subaccount, up to 64 characters. Defaults to "SubAccount Created at {YYYY-MM-DD HH:MM meridiam}".
      * @return a representation of the account
@@ -103,6 +112,8 @@ public class TwilioConnector {
      * Subaccounts in Twilio are just accounts that are "owned" by another account. Using a subaccount you can segment
      * each of your customers' use of Twilio and keep it separate from all the rest, allowing you to easily manage the
      * activity and resources of each customer independently.
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getSubAccountByAccountSid}
      *
      * @param accountSid the account sid to use in the query
      * @return a representation of the subaccount
@@ -121,6 +132,8 @@ public class TwilioConnector {
      * each customer that signs up. Then if a customer closes his or her account with your service, you can simply
      * deactivate the associated Twilio subaccount.
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getSubAccountByFriendlyName}
+     *
      * @param friendlyName the friendly name to use in the query
      * @return a representation of the subaccount
      */
@@ -131,6 +144,8 @@ public class TwilioConnector {
 
     /**
      * Trasfers a number between two subaccounts.
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:exchangePhoneNumbersBetweenSubaccounts}
      *
      * @param accountSidFrom         the account sid from where to get the number, leave empty to use {@link TwilioConnector#accountSid}
      * @param incomingPhoneNumberSid the incoming phone number sid to transfer
@@ -147,6 +162,8 @@ public class TwilioConnector {
 
     /**
      * Returns a list of local AvailablePhoneNumber resource representations that match the specified filters, each representing a phone number that is currently available for provisioning within your account.
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getAvailablePhoneNumbers}
      *
      * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param isoCountryCode a country code in ISO 3166-1 alpha-2 format (e.g. 'US' for United States, 'CA' for Canada).
@@ -168,6 +185,8 @@ public class TwilioConnector {
 
     /**
      * Returns a list of local AvailablePhoneNumber resource representations that match the specified filters, each representing a phone number that is currently available for provisioning within your account.
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getAvailablePhoneNumbersAdvancedSeach}
      *
      * @param accountSid      the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param isoCountryCode  a country code in ISO 3166-1 alpha-2 format (e.g. 'US' for United States, 'CA' for Canada).
@@ -200,6 +219,8 @@ public class TwilioConnector {
     /**
      * Returns a list of toll-free AvailablePhoneNumber elements that match the specified filters, each representing a phone number that is currently available for provisioning within your account.
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getAvailableTollFreeNumbers}
+     *
      * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param isoCountryCode a country code in ISO 3166-1 alpha-2 format (e.g. 'US' for United States, 'CA' for Canada).
      * @param contains       A pattern to match phone numbers on. Valid characters are '*' and [0-9a-zA-Z]. The '*' character will match any single digit.
@@ -215,6 +236,8 @@ public class TwilioConnector {
     /**
      * Returns an outgoing caller id instance matching the given filters.
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getOutgoingCallerIdByOutgoingCallerIdSid}
+     *
      * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param outgoingCallerIdSid the outgoing caller id sid to use in the query
      * @return an outgoing caller id instance matching the given filters.
@@ -227,6 +250,8 @@ public class TwilioConnector {
 
     /**
      * Updates the caller id, and returns the updated resource if successful.
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:updateOutgoingCallerIdByOutgoingCallerIdSid}
      *
      * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param outgoingCallerIdSid the outgoing caller id sid to update
@@ -243,6 +268,8 @@ public class TwilioConnector {
     /**
      * Returns a list of OutgoingCallerId resource representations, each representing a Caller ID number valid for an account. The list includes paging information.
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getAllOutgoingCallerIds}
+     *
      * @param accountSid   the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param phoneNumber  Only show the caller id resource that exactly matches this phone number.
      * @param friendlyName Only show the caller id resource that exactly matches this name.
@@ -257,6 +284,8 @@ public class TwilioConnector {
 
     /**
      * Adds a new CallerID to your account. After making this request, Twilio will return to you a validation code and Twilio will dial the phone number given to perform validation. The code returned must be entered via the phone before the CallerID will be added to your account.
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:addNewCallerId}
      *
      * @param accountSid   the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param phoneNumber  The phone number to verify. Should be formatted with a '+' and country code e.g., +16175551212 (E.164 format). Twilio will also accept unformatted US numbers e.g., (415) 555-1212, 415-555-1212.
@@ -277,6 +306,8 @@ public class TwilioConnector {
     /**
      * Deletes the caller ID from the account. Returns an HTTP 204 response if successful, with no body.
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:deleteOutgoingCallerId}
+     *
      * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param outgoingCallerIdSid the outgoing caller id sid to delete
      * @return an HTTP 204 response if successful, with no body.
@@ -293,6 +324,8 @@ public class TwilioConnector {
      * <p/>
      * An IncomingPhoneNumber instance resource represents a Twilio phone number purchased from Twilio or ported to Twilio.
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getIncomingPhoneNumbersByIncomingPhoneNumberSid}
+     *
      * @param accountSid             the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param incomingPhoneNumberSid the incoming phone number sid to use in the query
      * @return an incoming phone number matching the given incoming phone number sid
@@ -308,6 +341,8 @@ public class TwilioConnector {
      * <p/>
      * * An IncomingPhoneNumber instance resource represents a Twilio phone number purchased from Twilio or ported to Twilio.
      * <p/>
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:updateIncomingPhoneNumbers}
      *
      * @param accountSid             the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param incomingPhoneNumberSid the incoming phone number sid to use
@@ -350,6 +385,8 @@ public class TwilioConnector {
     /**
      * Release this phone number from your account. Twilio will no longer answer calls to this number, and you will stop being billed the monthly phone number fee. The phone number will eventually be recycled and potentially given to another customer, so use with care.
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:deleteIncomingPhoneNumber}
+     *
      * @param accountSid             the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param incomingPhoneNumberSid the incoming phone number sid to delete
      * @return if succesful, returns an HTTP 204 response with no body.
@@ -364,6 +401,8 @@ public class TwilioConnector {
      * <p/>
      * An IncomingPhoneNumber instance resource represents a Twilio phone number purchased from Twilio or ported to Twilio.
      * <p/>
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getIncomingPhoneNumbers}
      *
      * @param accountSid   the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param phoneNumber  Only show the incoming phone number resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
@@ -381,6 +420,8 @@ public class TwilioConnector {
      * Adds a new phone number to your account. If a phone number is found for your request, Twilio will add it to your account and bill you for the first month's cost of the phone number. If Twilio can't find a phone number to match your request, you will receive an HTTP 400 with Twilio error code 21452.
      * If successful, Twilio responds with a representation of the new phone number that was assigned to your account.
      * <p/>
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:addIncomingPhoneNumberByPhoneNumber}
      *
      * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param phoneNumber         The phone number you want to purchase. The number should be formated starting with a '+' followed by the country code and the number in E.164 format e.g., '+15105555555'.
@@ -420,6 +461,8 @@ public class TwilioConnector {
      * If successful, Twilio responds with a representation of the new phone number that was assigned to your account.
      * <p/>
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:addIncomingPhoneNumberByAreaCode}
+     *
      * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param areaCode            The area code in which you'd like a new incoming phone number. Any three digit, US area code is valid. Twilio will provision a random phone number within this area code for you.
      * @param friendlyName        A human readable description of the new incoming phone number. Maximum 64 characters. Defaults to a formatted version of the number.
@@ -458,6 +501,7 @@ public class TwilioConnector {
      * <p/>
      * An Application instance resource represents an application that you have created with Twilio. An application inside of Twilio is just a set of URLs and other configuration data that tells Twilio how to behave when one of your Twilio numbers receives a call or SMS message.
      * <p/>
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getApplication}
      *
      * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param applicationSid the application sid to use in the query
@@ -473,6 +517,8 @@ public class TwilioConnector {
     /**
      * Tries to update the application's properties, and returns the updated resource representation if successful.
      * <p/>
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:updateApplication}
      *
      * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param applicationSid      the application sid to update
@@ -510,6 +556,8 @@ public class TwilioConnector {
     /**
      * Delete this application. If this application's sid is assigned to any IncomingPhoneNumber resources as a VoiceApplicationSid or SmsApplicationSid it will be removed.
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:deleteApplication}
+     *
      * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param applicationSid the application sid to use
      * @return If succesful, Twilio will return an HTTP 204 response with no body.
@@ -524,6 +572,8 @@ public class TwilioConnector {
      * Returns a list of Application resource representations, each representing an application within your account. The list includes paging information.
      * <p/>
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getAllApplications}
+     *
      * @param accountSid   the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param friendlyName Only return the Application resources with friendly names that exactly match this name.
      * @return a list of Application resource representations
@@ -536,6 +586,8 @@ public class TwilioConnector {
 
     /**
      * Creates a new application within your account. If successful, Twilio responds with a representation of the new application.
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:createApplication}
      *
      * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param friendlyName        A human readable description of the new application. Maximum 64 characters.
@@ -574,6 +626,8 @@ public class TwilioConnector {
      * A Call instance resource represents a connection between a telephone and Twilio. This may be inbound, when a person calls your application, or outbound, when your application initiates the call, either via the REST API (see Making Calls) or during a call via the TwiML <Dial> verb. The Calls list resource represents the set of phone calls made to and from an account.
      * <p/>
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getCall}
+     *
      * @param accountSid the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param callSid    the call sid to use in the query
      * @return the single Call resource identified by the given call sid.
@@ -587,6 +641,8 @@ public class TwilioConnector {
     /**
      * Returns a list of phone calls made to and from the account identified by the given account sid. The list includes paging information and is sorted by DateUpdated with most-recent calls first.
      * <p/>
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getCalls}
      *
      * @param accountSid the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param to         Only show calls to this phone number.
@@ -607,6 +663,8 @@ public class TwilioConnector {
     /**
      * Initiates a call using the given paramaters. Only one of url or applicationSid parameters must be specified, not both. Returns the call representation.
      * <p/>
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:makeCall}
      *
      * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param from           The phone number to use as the caller id. Format with a '+' and country code e.g., +16175551212 (E.164 format). Must be a Twilio number or a valid outgoing caller id for your account.
@@ -640,6 +698,8 @@ public class TwilioConnector {
      * Modify the state of a live call. Returns the call representation.
      * <p/>
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:changeCallState}
+     *
      * @param accountSid the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param callSid    the call sid to modify
      * @param url        A valid URL that returns TwiML. Twilio will immediately redirect the call to the new TwiML.
@@ -659,6 +719,7 @@ public class TwilioConnector {
     /**
      * Returns a representation of the conference identified by the given conference id.
      * <p/>
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getConference}
      *
      * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param conferenceSid the conference sid to use in the query
@@ -673,6 +734,7 @@ public class TwilioConnector {
     /**
      * Returns a list of conferences within an account. The list includes paging information and is sorted by DateUpdated, with most recent conferences first.
      * <p/>
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getConferences}
      *
      * @param accountSid   the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param status       Only show conferences currently in with this status. May be init, in-progress, or completed.
@@ -693,6 +755,7 @@ public class TwilioConnector {
     /**
      * Returns a representation of this participant.
      * <p/>
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getParticipant}
      *
      * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param conferenceSid the conference sid to use in the query
@@ -708,6 +771,8 @@ public class TwilioConnector {
 
     /**
      * Updates the participant status. Returns the participant representation.
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:updateParticipantStatus}
      *
      * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param conferenceSid the conference sid to use
@@ -727,6 +792,8 @@ public class TwilioConnector {
     /**
      * Kick this participant from the conference. Returns HTTP 204 (No Content), with no body, if the participant was successfuly booted from the conference.
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:deleteParticipant}
+     *
      * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param conferenceSid the conference sid to use
      * @param callSid       the call sid to use
@@ -741,6 +808,8 @@ public class TwilioConnector {
 
     /**
      * Returns the list of participants in the conference identified by the given conference sid.
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getParticipants}
      *
      * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param conferenceSid the conference sid to use in the query
@@ -757,6 +826,8 @@ public class TwilioConnector {
     /**
      * Returns a single SMS message specified by the provided SMS message sid.
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getSmsMessage}
+     *
      * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param smsMessageSid the SMS message sid to use in the query.
      * @return a single SMS message specified by the provided SMS message sid.
@@ -769,6 +840,8 @@ public class TwilioConnector {
 
     /**
      * Returns a list of SMS messages associated with your account. The list includes paging information and is sorted by DateSent, with most recent messages first.
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getAllSmsMessages}
      *
      * @param accountSid the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param to         Only show SMS messages to this phone number.
@@ -786,6 +859,8 @@ public class TwilioConnector {
 
     /**
      * Send an outgoing SMS message. By specifying an SMS URL for your SMS enabled Twilio phone number, Twilio will make a request to your application to notify you when someone replies to a message you send.
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:sendSmsMessage}
      *
      * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param from           A Twilio number enabled for SMS. Only phone numbers purchased from Twilio work here; you cannot (for example) spoof SMS messages from your own cell phone number.
@@ -808,6 +883,8 @@ public class TwilioConnector {
     /**
      * Returns one of several representations depending on the given recording type.
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getRecording}
+     *
      * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param recordingSid  the recording sid to use in the query
      * @param recordingType the recording type to use
@@ -823,6 +900,8 @@ public class TwilioConnector {
     /**
      * Deletes a recording from your account. If successful, returns HTTP 204 (No Content) with no body.
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:deleteRecording}
+     *
      * @param accountSid   the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param recordingSid the recording sid to use.
      * @return If successful, returns HTTP 204 (No Content) with no body.
@@ -835,6 +914,8 @@ public class TwilioConnector {
 
     /**
      * Returns a list of Recording resource representations, each representing a recording generated during the course of a phone call. The list includes paging information.
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getRecordings}
      *
      * @param accountSid  the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param callSid     Show only recordings made during the call given by this sid.
@@ -851,6 +932,8 @@ public class TwilioConnector {
     /**
      * Returns a single Transcription resource representation identified by the given transcription sid.
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getTranscriptionByTranscriptionSid}
+     *
      * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param transcriptionSid    the transcription sid to use in the query.
      * @param transcriptionFormat the transcription format of the response
@@ -865,6 +948,8 @@ public class TwilioConnector {
 
     /**
      * Returns a set of Transcription resource representations that includes paging information, sorted by 'DateUpdated', with most recent transcripts first.
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getTranscriptions}
      *
      * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param recordingSid        the recording sid to use in the query
@@ -881,6 +966,8 @@ public class TwilioConnector {
     /**
      * Return a notificaction resource for the given notification sid.
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getNotification}
+     *
      * @param accountSid      the account sid to use in the query
      * @param notificationSid the notification sid to use in the query
      * @return a notificaction resource for the given notification sid.
@@ -893,6 +980,8 @@ public class TwilioConnector {
     /**
      * Deletes the notification identified by {NotificationSid} from an account's log.
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:deleteNotification}
+     *
      * @param accountSid      the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param notificationSid the notification sid to use
      * @return If successful, returns HTTP status 204 (No Content) with no body.
@@ -904,6 +993,8 @@ public class TwilioConnector {
 
     /**
      * Returns a list of notifications generated for an account. The list includes paging information and is sorted by DateUpdated, with most recent notifications first.
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getAllNotifications}
      *
      * @param accountSid  the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param log         An integer log level corresponding to the type of notification: 0 is ERROR, 1 is WARNING.
@@ -919,6 +1010,8 @@ public class TwilioConnector {
 
     /**
      * Returns a list of notifications generated for an account. The list includes paging information and is sorted by DateUpdated, with most recent notifications first.
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getNotificationsByCallSid}
      *
      * @param accountSid  the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param callSid     the call sid to use in the query
@@ -940,6 +1033,8 @@ public class TwilioConnector {
      * The Sandbox resource gives you programatic access to your Twilio Developer Sandbox phone number. Using this resource you can get the phone number and PIN for your sandbox, view the current voice and SMS URLs and update those URLs just like any other IncomingPhoneNumber resource on a Full Twilio Account.
      * <p/>
      *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getSandbox}
+     *
      * @param accountSid the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @return the Sandbox resource associated with the account identified by {YourAccountSid}. Twilio accounts upgraded prior to February 2010 may not have a Sandbox resource, and in this case you will receive a 404 (Not Found) response.
      */
@@ -953,6 +1048,8 @@ public class TwilioConnector {
      * <p/>
      * The Sandbox resource gives you programatic access to your Twilio Developer Sandbox phone number. Using this resource you can get the phone number and PIN for your sandbox, view the current voice and SMS URLs and update those URLs just like any other IncomingPhoneNumber resource on a Full Twilio Account.
      * <p/>
+     *
+     * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:updateSandbox}
      *
      * @param accountSid  the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
      * @param voiceUrl    The URL that Twilio should request when somebody calls this sandbox.
