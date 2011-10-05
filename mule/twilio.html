@@ -225,8 +225,7 @@ Summary:
  your master account as well as any of your subaccounts. You may also use a subaccount's AccountSid and AuthToken
  to access the resources of that subaccount.
  You can not use a subaccount's credentials to access the resources of your master Twilio account or any other
- subaccounts.
-<br/></p>
+ subaccounts.<br/></p>
 
 
 </div><!-- jd-descr -->
@@ -863,7 +862,19 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Adds a new phone number to your account. If a phone number is found for your request, Twilio will add it to your account and bill you for the first month's cost of the phone number. If Twilio can't find a phone number to match your request, you will receive an HTTP 400 with Twilio error code 21452.
  If successful, Twilio responds with a representation of the new phone number that was assigned to your account.
- <p/><br/></p></div>
+ <p/>
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:add-incoming-phone-number-by-area-code areaCode="some-area-code"
+                                               status-callback-flow-ref="flowToExecuteOnStatusCallback"
+                                               voiceApplicationSid="some-voice-application-sid"
+                                               voiceCallerIdLookup="false" friendlyName="some-friendly-name"
+                                               smsApplicationSid="some-sms-application-sid"
+                                               sms-fallback-flow-ref="flowToExecuteOnSmsFallback"
+                                               smsUrl="some-sms-url"
+                                               smsMethod="GET"
+                                               voice-fallback-flow-ref="flowToExecuteOnVoiceFallback"
+                                               voiceUrl="some-voice-url"
+                                               voiceMethod="GET"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1078,7 +1089,20 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Adds a new phone number to your account. If a phone number is found for your request, Twilio will add it to your account and bill you for the first month's cost of the phone number. If Twilio can't find a phone number to match your request, you will receive an HTTP 400 with Twilio error code 21452.
  If successful, Twilio responds with a representation of the new phone number that was assigned to your account.
- <p/><br/></p></div>
+ <p/>
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:add-incoming-phone-number-by-phone-number phoneNumber="some-phone-number"
+                                                  friendlyName="some-friendly-name"
+                                                  voiceUrl="some-voice-url"
+                                                  voiceMethod="GET"
+                                                  voice-fallback-flow-ref="flowToExecuteOnVoiceFallback"
+                                                  smsApplicationSid="some-sms-application-sid"
+                                                  sms-fallback-flow-ref="flowToExecuteOnSmsFallback"
+                                                  smsUrl="some-sms-url"
+                                                  smsMethod="GET"
+                                                  status-callback-flow-ref="flowToExecuteOnStatusCallback"
+                                                  voiceApplicationSid="some-voice-application-sid"
+                                                  voiceCallerIdLookup="false"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1291,7 +1315,11 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Adds a new CallerID to your account. After making this request, Twilio will return to you a validation code and Twilio will dial the phone number given to perform validation. The code returned must be entered via the phone before the CallerID will be added to your account.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Adds a new CallerID to your account. After making this request, Twilio will return to you a validation code and Twilio will dial the phone number given to perform validation. The code returned must be entered via the phone before the CallerID will be added to your account.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:add-new-caller-id phoneNumber="some-phone-number"
+                          friendlyName="some-friendly-name" callDelay="1"
+                          extension="some-extension"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1401,7 +1429,10 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Modify the state of a live call. Returns the call representation.
- <p/><br/></p></div>
+ <p/>
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:change-call-state callSid="some-call-sid" url="some-url"
+                          method="GET" status="some-status"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1510,7 +1541,18 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Creates a new application within your account. If successful, Twilio responds with a representation of the new application.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new application within your account. If successful, Twilio responds with a representation of the new application.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:create-application friendlyName="some-friendly-name"
+                           apiVersion="2010-04-01" voiceCallerIdLookup="false"
+                           sms-fallback-flow-ref="flowToExecuteOnSmsFallback"
+                           sms-status-callback-flow-ref="flowToExecuteOnStatusCallback"
+                           smsUrl="some-sms-url"
+                           smsMethod="GET"
+                           status-callback-flow-ref="flowToExecuteOnStatusCallback"
+                           voice-fallback-flow-ref="flowToExecuteOnVoiceFallback"
+                           voiceUrl="some-voice-url"
+                           voiceMethod="GET"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1719,7 +1761,8 @@ specify which configuration to use.</p>
  For instance, if you are running a hosted service that relies on Twilio you can create a Twilio subaccount for
  each customer that signs up. Then if a customer closes his or her account with your service, you can simply
  deactivate the associated Twilio subaccount.
- <p/><br/></p></div>
+ <p/>
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:create-sub-account friendlyName="raul"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1776,7 +1819,9 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Delete this application. If this application's sid is assigned to any IncomingPhoneNumber resources as a VoiceApplicationSid or SmsApplicationSid it will be removed.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Delete this application. If this application's sid is assigned to any IncomingPhoneNumber resources as a VoiceApplicationSid or SmsApplicationSid it will be removed.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:delete-application applicationSid="some-application-sid"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1846,7 +1891,9 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Release this phone number from your account. Twilio will no longer answer calls to this number, and you will stop being billed the monthly phone number fee. The phone number will eventually be recycled and potentially given to another customer, so use with care.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Release this phone number from your account. Twilio will no longer answer calls to this number, and you will stop being billed the monthly phone number fee. The phone number will eventually be recycled and potentially given to another customer, so use with care.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:delete-incoming-phone-number incomingPhoneNumberSid="some-incoming-phone-number-sid"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1916,7 +1963,9 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Deletes the notification identified by {NotificationSid} from an account's log.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Deletes the notification identified by {NotificationSid} from an account's log.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:delete-notification notificationSid="some-notification-sid"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1986,7 +2035,9 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Deletes the caller ID from the account. Returns an HTTP 204 response if successful, with no body.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Deletes the caller ID from the account. Returns an HTTP 204 response if successful, with no body.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:delete-outgoing-caller-id outgoingCallerIdSid="some-outgoing-caller-id-sid"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2056,7 +2107,10 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Kick this participant from the conference. Returns HTTP 204 (No Content), with no body, if the participant was successfuly booted from the conference.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Kick this participant from the conference. Returns HTTP 204 (No Content), with no body, if the participant was successfuly booted from the conference.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:delete-participant conferenceSid="some-conference-sid"
+                           callSid="some-call-sid"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2139,7 +2193,9 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Deletes a recording from your account. If successful, returns HTTP 204 (No Content) with no body.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Deletes a recording from your account. If successful, returns HTTP 204 (No Content) with no body.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:delete-recording recordingSid="some-recording-sid"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2209,7 +2265,11 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Trasfers a number between two subaccounts.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Trasfers a number between two subaccounts.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:exchange-phone-numbers-between-subaccounts accountSidFrom="AC8e51fecefbf0b501caced6266d723b3c"
+                                                   accountSidTo="AC970e46372f082a4947642b9cf19cafa7"
+                                                   incomingPhoneNumberSid="321"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2292,7 +2352,9 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns a representation of an account.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a representation of an account.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-account-details /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2350,7 +2412,9 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Retrieve a list of the Account resources belonging to the account used to make the API request. This list will
- include that Account as well.<br/></p></div>
+ include that Account as well.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-all-accounts-details accountStatus="SUSPENDED" friendlyName="coco"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2422,7 +2486,9 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns a list of Application resource representations, each representing an application within your account. The list includes paging information.
- <p/><br/></p></div>
+ <p/>
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-all-applications friendlyName="some-friendly-name"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2492,7 +2558,10 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of notifications generated for an account. The list includes paging information and is sorted by DateUpdated, with most recent notifications first.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of notifications generated for an account. The list includes paging information and is sorted by DateUpdated, with most recent notifications first.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-all-notifications log="1"
+                              messageDate="some-message-date"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2575,7 +2644,9 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of OutgoingCallerId resource representations, each representing a Caller ID number valid for an account. The list includes paging information.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of OutgoingCallerId resource representations, each representing a Caller ID number valid for an account. The list includes paging information.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-all-outgoing-caller-ids phoneNumber="some-phone-number" friendlyName="some-friendly-name"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2658,7 +2729,10 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of SMS messages associated with your account. The list includes paging information and is sorted by DateSent, with most recent messages first.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of SMS messages associated with your account. The list includes paging information and is sorted by DateSent, with most recent messages first.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-all-sms-messages to="some-to" from="some-from"
+                             dateSent="some-date-sent"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2757,7 +2831,8 @@ specify which configuration to use.</p>
   <div class="jd-tagdata jd-tagdescr"><p>Returns an application resource matching the given application sid.
  <p/>
  An Application instance resource represents an application that you have created with Twilio. An application inside of Twilio is just a set of URLs and other configuration data that tells Twilio how to behave when one of your Twilio numbers receives a call or SMS message.
- <p/><br/></p></div>
+ <p/>
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-application  applicationSid="some-application-sid"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2827,7 +2902,11 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of local AvailablePhoneNumber resource representations that match the specified filters, each representing a phone number that is currently available for provisioning within your account.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of local AvailablePhoneNumber resource representations that match the specified filters, each representing a phone number that is currently available for provisioning within your account.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-available-phone-numbers isoCountryCode="AR"
+                                    areaCode="some-area-code" contains="*" inRegion="in-some-region"
+                                    inPostalCode="in-some-postal-code"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2949,7 +3028,13 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of local AvailablePhoneNumber resource representations that match the specified filters, each representing a phone number that is currently available for provisioning within your account.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of local AvailablePhoneNumber resource representations that match the specified filters, each representing a phone number that is currently available for provisioning within your account.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-available-phone-numbers-advanced-seach isoCountryCode="AR" areaCode="some-area-code" contains="*"
+                                                   inRegion="inSomeRegion"
+                                                   inPostalCode="inSomePostalCode" nearLatLong="nearSomeLatLong"
+                                                   nearPhoneNumber="nearSomePhoneNumber" inLata="inSomeLata"
+                                                   inRateCenter="inSomeRateCenter" distance="someDistance"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -3136,7 +3221,10 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of toll-free AvailablePhoneNumber elements that match the specified filters, each representing a phone number that is currently available for provisioning within your account.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of toll-free AvailablePhoneNumber elements that match the specified filters, each representing a phone number that is currently available for provisioning within your account.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-available-toll-free-numbers isoCountryCode="AR"
+                                        contains="*"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -3222,7 +3310,9 @@ specify which configuration to use.</p>
   <div class="jd-tagdata jd-tagdescr"><p>Returns the single Call resource identified by the given call sid.
  <p/>
  A Call instance resource represents a connection between a telephone and Twilio. This may be inbound, when a person calls your application, or outbound, when your application initiates the call, either via the REST API (see Making Calls) or during a call via the TwiML <Dial> verb. The Calls list resource represents the set of phone calls made to and from an account.
- <p/><br/></p></div>
+ <p/>
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-call callSid="some-call-sid"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -3293,7 +3383,10 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns a list of phone calls made to and from the account identified by the given account sid. The list includes paging information and is sorted by DateUpdated with most-recent calls first.
- <p/><br/></p></div>
+ <p/>
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-calls to="some-to" from="some-from"
+                  status="some-status" startTime="start-time"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -3403,7 +3496,8 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns a representation of the conference identified by the given conference id.
- <p/><br/></p></div>
+ <p/>
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-conference conferenceSid="some-conference-sid"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -3474,7 +3568,10 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns a list of conferences within an account. The list includes paging information and is sorted by DateUpdated, with most recent conferences first.
- <p/><br/></p></div>
+ <p/>
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-conferences status="some-status"
+                        friendlyName="some-friendly-name" dateCreated="some-date-created"
+                        dateUpdated="some-date-updated"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -3586,7 +3683,9 @@ specify which configuration to use.</p>
   <div class="jd-tagdata jd-tagdescr"><p>Returns a list of IncomingPhoneNumber resource representations, each representing a phone number given to your account. The list includes paging information.
  <p/>
  An IncomingPhoneNumber instance resource represents a Twilio phone number purchased from Twilio or ported to Twilio.
- <p/><br/></p></div>
+ <p/>
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-incoming-phone-numbers phoneNumber="some-phone-number" friendlyName="some-friendly-name"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -3671,7 +3770,9 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns an incoming phone numbers matching the given query filters.
  <p/>
- An IncomingPhoneNumber instance resource represents a Twilio phone number purchased from Twilio or ported to Twilio.<br/></p></div>
+ An IncomingPhoneNumber instance resource represents a Twilio phone number purchased from Twilio or ported to Twilio.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-incoming-phone-numbers-by-incoming-phone-number-sid incomingPhoneNumberSid="some-incoming-phone-number-sid"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -3741,7 +3842,9 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Return a notificaction resource for the given notification sid.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Return a notificaction resource for the given notification sid.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-notification notificationSid="some-notification-sid"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -3811,7 +3914,10 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of notifications generated for an account. The list includes paging information and is sorted by DateUpdated, with most recent notifications first.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of notifications generated for an account. The list includes paging information and is sorted by DateUpdated, with most recent notifications first.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-notifications-by-call-sid callSid="some-call-sid"
+                                      log="1" messageDate="some-message-date"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -3907,7 +4013,9 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns an outgoing caller id instance matching the given filters.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns an outgoing caller id instance matching the given filters.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-outgoing-caller-id-by-outgoing-caller-id-sid outgoingCallerIdSid="some-outgoing-caller-id-sid"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -3978,7 +4086,9 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns a representation of this participant.
- <p/><br/></p></div>
+ <p/>
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-participant conferenceSid="some-conference-sid"
+                        callSid="some-call-sid"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -4061,7 +4171,10 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns the list of participants in the conference identified by the given conference sid.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns the list of participants in the conference identified by the given conference sid.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-participants conferenceSid="some-conference-sid"
+                         muted="false"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -4144,7 +4257,10 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns one of several representations depending on the given recording type.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns one of several representations depending on the given recording type.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-recording recordingSid="some-recording-sid"
+                      recordingType="MP3"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -4227,7 +4343,10 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of Recording resource representations, each representing a recording generated during the course of a phone call. The list includes paging information.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of Recording resource representations, each representing a recording generated during the course of a phone call. The list includes paging information.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-recordings callSid="some-call-sid"
+                       dateCreated="some-date-created"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -4313,7 +4432,9 @@ specify which configuration to use.</p>
   <div class="jd-tagdata jd-tagdescr"><p>Returns the Sandbox resource associated with the account identified by {YourAccountSid}. Twilio accounts upgraded prior to February 2010 may not have a Sandbox resource, and in this case you will receive a 404 (Not Found) response.
  <p/>
  The Sandbox resource gives you programatic access to your Twilio Developer Sandbox phone number. Using this resource you can get the phone number and PIN for your sandbox, view the current voice and SMS URLs and update those URLs just like any other IncomingPhoneNumber resource on a Full Twilio Account.
- <p/><br/></p></div>
+ <p/>
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-sandbox /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -4370,7 +4491,9 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns a single SMS message specified by the provided SMS message sid.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a single SMS message specified by the provided SMS message sid.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-sms-message smsMessageSid="some-sms-message-id"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -4442,7 +4565,9 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Subaccounts in Twilio are just accounts that are "owned" by another account. Using a subaccount you can segment
  each of your customers' use of Twilio and keep it separate from all the rest, allowing you to easily manage the
- activity and resources of each customer independently.<br/></p></div>
+ activity and resources of each customer independently.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-sub-account-by-account-sid accountSid="AC8e51fecefbf0b501caced6266d723b3c"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -4505,7 +4630,9 @@ specify which configuration to use.</p>
  <p/>
  For instance, if you are running a hosted service that relies on Twilio you can create a Twilio subaccount for
  each customer that signs up. Then if a customer closes his or her account with your service, you can simply
- deactivate the associated Twilio subaccount.<br/></p></div>
+ deactivate the associated Twilio subaccount.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-sub-account-by-friendly-name friendlyName="fede"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -4562,7 +4689,10 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns a single Transcription resource representation identified by the given transcription sid.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a single Transcription resource representation identified by the given transcription sid.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-transcription-by-transcription-sid transcriptionSid="some-transcription-sid"
+                                               transcriptionFormat="TXT"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -4645,7 +4775,10 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns a set of Transcription resource representations that includes paging information, sorted by 'DateUpdated', with most recent transcripts first.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a set of Transcription resource representations that includes paging information, sorted by 'DateUpdated', with most recent transcripts first.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:get-transcriptions recordingSid="some-recording-sid"
+                           transcriptionFormat="XML"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -4729,7 +4862,13 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Initiates a call using the given paramaters. Only one of url or applicationSid parameters must be specified, not both. Returns the call representation.
- <p/><br/></p></div>
+ <p/>
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:make-call from="some-from" to="some-to"
+                  applicationSid="some-application-sid" method="GET" fallback-flow-ref="flowToExecuteOnFallback"
+                  status-callback-flow-ref="flowToExecuteOnStatusCallback"
+                  sendDigits="some-digits"
+                  ifMachine="continue" timeout="123"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -4916,7 +5055,11 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Send an outgoing SMS message. By specifying an SMS URL for your SMS enabled Twilio phone number, Twilio will make a request to your application to notify you when someone replies to a message you send.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Send an outgoing SMS message. By specifying an SMS URL for your SMS enabled Twilio phone number, Twilio will make a request to your application to notify you when someone replies to a message you send.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:send-sms-message from="some-from" to="some-to"
+                         body="some-body" status-callback-flow-ref="flowToExecuteOnStatusCallback"
+                         applicationSid="some-application-sid"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -5038,7 +5181,9 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Allows you to modify the properties of an account.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Allows you to modify the properties of an account.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:update-account accountStatus="CLOSED" friendlyName="juan"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -5122,7 +5267,19 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Tries to update the application's properties, and returns the updated resource representation if successful.
- <p/><br/></p></div>
+ <p/>
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:update-application applicationSid="some-application-sid"
+                           apiVersion="2010-04-01" friendlyName="some-friendly-name"
+                           sms-fallback-flow-ref="flowToExecuteOnSmsFallback"
+                           sms-status-callback-flow-ref="flowToExecuteOnStatusCallback"
+                           smsUrl="some-sms-url"
+                           smsMethod="GET"
+                           status-callback-flow-ref="flowToExecuteOnStatusCallback"
+                           voiceCallerIdLookup="false"
+                           voice-fallback-flow-ref="flowToExecuteOnVoiceFallback"
+                           voiceUrl="some-voice-url"
+                           voiceMethod="GET"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -5338,7 +5495,21 @@ specify which configuration to use.</p>
   <div class="jd-tagdata jd-tagdescr"><p>Tries to update the incoming phone number's properties, and returns the updated resource representation if successful.
  <p/>
  * An IncomingPhoneNumber instance resource represents a Twilio phone number purchased from Twilio or ported to Twilio.
- <p/><br/></p></div>
+ <p/>
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:update-incoming-phone-numbers incomingPhoneNumberSid="some-incoming-phone-number-sid"
+                                      friendlyName="some-friendly-name" apiVersion="2010-04-01"
+                                      voiceUrl="some-voice-url"
+                                      voiceMethod="GET"
+                                      voice-fallback-flow-ref="flowToExecuteOnVoiceFallback"
+                                      status-callback-flow-ref="flowToExecuteOnStatusCallback"
+                                      voiceCallerIdLookup="true"
+                                      voiceApplicationSid="some-voice-application-sid"
+                                      smsUrl="some-sms-url"
+                                      smsMethod="GET"
+                                      sms-fallback-flow-ref="flowToExecuteOnSmsFallback"
+                                      smsApplicationSid="some-sms-application-sid"
+                                      accountSidDestination="some-account-sid-destination"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -5577,7 +5748,10 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Updates the caller id, and returns the updated resource if successful.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Updates the caller id, and returns the updated resource if successful.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:update-outgoing-caller-id-by-outgoing-caller-id-sid outgoingCallerIdSid="some-outgoing-caller-id-sid"
+                                                            friendlyName="some-friendly-name"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -5660,7 +5834,9 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Updates the participant status. Returns the participant representation.<br/></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Updates the participant status. Returns the participant representation.
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:update-participant-status conferenceSid="some-conference-sid" callSid="some-call-sid" muted="false"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -5759,7 +5935,11 @@ specify which configuration to use.</p>
   <div class="jd-tagdata jd-tagdescr"><p>You can POST to the Sandbox resource to update the TwiML voice and SMS URLs associated with the sandbox number.
  <p/>
  The Sandbox resource gives you programatic access to your Twilio Developer Sandbox phone number. Using this resource you can get the phone number and PIN for your sandbox, view the current voice and SMS URLs and update those URLs just like any other IncomingPhoneNumber resource on a Full Twilio Account.
- <p/><br/></p></div>
+ <p/>
+
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;twilio:update-sandbox voiceUrl="some-voice-url"
+                       voiceMethod="GET"
+                       smsUrl="some-sms-url" smsMethod="GET"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
