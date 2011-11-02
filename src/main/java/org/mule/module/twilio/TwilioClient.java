@@ -125,19 +125,23 @@ public class TwilioClient {
                 addIfValueNotNull(TwilioParamater.API_VERSION, apiVersion).
                 addIfValueNotNull(TwilioParamater.VOICE_URL, voiceUrl).
                 addIfValueNotNull(TwilioParamater.VOICE_METHOD, voiceMethod).
-                addIfValueNotNull(TwilioParamater.VOICE_FALLBACK_URL, voiceFallback.getUrl()).
                 addIfValueNotNull(TwilioParamater.VOICE_FALLBACK_METHOD, DEFAULT_CALLBACK_HTTP_METHOD).
                 addIfValueNotNull(TwilioParamater.STATUS_CALLBACK_METHOD, DEFAULT_CALLBACK_HTTP_METHOD).
                 addIfValueNotNull(TwilioParamater.VOICE_CALLER_ID_LOOKUP, voiceCallerIdLookup).
                 addIfValueNotNull(TwilioParamater.VOICE_APPLICATION_SID, voiceApplicationSid).
                 addIfValueNotNull(TwilioParamater.SMS_URL, smsUrl).
                 addIfValueNotNull(TwilioParamater.SMS_METHOD, smsMethod).
-                addIfValueNotNull(TwilioParamater.SMS_FALLBACK_URL, smsFallback.getUrl()).
                 addIfValueNotNull(TwilioParamater.SMS_FALLBACK_METHOD, DEFAULT_CALLBACK_HTTP_METHOD).
                 addIfValueNotNull(TwilioParamater.SMS_APPLICATION_SID, smsApplicationSid).
                 addIfValueNotNull(TwilioParamater.ACCOUNT_SID, accountSidDestination);
+        if (voiceFallback != null) {
+            twilioParams.addIfValueNotNull(TwilioParamater.VOICE_FALLBACK_URL, voiceFallback.getUrl());
+        }
         if (statusCallback != null) {
             twilioParams.addIfValueNotNull(TwilioParamater.STATUS_CALLBACK, statusCallback.getUrl());
+        }
+        if (smsFallback != null) {
+            twilioParams.addIfValueNotNull(TwilioParamater.SMS_FALLBACK_URL, smsFallback.getUrl());
         }
         return twilioRequestExecutor.executePostRequest(getUri(accountSid) + "/IncomingPhoneNumbers/" + incomingPhoneNumberSid, twilioParams);
     }
@@ -228,8 +232,8 @@ public class TwilioClient {
                 addIfValueNotNull(TwilioParamater.VOICE_METHOD, voiceMethod).
                 addIfValueNotNull(TwilioParamater.VOICE_CALLER_ID_LOOKUP, voiceCallerIdLookup).
                 addIfValueNotNull(TwilioParamater.SMS_URL, smsUrl).
-                addIfValueNotNull(TwilioParamater.SMS_METHOD, smsMethod).
-                addIfValueNotNull(TwilioParamater.SMS_STATUS_CALLBACK, smsStatusCallback.getUrl());
+                addIfValueNotNull(TwilioParamater.SMS_METHOD, smsMethod);
+
         if (statusCallback != null) {
             twilioParams.addIfValueNotNull(TwilioParamater.STATUS_CALLBACK, statusCallback.getUrl());
             twilioParams.addIfValueNotNull(TwilioParamater.STATUS_CALLBACK_METHOD, DEFAULT_CALLBACK_HTTP_METHOD);
@@ -241,6 +245,9 @@ public class TwilioClient {
         if (smsFallback != null) {
             twilioParams.addIfValueNotNull(TwilioParamater.SMS_FALLBACK_URL, smsFallback.getUrl());
             twilioParams.addIfValueNotNull(TwilioParamater.SMS_FALLBACK_METHOD, DEFAULT_CALLBACK_HTTP_METHOD);
+        }
+        if (smsStatusCallback != null) {
+            twilioParams.addIfValueNotNull(TwilioParamater.SMS_STATUS_CALLBACK, smsStatusCallback.getUrl());
         }
         return twilioRequestExecutor.executePostRequest(getUri(accountSid) + "/Applications/" + applicationSid, twilioParams);
 
