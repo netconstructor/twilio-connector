@@ -30,15 +30,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Verb {
-
-
-    protected String tag;
-    protected String body;
-    protected HashMap<String, String> attributes;
-    protected ArrayList<Verb> children;
-    protected ArrayList<String> allowedVerbs;
 
     public static final String V_SAY = "Say";
     public static final String V_PLAY = "Play";
@@ -54,6 +49,13 @@ public class Verb {
     public static final String V_SMS = "Sms";
     public static final String V_REJECT = "Reject";
 
+    protected String tag;
+    protected String body;
+    protected HashMap<String, String> attributes;
+    protected List<Verb> children;
+
+    protected List<String> allowedVerbs;
+
     public Verb(String tag, String body) {
         this.tag = tag;
         this.body = body;
@@ -62,8 +64,8 @@ public class Verb {
     }
 
     public Verb append(Verb verb) throws TwiMLException {
-        if (this.allowedVerbs != null && this.allowedVerbs.contains(verb.getTag())) {
-            this.children.add(verb);
+        if (allowedVerbs != null && allowedVerbs.contains(verb.getTag())) {
+            children.add(verb);
             return verb;
         } else {
             throw new TwiMLException("This is not a supported verb");
@@ -86,9 +88,8 @@ public class Verb {
 
     public String asURL() {
         try {
-            return URLEncoder.encode(this.toXML(), "UTF-8");
+            return URLEncoder.encode(toXML(), "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -98,18 +99,18 @@ public class Verb {
     }
 
     public String getBody() {
-        return this.body;
+        return body;
     }
 
     public String getTag() {
-        return this.tag;
+        return tag;
     }
 
-    public ArrayList<Verb> getChildren() {
-        return this.children;
+    public List<Verb> getChildren() {
+        return children;
     }
 
-    public HashMap<String, String> getAttributes() {
-        return this.attributes;
+    public Map<String, String> getAttributes() {
+        return attributes;
     }
 }

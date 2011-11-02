@@ -29,7 +29,11 @@ OTHER DEALINGS IN THE SOFTWARE.
 import org.apache.commons.codec.binary.Base64;
 import org.mule.module.twilio.ITwilioRestClient;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -38,7 +42,8 @@ import java.util.Map;
 
 public class TwilioRestClient implements ITwilioRestClient {
 
-    private String endpoint = "https://api.twilio.com";
+    public static final String TWILIO_URL = "https://api.twilio.com";
+    private String endpoint = TWILIO_URL;
     private String accountSid;
     private String authToken;
 
@@ -84,9 +89,7 @@ public class TwilioRestClient implements ITwilioRestClient {
 
 
         try {
-            URL resturl = new URL(url);
-
-            HttpURLConnection con = (HttpURLConnection) resturl.openConnection();
+            HttpURLConnection con = openConnection(url);
             String userpass = this.accountSid + ":" + this.authToken;
             String encodeuserpass = new String(Base64.encodeBase64(userpass.getBytes()));
 
@@ -134,7 +137,7 @@ public class TwilioRestClient implements ITwilioRestClient {
                 throw new TwilioRestException("Unable to read response from server");
             }
 
-            StringBuffer decodedString = new StringBuffer();
+            StringBuilder decodedString = new StringBuilder();
             String line;
             while ((line = in.readLine()) != null) {
                 decodedString.append(line);
@@ -150,6 +153,11 @@ public class TwilioRestClient implements ITwilioRestClient {
         } catch (IOException e) {
             throw new TwilioRestException(e);
         }
+    }
+
+    protected HttpURLConnection openConnection(String url) throws IOException {
+        URL resturl = new URL(url);
+        return (HttpURLConnection) resturl.openConnection();
     }
 
     public String getAccountSid() {
