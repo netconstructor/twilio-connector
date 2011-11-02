@@ -1,11 +1,15 @@
+/**
+ * Mule Twilio Connector
+ *
+ * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+ *
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+
 package com.twilio.sdk.verbs;
 
-/**
- * * Created by IntelliJ IDEA.
- * * User: Wael
- * * Date: Sep 19, 2010
- * * Time: 12:32:22 AM
- */
 public class Reject extends Verb {
     public Reject() {
         super(V_REJECT, null);
