@@ -6,7 +6,7 @@
     <artifactId>mule-module-twilio</artifactId>
     <packaging>mule-module</packaging>
     <name>Mule Twilio Connector</name>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
     <description>Mule Cloud connector to Twilio</description>
     <url>http://www.muleforge.org/projects/mule-module-twilio</url>
 
@@ -46,12 +46,6 @@
             <id>mulesoft-releases</id>
             <name>MuleSoft Releases Repository</name>
             <url>http://repository.mulesoft.org/releases/</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>mulesoft-snapshots</id>
-            <name>MuleSoft Snapshots Repository</name>
-            <url>http://repository.mulesoft.org/snapshots/</url>
             <layout>default</layout>
         </repository>
     </repositories>
