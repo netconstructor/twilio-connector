@@ -9,8 +9,7 @@
     <version>1.0</version>
 
     <properties>
-        <muleVersion>3.1.0</muleVersion>
-        <ibeansVersion>1.1</ibeansVersion>
+        <muleVersion>3.2.0</muleVersion>
     </properties>
 
     <description>Example that inserts clients into a Mongo Collection and then retrieves them and sends them a SMS
@@ -108,26 +107,6 @@
             <artifactId>mule-tests-functional</artifactId>
             <version>${muleVersion}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.ibeans</groupId>
-            <artifactId>ibeans-support</artifactId>
-            <version>${ibeansVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-ognl</artifactId>
-            <version>${muleVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-ibeans</artifactId>
-            <version>${muleVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-scripting</artifactId>
-            <version>${muleVersion}</version>
         </dependency>
     </dependencies>
     <repositories>
