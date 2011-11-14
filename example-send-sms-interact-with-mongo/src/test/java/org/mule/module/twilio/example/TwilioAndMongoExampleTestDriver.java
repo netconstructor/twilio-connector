@@ -13,6 +13,7 @@ package org.mule.module.twilio.example;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
 import org.mule.api.transport.PropertyScope;
+import org.mule.construct.Flow;
 import org.mule.tck.FunctionalTestCase;
 
 import javax.xml.transform.OutputKeys;
