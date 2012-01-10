@@ -13,16 +13,14 @@ package org.mule.module.twilio;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.callback.HttpCallback;
 
 /**
- * You can use your master Twilio Account credentials (AccountSid and AuthToken) to access Twilio's REST API for
- * your master account as well as any of your subaccounts. You may also use a subaccount's AccountSid and AuthToken
- * to access the resources of that subaccount.
- * You can not use a subaccount's credentials to access the resources of your master Twilio account or any other
- * subaccounts.
+ * Twilio is a provider of cloud API for voice and SMS communications for customers who want to use phone services as
+ * marketing leverage.
  *
  * @author MuleSoft, Inc.
  */
@@ -82,7 +80,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:updateAccount}
      *
-     * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid    optionally override globally configured Account SID
      * @param accountStatus Alter the status of this account: use closed to irreversibly close this account, suspended to temporarily suspend it, or active to reactivate it.
      * @param friendlyName  Update the human-readable description of this account.
      * @return a representation of the account
@@ -172,7 +170,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getAvailablePhoneNumbers}
      *
-     * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid     optionally override globally configured Account SID
      * @param isoCountryCode a country code in ISO 3166-1 alpha-2 format (e.g. 'US' for United States, 'CA' for Canada).
      * @param areaCode       Find phone numbers in the specified Area Code. Only available for North American numbers.
      * @param contains       A pattern to match phone numbers on. Valid characters are '*' and [0-9a-zA-Z]. The '*' character will match any single digit.
@@ -195,7 +193,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getAvailablePhoneNumbersAdvancedSeach}
      *
-     * @param accountSid      the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid      optionally override globally configured Account SID
      * @param isoCountryCode  a country code in ISO 3166-1 alpha-2 format (e.g. 'US' for United States, 'CA' for Canada).
      * @param areaCode        Find phone numbers in the specified Area Code. Only available for North American numbers.
      * @param contains        A pattern to match phone numbers on. Valid characters are '*' and [0-9a-zA-Z]. The '*' character will match any single digit.
@@ -215,11 +213,11 @@ public class TwilioConnector {
                                                         @Optional String contains,
                                                         @Optional String inRegion,
                                                         @Optional String inPostalCode,
-                                                        @Optional String nearLatLong,
-                                                        @Optional String nearPhoneNumber,
-                                                        @Optional String inLata,
-                                                        @Optional String inRateCenter,
-                                                        @Optional String distance) {
+                                                        @Placement(group = "Advanced") @Optional String nearLatLong,
+                                                        @Placement(group = "Advanced") @Optional String nearPhoneNumber,
+                                                        @Placement(group = "Advanced") @Optional String inLata,
+                                                        @Placement(group = "Advanced") @Optional String inRateCenter,
+                                                        @Placement(group = "Advanced") @Optional String distance) {
         return twilioClient.getAvailablePhoneNumbersAdvancedSeach(accountSid, isoCountryCode, areaCode, contains, inRegion, inPostalCode, nearLatLong, nearPhoneNumber, inLata, inRateCenter, distance);
     }
 
@@ -228,7 +226,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getAvailableTollFreeNumbers}
      *
-     * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid     optionally override globally configured Account SID
      * @param isoCountryCode a country code in ISO 3166-1 alpha-2 format (e.g. 'US' for United States, 'CA' for Canada).
      * @param contains       A pattern to match phone numbers on. Valid characters are '*' and [0-9a-zA-Z]. The '*' character will match any single digit.
      * @return a list of toll-free AvailablePhoneNumber elements that match the specified filters
@@ -245,7 +243,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getOutgoingCallerIdByOutgoingCallerIdSid}
      *
-     * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid          optionally override globally configured Account SID
      * @param outgoingCallerIdSid the outgoing caller id sid to use in the query
      * @return an outgoing caller id instance matching the given filters.
      */
@@ -260,7 +258,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:updateOutgoingCallerIdByOutgoingCallerIdSid}
      *
-     * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid          optionally override globally configured Account SID
      * @param outgoingCallerIdSid the outgoing caller id sid to update
      * @param friendlyName        A human readable description of a Caller ID, with maximum length of 64 characters. Defaults to a nicely formatted version of the phone number.
      * @return returns the updated resource if successful.
@@ -277,7 +275,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getAllOutgoingCallerIds}
      *
-     * @param accountSid   the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid   optionally override globally configured Account SID
      * @param phoneNumber  Only show the caller id resource that exactly matches this phone number.
      * @param friendlyName Only show the caller id resource that exactly matches this name.
      * @return a list of OutgoingCallerId resource representations
@@ -294,7 +292,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:addNewCallerId}
      *
-     * @param accountSid   the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid   optionally override globally configured Account SID
      * @param phoneNumber  The phone number to verify. Should be formatted with a '+' and country code e.g., +16175551212 (E.164 format). Twilio will also accept unformatted US numbers e.g., (415) 555-1212, 415-555-1212.
      * @param friendlyName A human readable description for the new caller ID with maximum length 64 characters. Defaults to a nicely formatted version of the number.
      * @param callDelay    The number of seconds, between 0 and 60, to delay before initiating the validation call. Defaults to 0.
@@ -315,7 +313,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:deleteOutgoingCallerId}
      *
-     * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid          optionally override globally configured Account SID
      * @param outgoingCallerIdSid the outgoing caller id sid to delete
      * @return an HTTP 204 response if successful, with no body.
      */
@@ -333,7 +331,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getIncomingPhoneNumbersByIncomingPhoneNumberSid}
      *
-     * @param accountSid             the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid             optionally override globally configured Account SID
      * @param incomingPhoneNumberSid the incoming phone number sid to use in the query
      * @return an incoming phone number matching the given incoming phone number sid
      */
@@ -351,7 +349,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:updateIncomingPhoneNumbers}
      *
-     * @param accountSid             the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid             optionally override globally configured Account SID
      * @param incomingPhoneNumberSid the incoming phone number sid to use
      * @param friendlyName           A human readable description of the new incoming phone number resource, with maximum length 64 characters.
      * @param apiVersion             Calls to this phone number will start a new TwiML session with this API version. Either 2010-04-01 or 2008-08-01.
@@ -374,16 +372,16 @@ public class TwilioConnector {
                                              String incomingPhoneNumberSid,
                                              @Optional String friendlyName,
                                              @Optional String apiVersion,
-                                             @Optional String voiceUrl,
-                                             @Optional HttpMethod voiceMethod,
-                                             @Optional HttpCallback voiceFallback,
-                                             @Optional HttpCallback statusCallback,
-                                             @Optional Boolean voiceCallerIdLookup,
-                                             @Optional String voiceApplicationSid,
-                                             @Optional String smsUrl,
-                                             @Optional HttpMethod smsMethod,
-                                             @Optional HttpCallback smsFallback,
-                                             @Optional String smsApplicationSid,
+                                             @Placement(group = "Voice Settings") @Optional String voiceUrl,
+                                             @Placement(group = "Voice Settings") @Optional HttpMethod voiceMethod,
+                                             @Placement(group = "Voice Settings") @Optional HttpCallback voiceFallback,
+                                             @Placement(group = "Voice Settings") @Optional HttpCallback statusCallback,
+                                             @Placement(group = "Voice Settings") @Optional Boolean voiceCallerIdLookup,
+                                             @Placement(group = "Voice Settings") @Optional String voiceApplicationSid,
+                                             @Placement(group = "SMS Settings") @Optional String smsUrl,
+                                             @Placement(group = "SMS Settings") @Optional HttpMethod smsMethod,
+                                             @Placement(group = "SMS Settings") @Optional HttpCallback smsFallback,
+                                             @Placement(group = "SMS Settings")  @Optional String smsApplicationSid,
                                              @Optional String accountSidDestination) {
         return twilioClient.updateIncomingPhoneNumbers(accountSid, incomingPhoneNumberSid, friendlyName, apiVersion, voiceUrl,
                 voiceMethod, voiceFallback, statusCallback, voiceCallerIdLookup, voiceApplicationSid, smsUrl, smsMethod, smsFallback, smsApplicationSid, accountSidDestination);
@@ -394,7 +392,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:deleteIncomingPhoneNumber}
      *
-     * @param accountSid             the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid             optionally override globally configured Account SID
      * @param incomingPhoneNumberSid the incoming phone number sid to delete
      * @return if succesful, returns an HTTP 204 response with no body.
      */
@@ -411,7 +409,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getIncomingPhoneNumbers}
      *
-     * @param accountSid   the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid   optionally override globally configured Account SID
      * @param phoneNumber  Only show the incoming phone number resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
      * @param friendlyName Only show the incoming phone number resources with friendly names that exactly match this name.
      * @return a list of IncomingPhoneNumber resource representations
@@ -430,7 +428,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:addIncomingPhoneNumberByPhoneNumber}
      *
-     * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid          optionally override globally configured Account SID
      * @param phoneNumber         The phone number you want to purchase. The number should be formated starting with a '+' followed by the country code and the number in E.164 format e.g., '+15105555555'.
      * @param friendlyName        A human readable description of the new incoming phone number. Maximum 64 characters. Defaults to a formatted version of the number.
      * @param voiceUrl            The URL that Twilio should request when somebody dials the new phone number.
@@ -449,16 +447,16 @@ public class TwilioConnector {
     public String addIncomingPhoneNumberByPhoneNumber(@Optional String accountSid,
                                                       String phoneNumber,
                                                       @Optional String friendlyName,
-                                                      @Optional String voiceUrl,
-                                                      @Optional HttpMethod voiceMethod,
-                                                      @Optional HttpCallback voiceFallback,
-                                                      @Optional HttpCallback statusCallback,
-                                                      @Optional Boolean voiceCallerIdLookup,
-                                                      @Optional String voiceApplicationSid,
-                                                      @Optional String smsUrl,
-                                                      @Optional HttpMethod smsMethod,
-                                                      @Optional HttpCallback smsFallback,
-                                                      @Optional String smsApplicationSid) {
+                                                      @Placement(group = "Voice Settings") @Optional String voiceUrl,
+                                                      @Placement(group = "Voice Settings") @Optional HttpMethod voiceMethod,
+                                                      @Placement(group = "Voice Settings") @Optional HttpCallback voiceFallback,
+                                                      @Placement(group = "Voice Settings") @Optional HttpCallback statusCallback,
+                                                      @Placement(group = "Voice Settings")  @Optional Boolean voiceCallerIdLookup,
+                                                      @Placement(group = "Voice Settings") @Optional String voiceApplicationSid,
+                                                      @Placement(group = "SMS Settings") @Optional String smsUrl,
+                                                      @Placement(group = "SMS Settings") @Optional HttpMethod smsMethod,
+                                                      @Placement(group = "SMS Settings") @Optional HttpCallback smsFallback,
+                                                      @Placement(group = "SMS Settings") @Optional String smsApplicationSid) {
         return twilioClient.addIncomingPhoneNumberByPhoneNumber(accountSid, phoneNumber, friendlyName, voiceUrl, voiceMethod, voiceFallback,
                 statusCallback, voiceCallerIdLookup, voiceApplicationSid, smsUrl, smsMethod, smsFallback, smsApplicationSid);
     }
@@ -470,7 +468,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:addIncomingPhoneNumberByAreaCode}
      *
-     * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid          optionally override globally configured Account SID
      * @param areaCode            The area code in which you'd like a new incoming phone number. Any three digit, US area code is valid. Twilio will provision a random phone number within this area code for you.
      * @param friendlyName        A human readable description of the new incoming phone number. Maximum 64 characters. Defaults to a formatted version of the number.
      * @param voiceUrl            The URL that Twilio should request when somebody dials the new phone number.
@@ -489,16 +487,16 @@ public class TwilioConnector {
     public String addIncomingPhoneNumberByAreaCode(@Optional String accountSid,
                                                    String areaCode,
                                                    @Optional String friendlyName,
-                                                   @Optional String voiceUrl,
-                                                   @Optional HttpMethod voiceMethod,
-                                                   @Optional HttpCallback voiceFallback,
-                                                   @Optional HttpCallback statusCallback,
-                                                   @Optional Boolean voiceCallerIdLookup,
-                                                   @Optional String voiceApplicationSid,
-                                                   @Optional String smsUrl,
-                                                   @Optional HttpMethod smsMethod,
-                                                   @Optional HttpCallback smsFallback,
-                                                   @Optional String smsApplicationSid) {
+                                                   @Placement(group = "Voice Settings") @Optional String voiceUrl,
+                                                   @Placement(group = "Voice Settings") @Optional HttpMethod voiceMethod,
+                                                   @Placement(group = "Voice Settings") @Optional HttpCallback voiceFallback,
+                                                   @Placement(group = "Voice Settings") @Optional HttpCallback statusCallback,
+                                                   @Placement(group = "Voice Settings") @Optional Boolean voiceCallerIdLookup,
+                                                   @Placement(group = "Voice Settings") @Optional String voiceApplicationSid,
+                                                   @Placement(group = "SMS Settings") @Optional String smsUrl,
+                                                   @Placement(group = "SMS Settings") @Optional HttpMethod smsMethod,
+                                                   @Placement(group = "SMS Settings") @Optional HttpCallback smsFallback,
+                                                   @Placement(group = "SMS Settings") @Optional String smsApplicationSid) {
         return twilioClient.addIncomingPhoneNumberByAreaCode(accountSid, areaCode, friendlyName, voiceUrl, voiceMethod, voiceFallback,
                 statusCallback, voiceCallerIdLookup, voiceApplicationSid, smsUrl, smsMethod, smsFallback, smsApplicationSid);
     }
@@ -510,7 +508,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getApplication}
      *
-     * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid     optionally override globally configured Account SID
      * @param applicationSid the application sid to use in the query
      * @return an application resource matching the given application sid.
      */
@@ -527,7 +525,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:updateApplication}
      *
-     * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid          optionally override globally configured Account SID
      * @param applicationSid      the application sid to update
      * @param friendlyName        A human readable description of the application, with maximum length 64 characters.
      * @param apiVersion          Requests to this application's URLs will start a new TwiML session with this API version. Either 2010-04-01 or 2008-08-01.
@@ -547,15 +545,15 @@ public class TwilioConnector {
                                     String applicationSid,
                                     @Optional String friendlyName,
                                     @Optional String apiVersion,
-                                    @Optional String voiceUrl,
-                                    @Optional HttpMethod voiceMethod,
-                                    @Optional HttpCallback voiceFallback,
-                                    @Optional HttpCallback statusCallback,
-                                    @Optional Boolean voiceCallerIdLookup,
-                                    @Optional String smsUrl,
-                                    @Optional HttpMethod smsMethod,
-                                    @Optional HttpCallback smsFallback,
-                                    @Optional HttpCallback smsStatusCallback) {
+                                    @Placement(group = "Voice Settings") @Optional String voiceUrl,
+                                    @Placement(group = "Voice Settings") @Optional HttpMethod voiceMethod,
+                                    @Placement(group = "Voice Settings") @Optional HttpCallback voiceFallback,
+                                    @Placement(group = "Voice Settings") @Optional HttpCallback statusCallback,
+                                    @Placement(group = "Voice Settings") @Optional Boolean voiceCallerIdLookup,
+                                    @Placement(group = "SMS Settings") @Optional String smsUrl,
+                                    @Placement(group = "SMS Settings") @Optional HttpMethod smsMethod,
+                                    @Placement(group = "SMS Settings") @Optional HttpCallback smsFallback,
+                                    @Placement(group = "SMS Settings") @Optional HttpCallback smsStatusCallback) {
         return twilioClient.updateApplication(accountSid, applicationSid, friendlyName, apiVersion, voiceUrl, voiceMethod, voiceFallback, statusCallback, voiceCallerIdLookup,
                 smsUrl, smsMethod, smsFallback, smsStatusCallback);
     }
@@ -565,7 +563,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:deleteApplication}
      *
-     * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid     optionally override globally configured Account SID
      * @param applicationSid the application sid to use
      * @return If succesful, Twilio will return an HTTP 204 response with no body.
      */
@@ -581,7 +579,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getAllApplications}
      *
-     * @param accountSid   the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid   optionally override globally configured Account SID
      * @param friendlyName Only return the Application resources with friendly names that exactly match this name.
      * @return a list of Application resource representations
      */
@@ -596,7 +594,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:createApplication}
      *
-     * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid          optionally override globally configured Account SID
      * @param friendlyName        A human readable description of the new application. Maximum 64 characters.
      * @param apiVersion          Requests to this application's URLs will start a new TwiML session with this API version. Either 2010-04-01 or 2008-08-01. Defaults to your account's default API version.
      * @param voiceUrl            The URL that Twilio should request when somebody dials a phone number assigned to this application
@@ -614,15 +612,15 @@ public class TwilioConnector {
     public String createApplication(@Optional String accountSid,
                                     String friendlyName,
                                     @Optional String apiVersion,
-                                    @Optional String voiceUrl,
-                                    @Optional HttpMethod voiceMethod,
-                                    @Optional HttpCallback voiceFallback,
-                                    @Optional HttpCallback statusCallback,
-                                    @Optional Boolean voiceCallerIdLookup,
-                                    @Optional String smsUrl,
-                                    @Optional HttpMethod smsMethod,
-                                    @Optional HttpCallback smsFallback,
-                                    @Optional HttpCallback smsStatusCallback) {
+                                    @Placement(group = "Voice Settings") @Optional String voiceUrl,
+                                    @Placement(group = "Voice Settings") @Optional HttpMethod voiceMethod,
+                                    @Placement(group = "Voice Settings") @Optional HttpCallback voiceFallback,
+                                    @Placement(group = "Voice Settings") @Optional HttpCallback statusCallback,
+                                    @Placement(group = "Voice Settings") @Optional Boolean voiceCallerIdLookup,
+                                    @Placement(group = "SMS Settings") @Optional String smsUrl,
+                                    @Placement(group = "SMS Settings") @Optional HttpMethod smsMethod,
+                                    @Placement(group = "SMS Settings") @Optional HttpCallback smsFallback,
+                                    @Placement(group = "SMS Settings") @Optional HttpCallback smsStatusCallback) {
         return twilioClient.createApplication(accountSid, friendlyName, apiVersion, voiceUrl, voiceMethod,
                 voiceFallback, statusCallback, voiceCallerIdLookup, smsUrl, smsMethod, smsFallback, smsStatusCallback);
     }
@@ -635,7 +633,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getCall}
      *
-     * @param accountSid the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid optionally override globally configured Account SID
      * @param callSid    the call sid to use in the query
      * @return the single Call resource identified by the given call sid.
      */
@@ -651,7 +649,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getCalls}
      *
-     * @param accountSid the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid optionally override globally configured Account SID
      * @param to         Only show calls to this phone number.
      * @param from       Only show calls from this phone number.
      * @param status     Only show calls currently in this status. May be queued, ringing, in-progress, completed, failed, busy, or no-answer.
@@ -673,7 +671,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:makeCall}
      *
-     * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid     optionally override globally configured Account SID
      * @param from           The phone number to use as the caller id. Format with a '+' and country code e.g., +16175551212 (E.164 format). Must be a Twilio number or a valid outgoing caller id for your account.
      * @param to             The number to call formatted with a '+' and country code e.g., +16175551212 (E.164 format). Twilio will also accept unformatted US numbers e.g., (415) 555-1212, 415-555-1212.
      * @param url            The fully qualified URL that should be consulted when the call connects. Just like when you set a URL on a phone number for handling inbound calls.
@@ -690,14 +688,14 @@ public class TwilioConnector {
     public String makeCall(@Optional String accountSid,
                            String from,
                            String to,
-                           @Optional String url,
-                           @Optional String applicationSid,
-                           @Optional HttpMethod method,
-                           @Optional HttpCallback fallback,
-                           @Optional HttpCallback statusCallback,
-                           @Optional String sendDigits,
-                           @Optional String ifMachine,
-                           @Optional String timeout) {
+                           @Placement(group = "Voice Settings") @Optional String url,
+                           @Placement(group = "Voice Settings") @Optional String applicationSid,
+                           @Placement(group = "Voice Settings") @Optional HttpMethod method,
+                           @Placement(group = "Callbacks") @Optional HttpCallback fallback,
+                           @Placement(group = "Callbacks") @Optional HttpCallback statusCallback,
+                           @Placement(group = "Advanced") @Optional String sendDigits,
+                           @Placement(group = "Advanced") @Optional String ifMachine,
+                           @Placement(group = "Advanced") @Optional String timeout) {
         return twilioClient.makeCall(accountSid, from, to, url, applicationSid, method, fallback, statusCallback, sendDigits, ifMachine, timeout);
     }
 
@@ -707,7 +705,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:changeCallState}
      *
-     * @param accountSid the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid optionally override globally configured Account SID
      * @param callSid    the call sid to modify
      * @param url        A valid URL that returns TwiML. Twilio will immediately redirect the call to the new TwiML.
      * @param method     The HTTP method Twilio should use when requesting the above URL. Defaults to POST.
@@ -728,7 +726,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getConference}
      *
-     * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid    optionally override globally configured Account SID
      * @param conferenceSid the conference sid to use in the query
      * @return a representation of the conference identified by the given conference id.
      */
@@ -743,7 +741,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getConferences}
      *
-     * @param accountSid   the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid   optionally override globally configured Account SID
      * @param status       Only show conferences currently in with this status. May be init, in-progress, or completed.
      * @param friendlyName List conferences who's FriendlyName is the exact match of this string.
      * @param dateCreated  Only show conferences that started on this date, given as YYYY-MM-DD. You can also specify inequality, such as DateCreated<=YYYY-MM-DD for conferences that started at or before midnight on a date, and DateCreated>=YYYY-MM-DD for conferences that started at or after midnight on a date.
@@ -764,7 +762,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getParticipant}
      *
-     * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid    optionally override globally configured Account SID
      * @param conferenceSid the conference sid to use in the query
      * @param callSid       the call sid to use in the query
      * @return a representation of this participant.
@@ -781,7 +779,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:updateParticipantStatus}
      *
-     * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid    optionally override globally configured Account SID
      * @param conferenceSid the conference sid to use
      * @param callSid       the call sid to use
      * @param muted         Specifying true will mute the participant, while false will un-mute.
@@ -801,7 +799,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:deleteParticipant}
      *
-     * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid    optionally override globally configured Account SID
      * @param conferenceSid the conference sid to use
      * @param callSid       the call sid to use
      * @return Returns HTTP 204 (No Content), with no body, if the participant was successfuly booted from the conference.
@@ -818,7 +816,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getParticipants}
      *
-     * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid    optionally override globally configured Account SID
      * @param conferenceSid the conference sid to use in the query
      * @param muted         Only show participants that are muted or unmuted. Either true or false.
      * @return he list of participants in the conference identified by the given conference sid.
@@ -835,7 +833,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getSmsMessage}
      *
-     * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid    optionally override globally configured Account SID
      * @param smsMessageSid the SMS message sid to use in the query.
      * @return a single SMS message specified by the provided SMS message sid.
      */
@@ -850,7 +848,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getAllSmsMessages}
      *
-     * @param accountSid the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid optionally override globally configured Account SID
      * @param to         Only show SMS messages to this phone number.
      * @param from       Only show SMS messages from this phone number.
      * @param dateSent   Only show SMS messages sent on this date, given as YYYY-MM-DD. Example: DateSent=2009-07-06. You can also specify inequality, such as DateSent<=YYYY-MM-DD for SMS messages that were sent on or before midnight on a date, and DateSent>=YYYY-MM-DD for SMS messages sent on or after midnight on a date.
@@ -869,7 +867,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:sendSmsMessage}
      *
-     * @param accountSid     the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid     optionally override globally configured Account SID
      * @param from           A Twilio number enabled for SMS. Only phone numbers purchased from Twilio work here; you cannot (for example) spoof SMS messages from your own cell phone number.
      * @param to             The destination phone number. Format with a '+' and country code e.g., +16175551212 (E.164 format). Twilio will also accept unformatted US numbers e.g., (415) 555-1212, 415-555-1212.
      * @param body           The text of the message you want to send, limited to 160 characters.
@@ -892,7 +890,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getRecording}
      *
-     * @param accountSid    the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid    optionally override globally configured Account SID
      * @param recordingSid  the recording sid to use in the query
      * @param recordingType the recording type to use
      * @return a recording representation.
@@ -909,7 +907,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:deleteRecording}
      *
-     * @param accountSid   the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid   optionally override globally configured Account SID
      * @param recordingSid the recording sid to use.
      * @return If successful, returns HTTP 204 (No Content) with no body.
      */
@@ -924,7 +922,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getRecordings}
      *
-     * @param accountSid  the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid  optionally override globally configured Account SID
      * @param callSid     Show only recordings made during the call given by this sid.
      * @param dateCreated Only show recordings created on the given date. Should be formatted as YYYY-MM-DD. You can also specify inequality, such as DateCreated<=YYYY-MM-DD for recordings generated at or before midnight on a date, and DateCreated>=YYYY-MM-DD for recordings generated at or after midnight on a date.
      * @return a list of Recording resource representations.
@@ -941,7 +939,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getTranscriptionByTranscriptionSid}
      *
-     * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid          optionally override globally configured Account SID
      * @param transcriptionSid    the transcription sid to use in the query.
      * @param transcriptionFormat the transcription format of the response
      * @return a single Transcription resource representation identified by the given transcription sid.
@@ -958,7 +956,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getTranscriptions}
      *
-     * @param accountSid          the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid          optionally override globally configured Account SID
      * @param recordingSid        the recording sid to use in the query
      * @param transcriptionFormat the transcription format for the response
      * @return a set of Transcription resource representations
@@ -989,7 +987,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:deleteNotification}
      *
-     * @param accountSid      the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid      optionally override globally configured Account SID
      * @param notificationSid the notification sid to use
      * @return If successful, returns HTTP status 204 (No Content) with no body.
      */
@@ -1003,7 +1001,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getAllNotifications}
      *
-     * @param accountSid  the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid  optionally override globally configured Account SID
      * @param log         An integer log level corresponding to the type of notification: 0 is ERROR, 1 is WARNING.
      * @param messageDate Only show notifications for this date. Should be formatted as YYYY-MM-DD. You can also specify inequality, such as MessageDate<=YYYY-MM-DD for messages logged at or before midnight on a date, and MessageDate>=YYYY-MM-DD for messages logged at or after midnight on a date.
      * @return a list of notifications generated for an account
@@ -1020,7 +1018,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getNotificationsByCallSid}
      *
-     * @param accountSid  the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid  optionally override globally configured Account SID
      * @param callSid     the call sid to use in the query
      * @param log         An integer log level corresponding to the type of notification: 0 is ERROR, 1 is WARNING.
      * @param messageDate Only show notifications for this date. Should be formatted as YYYY-MM-DD. You can also specify inequality, such as MessageDate<=YYYY-MM-DD for messages logged at or before midnight on a date, and MessageDate>=YYYY-MM-DD for messages logged at or after midnight on a date.
@@ -1042,7 +1040,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:getSandbox}
      *
-     * @param accountSid the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid optionally override globally configured Account SID
      * @return the Sandbox resource associated with the account identified by {YourAccountSid}. Twilio accounts upgraded prior to February 2010 may not have a Sandbox resource, and in this case you will receive a 404 (Not Found) response.
      */
     @Processor
@@ -1058,7 +1056,7 @@ public class TwilioConnector {
      * <p/>
      * {@sample.xml ../../../doc/twilio-connector.xml.sample twilio:updateSandbox}
      *
-     * @param accountSid  the account sid to use, leave empty to use {@link TwilioConnector#accountSid}
+     * @param accountSid  optionally override globally configured Account SID
      * @param voiceUrl    The URL that Twilio should request when somebody calls this sandbox.
      * @param voiceMethod The HTTP method that should be used to request the above URL. Must be either GET or POST. Defaults to POST.
      * @param smsUrl      The URL that Twilio should request when somebody sends an SMS to the sandbox.

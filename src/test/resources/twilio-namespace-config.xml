@@ -14,47 +14,52 @@
                           http://www.mulesoft.org/schema/mule/twilio http://www.mulesoft.org/schema/mule/twilio/1.0/mule-twilio.xsd">
 
 
-    <twilio:config accountSid="THIS IS A TEST" authToken="THIS IS A TEST"/>
+    <twilio:config name="configA" accountSid="THIS IS A TEST" authToken="THIS IS A TEST"/>
+    <twilio:config name="configB" accountSid="THIS IS A TEST" authToken="THIS IS A TEST"/>
 
     <flow name="getAccountDetails">
-        <twilio:get-account-details accountSid="AC970e46372f082a4947642b9cf19cafa7"/>
+        <twilio:get-account-details config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"/>
     </flow>
 
     <flow name="getAllAccountsDetails">
-        <twilio:get-all-accounts-details accountStatus="SUSPENDED" friendlyName="coco"/>
+        <twilio:get-all-accounts-details config-ref="configA" accountStatus="SUSPENDED" friendlyName="coco"/>
     </flow>
 
     <flow name="updateAccount">
-        <twilio:update-account accountSid="AC970e46372f082a4947642b9cf19cafa7" accountStatus="CLOSED"
+        <twilio:update-account config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                               accountStatus="CLOSED"
                                friendlyName="juan"/>
     </flow>
 
     <flow name="createSubAccount">
-        <twilio:create-sub-account friendlyName="raul"/>
+        <twilio:create-sub-account config-ref="configA" friendlyName="raul"/>
     </flow>
 
     <flow name="getSubAccountByAccountSid">
-        <twilio:get-sub-account-by-account-sid accountSid="AC970e46372f082a4947642b9cf19cafa7"/>
+        <twilio:get-sub-account-by-account-sid config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"/>
     </flow>
 
     <flow name="getSubAccountByFriendlyName">
-        <twilio:get-sub-account-by-friendly-name friendlyName="fede"/>
+        <twilio:get-sub-account-by-friendly-name config-ref="configA" friendlyName="fede"/>
     </flow>
 
     <flow name="exchangePhoneNumbersBetweenSubaccounts">
-        <twilio:exchange-phone-numbers-between-subaccounts accountSidFrom="AC8e51fecefbf0b501caced6266d723b3c"
+        <twilio:exchange-phone-numbers-between-subaccounts config-ref="configA"
+                                                           accountSidFrom="AC8e51fecefbf0b501caced6266d723b3c"
                                                            accountSidTo="AC970e46372f082a4947642b9cf19cafa7"
                                                            incomingPhoneNumberSid="321"/>
     </flow>
 
     <flow name="getAvailablePhoneNumbers">
-        <twilio:get-available-phone-numbers accountSid="AC8e51fecefbf0b501caced6266d723b3c" isoCountryCode="AR"
+        <twilio:get-available-phone-numbers config-ref="configA" accountSid="AC8e51fecefbf0b501caced6266d723b3c"
+                                            isoCountryCode="AR"
                                             areaCode="some-area-code" contains="*" inRegion="in-some-region"
                                             inPostalCode="in-some-postal-code"/>
     </flow>
 
     <flow name="getAvailablePhoneNumbersAdvancedSeach">
-        <twilio:get-available-phone-numbers-advanced-seach accountSid="AC8e51fecefbf0b501caced6266d723b3c"
+        <twilio:get-available-phone-numbers-advanced-seach config-ref="configA"
+                                                           accountSid="AC8e51fecefbf0b501caced6266d723b3c"
                                                            isoCountryCode="AR" areaCode="some-area-code" contains="*"
                                                            inRegion="inSomeRegion"
                                                            inPostalCode="inSomePostalCode" nearLatLong="nearSomeLatLong"
@@ -63,44 +68,50 @@
     </flow>
 
     <flow name="getAvailableTollFreeNumbers">
-        <twilio:get-available-toll-free-numbers accountSid="AC8e51fecefbf0b501caced6266d723b3c" isoCountryCode="AR"
+        <twilio:get-available-toll-free-numbers config-ref="configA" accountSid="AC8e51fecefbf0b501caced6266d723b3c"
+                                                isoCountryCode="AR"
                                                 contains="*"/>
     </flow>
 
     <flow name="getOutgoingCallerIdByOutgoingCallerIdSid">
-        <twilio:get-outgoing-caller-id-by-outgoing-caller-id-sid accountSid="AC970e46372f082a4947642b9cf19cafa7"
+        <twilio:get-outgoing-caller-id-by-outgoing-caller-id-sid config-ref="configA"
+                                                                 accountSid="AC970e46372f082a4947642b9cf19cafa7"
                                                                  outgoingCallerIdSid="some-outgoing-caller-id-sid"/>
     </flow>
 
     <flow name="updateOutgoingCallerIdByOutgoingCallerIdSid">
-        <twilio:update-outgoing-caller-id-by-outgoing-caller-id-sid accountSid="AC970e46372f082a4947642b9cf19cafa7"
+        <twilio:update-outgoing-caller-id-by-outgoing-caller-id-sid config-ref="configA"
+                                                                    accountSid="AC970e46372f082a4947642b9cf19cafa7"
                                                                     outgoingCallerIdSid="some-outgoing-caller-id-sid"
                                                                     friendlyName="some-friendly-name"/>
     </flow>
 
     <flow name="getAllOutgoingCallerIds">
-        <twilio:get-all-outgoing-caller-ids accountSid="AC970e46372f082a4947642b9cf19cafa7"
+        <twilio:get-all-outgoing-caller-ids config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
                                             phoneNumber="some-phone-number" friendlyName="some-friendly-name"/>
     </flow>
 
     <flow name="addNewCallerId">
-        <twilio:add-new-caller-id accountSid="AC970e46372f082a4947642b9cf19cafa7" phoneNumber="some-phone-number"
+        <twilio:add-new-caller-id config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                  phoneNumber="some-phone-number"
                                   friendlyName="some-friendly-name" callDelay="1"
                                   extension="some-extension"/>
     </flow>
 
     <flow name="deleteOutgoingCallerId">
-        <twilio:delete-outgoing-caller-id accountSid="AC970e46372f082a4947642b9cf19cafa7"
+        <twilio:delete-outgoing-caller-id config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
                                           outgoingCallerIdSid="some-outgoing-caller-id-sid"/>
     </flow>
 
     <flow name="getIncomingPhoneNumbersByIncomingPhoneNumberSid">
-        <twilio:get-incoming-phone-numbers-by-incoming-phone-number-sid accountSid="AC970e46372f082a4947642b9cf19cafa7"
+        <twilio:get-incoming-phone-numbers-by-incoming-phone-number-sid config-ref="configA"
+                                                                        accountSid="AC970e46372f082a4947642b9cf19cafa7"
                                                                         incomingPhoneNumberSid="some-incoming-phone-number-sid"/>
     </flow>
 
     <flow name="updateIncomingPhoneNumbers">
-        <twilio:update-incoming-phone-numbers accountSid="AC970e46372f082a4947642b9cf19cafa7"
+        <twilio:update-incoming-phone-numbers config-ref="configA"
+                                              accountSid="AC970e46372f082a4947642b9cf19cafa7"
                                               incomingPhoneNumberSid="some-incoming-phone-number-sid"
                                               friendlyName="some-friendly-name" apiVersion="2010-04-01"
                                               voiceUrl="some-voice-url"
@@ -117,17 +128,18 @@
     </flow>
 
     <flow name="deleteIncomingPhoneNumber">
-        <twilio:delete-incoming-phone-number accountSid="AC970e46372f082a4947642b9cf19cafa7"
+        <twilio:delete-incoming-phone-number config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
                                              incomingPhoneNumberSid="some-incoming-phone-number-sid"/>
     </flow>
 
     <flow name="getIncomingPhoneNumbers">
-        <twilio:get-incoming-phone-numbers accountSid="AC970e46372f082a4947642b9cf19cafa7"
+        <twilio:get-incoming-phone-numbers config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
                                            phoneNumber="some-phone-number" friendlyName="some-friendly-name"/>
     </flow>
 
     <flow name="addIncomingPhoneNumberByPhoneNumber">
-        <twilio:add-incoming-phone-number-by-phone-number accountSid="AC970e46372f082a4947642b9cf19cafa7"
+        <twilio:add-incoming-phone-number-by-phone-number config-ref="configA"
+                                                          accountSid="AC970e46372f082a4947642b9cf19cafa7"
                                                           phoneNumber="some-phone-number"
                                                           friendlyName="some-friendly-name"
                                                           voiceUrl="some-voice-url"
@@ -143,7 +155,8 @@
     </flow>
 
     <flow name="addIncomingPhoneNumberByAreaCode">
-        <twilio:add-incoming-phone-number-by-area-code accountSid="AC970e46372f082a4947642b9cf19cafa7"
+        <twilio:add-incoming-phone-number-by-area-code config-ref="configA"
+                                                       accountSid="AC970e46372f082a4947642b9cf19cafa7"
                                                        areaCode="some-area-code"
                                                        status-callback-flow-ref="flowToExecuteOnStatusCallback"
                                                        voiceApplicationSid="some-voice-application-sid"
@@ -158,11 +171,13 @@
     </flow>
 
     <flow name="getApplication">
-        <twilio:get-application accountSid="AC970e46372f082a4947642b9cf19cafa7" applicationSid="some-application-sid"/>
+        <twilio:get-application config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                applicationSid="some-application-sid"/>
     </flow>
 
     <flow name="updateApplication">
-        <twilio:update-application accountSid="AC970e46372f082a4947642b9cf19cafa7" applicationSid="some-application-sid"
+        <twilio:update-application config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                   applicationSid="some-application-sid"
                                    apiVersion="2010-04-01" friendlyName="some-friendly-name"
                                    sms-fallback-flow-ref="flowToExecuteOnSmsFallback"
                                    sms-status-callback-flow-ref="flowToExecuteOnStatusCallback"
@@ -176,16 +191,18 @@
     </flow>
 
     <flow name="deleteApplication">
-        <twilio:delete-application accountSid="AC970e46372f082a4947642b9cf19cafa7"
+        <twilio:delete-application config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
                                    applicationSid="some-application-sid"/>
     </flow>
 
     <flow name="getAllApplications">
-        <twilio:get-all-applications accountSid="AC970e46372f082a4947642b9cf19cafa7" friendlyName="some-friendly-name"/>
+        <twilio:get-all-applications config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                     friendlyName="some-friendly-name"/>
     </flow>
 
     <flow name="createApplication">
-        <twilio:create-application accountSid="AC970e46372f082a4947642b9cf19cafa7" friendlyName="some-friendly-name"
+        <twilio:create-application config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                   friendlyName="some-friendly-name"
                                    apiVersion="2010-04-01" voiceCallerIdLookup="false"
                                    sms-fallback-flow-ref="flowToExecuteOnSmsFallback"
                                    sms-status-callback-flow-ref="flowToExecuteOnStatusCallback"
@@ -198,16 +215,18 @@
     </flow>
 
     <flow name="getCall">
-        <twilio:get-call accountSid="AC970e46372f082a4947642b9cf19cafa7" callSid="some-call-sid"/>
+        <twilio:get-call config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7" callSid="some-call-sid"/>
     </flow>
 
     <flow name="getCalls">
-        <twilio:get-calls accountSid="AC970e46372f082a4947642b9cf19cafa7" to="some-to" from="some-from"
+        <twilio:get-calls config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7" to="some-to"
+                          from="some-from"
                           status="some-status" startTime="start-time"/>
     </flow>
 
     <flow name="makeCall">
-        <twilio:make-call accountSid="AC970e46372f082a4947642b9cf19cafa7" from="some-from" to="some-to"
+        <twilio:make-call config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7" from="some-from"
+                          to="some-to"
                           applicationSid="some-application-sid" method="GET" fallback-flow-ref="flowToExecuteOnFallback"
                           status-callback-flow-ref="flowToExecuteOnStatusCallback"
                           sendDigits="some-digits"
@@ -215,106 +234,122 @@
     </flow>
 
     <flow name="changeCallState">
-        <twilio:change-call-state accountSid="AC970e46372f082a4947642b9cf19cafa7" callSid="some-call-sid" url="some-url"
+        <twilio:change-call-state config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                  callSid="some-call-sid" url="some-url"
                                   method="GET" status="some-status"/>
     </flow>
 
     <flow name="getConference">
-        <twilio:get-conference accountSid="AC970e46372f082a4947642b9cf19cafa7" conferenceSid="some-conference-sid"/>
+        <twilio:get-conference config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                               conferenceSid="some-conference-sid"/>
     </flow>
 
     <flow name="getConferences">
-        <twilio:get-conferences accountSid="AC970e46372f082a4947642b9cf19cafa7" status="some-status"
+        <twilio:get-conferences config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                status="some-status"
                                 friendlyName="some-friendly-name" dateCreated="some-date-created"
                                 dateUpdated="some-date-updated"/>
     </flow>
 
     <flow name="getParticipant">
-        <twilio:get-participant accountSid="AC970e46372f082a4947642b9cf19cafa7" conferenceSid="some-conference-sid"
+        <twilio:get-participant config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                conferenceSid="some-conference-sid"
                                 callSid="some-call-sid"/>
     </flow>
 
     <flow name="updateParticipantStatus">
-        <twilio:update-participant-status accountSid="AC970e46372f082a4947642b9cf19cafa7"
+        <twilio:update-participant-status config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
                                           conferenceSid="some-conference-sid" callSid="some-call-sid" muted="false"/>
     </flow>
 
     <flow name="deleteParticipant">
-        <twilio:delete-participant accountSid="AC970e46372f082a4947642b9cf19cafa7" conferenceSid="some-conference-sid"
+        <twilio:delete-participant config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                   conferenceSid="some-conference-sid"
                                    callSid="some-call-sid"/>
     </flow>
 
     <flow name="getParticipants">
-        <twilio:get-participants accountSid="AC970e46372f082a4947642b9cf19cafa7" conferenceSid="some-conference-sid"
+        <twilio:get-participants config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                 conferenceSid="some-conference-sid"
                                  muted="false"/>
     </flow>
 
     <flow name="getSmsMessage">
-        <twilio:get-sms-message accountSid="AC970e46372f082a4947642b9cf19cafa7" smsMessageSid="some-sms-message-id"/>
+        <twilio:get-sms-message config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                smsMessageSid="some-sms-message-id"/>
     </flow>
 
     <flow name="getAllSmsMessages">
-        <twilio:get-all-sms-messages accountSid="AC970e46372f082a4947642b9cf19cafa7" to="some-to" from="some-from"
+        <twilio:get-all-sms-messages config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7" to="some-to"
+                                     from="some-from"
                                      dateSent="some-date-sent"/>
     </flow>
 
     <flow name="sendSmsMessage">
-        <twilio:send-sms-message accountSid="AC970e46372f082a4947642b9cf19cafa7" from="some-from" to="some-to"
+        <twilio:send-sms-message config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7" from="some-from"
+                                 to="some-to"
                                  body="some-body" status-callback-flow-ref="flowToExecuteOnStatusCallback"
                                  applicationSid="some-application-sid"/>
     </flow>
 
     <flow name="getRecording">
-        <twilio:get-recording accountSid="AC970e46372f082a4947642b9cf19cafa7" recordingSid="some-recording-sid"
+        <twilio:get-recording config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                              recordingSid="some-recording-sid"
                               recordingType="MP3"/>
     </flow>
 
     <flow name="deleteRecording">
-        <twilio:delete-recording accountSid="AC970e46372f082a4947642b9cf19cafa7" recordingSid="some-recording-sid"/>
+        <twilio:delete-recording config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                 recordingSid="some-recording-sid"/>
     </flow>
 
     <flow name="getRecordings">
-        <twilio:get-recordings accountSid="AC970e46372f082a4947642b9cf19cafa7" callSid="some-call-sid"
+        <twilio:get-recordings config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                               callSid="some-call-sid"
                                dateCreated="some-date-created"/>
     </flow>
 
     <flow name="getTranscriptionByTranscriptionSid">
-        <twilio:get-transcription-by-transcription-sid accountSid="AC970e46372f082a4947642b9cf19cafa7"
+        <twilio:get-transcription-by-transcription-sid config-ref="configA"
+                                                       accountSid="AC970e46372f082a4947642b9cf19cafa7"
                                                        transcriptionSid="some-transcription-sid"
                                                        transcriptionFormat="TXT"/>
     </flow>
 
     <flow name="getTranscriptions">
-        <twilio:get-transcriptions accountSid="AC970e46372f082a4947642b9cf19cafa7" recordingSid="some-recording-sid"
+        <twilio:get-transcriptions config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                   recordingSid="some-recording-sid"
                                    transcriptionFormat="XML"/>
     </flow>
 
     <flow name="getNotification">
-        <twilio:get-notification accountSid="AC970e46372f082a4947642b9cf19cafa7"
+        <twilio:get-notification config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
                                  notificationSid="some-notification-sid"/>
     </flow>
 
     <flow name="deleteNotification">
-        <twilio:delete-notification accountSid="AC970e46372f082a4947642b9cf19cafa7"
+        <twilio:delete-notification config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
                                     notificationSid="some-notification-sid"/>
     </flow>
 
     <flow name="getAllNotifications">
-        <twilio:get-all-notifications accountSid="AC970e46372f082a4947642b9cf19cafa7" log="1"
+        <twilio:get-all-notifications config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7" log="1"
                                       messageDate="some-message-date"/>
     </flow>
 
     <flow name="getNotificationsByCallSid">
-        <twilio:get-notifications-by-call-sid accountSid="AC970e46372f082a4947642b9cf19cafa7" callSid="some-call-sid"
+        <twilio:get-notifications-by-call-sid config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                                              callSid="some-call-sid"
                                               log="1" messageDate="some-message-date"/>
     </flow>
 
     <flow name="getSandbox">
-        <twilio:get-sandbox accountSid="AC970e46372f082a4947642b9cf19cafa7"/>
+        <twilio:get-sandbox config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"/>
     </flow>
 
     <flow name="updateSandbox">
-        <twilio:update-sandbox accountSid="AC970e46372f082a4947642b9cf19cafa7" voiceUrl="some-voice-url"
+        <twilio:update-sandbox config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"
+                               voiceUrl="some-voice-url"
                                voiceMethod="GET"
                                smsUrl="some-sms-url" smsMethod="GET"/>
     </flow>
