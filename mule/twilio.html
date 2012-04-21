@@ -64,6 +64,8 @@
 
 
 
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -85,6 +87,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -101,6 +104,27 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule Twilio Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 <body class="">
@@ -196,7 +220,6 @@ Summary:
 <div id="jd-header">
     org.mule.modules
 <h1>mule-module-twilio</h1>
-    1.2-SNAPSHOT
 
 </div><!-- end header -->
 
@@ -205,15 +228,17 @@ Summary:
 <div id="jd-content" class="api apilevel-">
 
 
+<br/>
+
 <div class="jd-tagdata">
       <table class="jd-tagtable">
         <tbody><tr>
           <th>Namespace</th><td>http://www.mulesoft.org/schema/mule/twilio</td>
         </tr><tr>
-          <th>Schema Location</th><td>http://www.mulesoft.org/schema/mule/twilio/1.0/mule-twilio.xsd</td>
+          <th>Schema Location</th><td>http://www.mulesoft.org/schema/mule/twilio/current/mule-twilio.xsd&nbsp;&nbsp;(<a href="twilio-schema.html">View Schema</a>)</td>
         </tr>
 <tr>
-          <th>Version</th><td>1.0</td>
+          <th>Schema Version</th><td>1.0</td>
         </tr>
 <tr>
           <th>Minimum Mule Version</th><td>3.2</td>
@@ -272,7 +297,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#add-incoming-phone-number-by-area-code">&lt;twilio:add-incoming-phone-number-by-area-code&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Adds a new phone number to your account.<br/></div>
+        <div class="jd-descrdiv">Adds a new phone number to your account.</div>
         
   </td></tr>
 
@@ -282,7 +307,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#add-incoming-phone-number-by-phone-number">&lt;twilio:add-incoming-phone-number-by-phone-number&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Adds a new phone number to your account.<br/></div>
+        <div class="jd-descrdiv">Adds a new phone number to your account.</div>
         
   </td></tr>
 
@@ -292,7 +317,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#add-new-caller-id">&lt;twilio:add-new-caller-id&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Adds a new CallerID to your account.<br/></div>
+        <div class="jd-descrdiv">Adds a new CallerID to your account.</div>
         
   </td></tr>
 
@@ -302,7 +327,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#change-call-state">&lt;twilio:change-call-state&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Modify the state of a live call.<br/></div>
+        <div class="jd-descrdiv">Modify the state of a live call.</div>
         
   </td></tr>
 
@@ -312,7 +337,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#create-application">&lt;twilio:create-application&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Creates a new application within your account.<br/></div>
+        <div class="jd-descrdiv">Creates a new application within your account.</div>
         
   </td></tr>
 
@@ -322,7 +347,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#create-sub-account">&lt;twilio:create-sub-account&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Creates a new subaccount.<br/></div>
+        <div class="jd-descrdiv">Creates a new subaccount.</div>
         
   </td></tr>
 
@@ -332,7 +357,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#delete-application">&lt;twilio:delete-application&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Delete this application.<br/></div>
+        <div class="jd-descrdiv">Delete this application.</div>
         
   </td></tr>
 
@@ -342,7 +367,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#delete-incoming-phone-number">&lt;twilio:delete-incoming-phone-number&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Release this phone number from your account.<br/></div>
+        <div class="jd-descrdiv">Release this phone number from your account.</div>
         
   </td></tr>
 
@@ -352,7 +377,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#delete-notification">&lt;twilio:delete-notification&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Deletes the notification identified by {NotificationSid} from an account's log.<br/></div>
+        <div class="jd-descrdiv">Deletes the notification identified by {NotificationSid} from an account's log.</div>
         
   </td></tr>
 
@@ -362,7 +387,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#delete-outgoing-caller-id">&lt;twilio:delete-outgoing-caller-id&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Deletes the caller ID from the account.<br/></div>
+        <div class="jd-descrdiv">Deletes the caller ID from the account.</div>
         
   </td></tr>
 
@@ -372,7 +397,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#delete-participant">&lt;twilio:delete-participant&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Kick this participant from the conference.<br/></div>
+        <div class="jd-descrdiv">Kick this participant from the conference.</div>
         
   </td></tr>
 
@@ -382,7 +407,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#delete-recording">&lt;twilio:delete-recording&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Deletes a recording from your account.<br/></div>
+        <div class="jd-descrdiv">Deletes a recording from your account.</div>
         
   </td></tr>
 
@@ -392,7 +417,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#exchange-phone-numbers-between-subaccounts">&lt;twilio:exchange-phone-numbers-between-subaccounts&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Trasfers a number between two subaccounts.<br/></div>
+        <div class="jd-descrdiv">Trasfers a number between two subaccounts.</div>
         
   </td></tr>
 
@@ -402,7 +427,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-account-details">&lt;twilio:get-account-details&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns a representation of an account.<br/></div>
+        <div class="jd-descrdiv">Returns a representation of an account.</div>
         
   </td></tr>
 
@@ -412,7 +437,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-all-accounts-details">&lt;twilio:get-all-accounts-details&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Retrieve a list of the Account resources belonging to the account used to make the API request.<br/></div>
+        <div class="jd-descrdiv">Retrieve a list of the Account resources belonging to the account used to make the API request.</div>
         
   </td></tr>
 
@@ -422,7 +447,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-all-applications">&lt;twilio:get-all-applications&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns a list of Application resource representations, each representing an application within your account.<br/></div>
+        <div class="jd-descrdiv">Returns a list of Application resource representations, each representing an application within your account.</div>
         
   </td></tr>
 
@@ -432,7 +457,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-all-notifications">&lt;twilio:get-all-notifications&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns a list of notifications generated for an account.<br/></div>
+        <div class="jd-descrdiv">Returns a list of notifications generated for an account.</div>
         
   </td></tr>
 
@@ -442,7 +467,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-all-outgoing-caller-ids">&lt;twilio:get-all-outgoing-caller-ids&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns a list of OutgoingCallerId resource representations, each representing a Caller ID number valid for an account.<br/></div>
+        <div class="jd-descrdiv">Returns a list of OutgoingCallerId resource representations, each representing a Caller ID number valid for an account.</div>
         
   </td></tr>
 
@@ -452,7 +477,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-all-sms-messages">&lt;twilio:get-all-sms-messages&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns a list of SMS messages associated with your account.<br/></div>
+        <div class="jd-descrdiv">Returns a list of SMS messages associated with your account.</div>
         
   </td></tr>
 
@@ -462,7 +487,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-application">&lt;twilio:get-application&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns an application resource matching the given application sid.<br/></div>
+        <div class="jd-descrdiv">Returns an application resource matching the given application sid.</div>
         
   </td></tr>
 
@@ -472,7 +497,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-available-phone-numbers">&lt;twilio:get-available-phone-numbers&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns a list of local AvailablePhoneNumber resource representations that match the specified filters, each representing a phone number that is currently available for provisioning within your account.<br/></div>
+        <div class="jd-descrdiv">Returns a list of local AvailablePhoneNumber resource representations that match the specified filters, each representing a phone number that is currently available for provisioning within your account.</div>
         
   </td></tr>
 
@@ -482,7 +507,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-available-phone-numbers-advanced-seach">&lt;twilio:get-available-phone-numbers-advanced-seach&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns a list of local AvailablePhoneNumber resource representations that match the specified filters, each representing a phone number that is currently available for provisioning within your account.<br/></div>
+        <div class="jd-descrdiv">Returns a list of local AvailablePhoneNumber resource representations that match the specified filters, each representing a phone number that is currently available for provisioning within your account.</div>
         
   </td></tr>
 
@@ -492,7 +517,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-available-toll-free-numbers">&lt;twilio:get-available-toll-free-numbers&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns a list of toll-free AvailablePhoneNumber elements that match the specified filters, each representing a phone number that is currently available for provisioning within your account.<br/></div>
+        <div class="jd-descrdiv">Returns a list of toll-free AvailablePhoneNumber elements that match the specified filters, each representing a phone number that is currently available for provisioning within your account.</div>
         
   </td></tr>
 
@@ -502,7 +527,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-call">&lt;twilio:get-call&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns the single Call resource identified by the given call sid.<br/></div>
+        <div class="jd-descrdiv">Returns the single Call resource identified by the given call sid.</div>
         
   </td></tr>
 
@@ -512,7 +537,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-calls">&lt;twilio:get-calls&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns a list of phone calls made to and from the account identified by the given account sid.<br/></div>
+        <div class="jd-descrdiv">Returns a list of phone calls made to and from the account identified by the given account sid.</div>
         
   </td></tr>
 
@@ -522,7 +547,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-conference">&lt;twilio:get-conference&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns a representation of the conference identified by the given conference id.<br/></div>
+        <div class="jd-descrdiv">Returns a representation of the conference identified by the given conference id.</div>
         
   </td></tr>
 
@@ -532,7 +557,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-conferences">&lt;twilio:get-conferences&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns a list of conferences within an account.<br/></div>
+        <div class="jd-descrdiv">Returns a list of conferences within an account.</div>
         
   </td></tr>
 
@@ -542,7 +567,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-incoming-phone-numbers">&lt;twilio:get-incoming-phone-numbers&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns a list of IncomingPhoneNumber resource representations, each representing a phone number given to your account.<br/></div>
+        <div class="jd-descrdiv">Returns a list of IncomingPhoneNumber resource representations, each representing a phone number given to your account.</div>
         
   </td></tr>
 
@@ -552,7 +577,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-incoming-phone-numbers-by-incoming-phone-number-sid">&lt;twilio:get-incoming-phone-numbers-by-incoming-phone-number-sid&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns an incoming phone numbers matching the given query filters.<br/></div>
+        <div class="jd-descrdiv">Returns an incoming phone numbers matching the given query filters.</div>
         
   </td></tr>
 
@@ -562,7 +587,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-notification">&lt;twilio:get-notification&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Return a notificaction resource for the given notification sid.<br/></div>
+        <div class="jd-descrdiv">Return a notificaction resource for the given notification sid.</div>
         
   </td></tr>
 
@@ -572,7 +597,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-notifications-by-call-sid">&lt;twilio:get-notifications-by-call-sid&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns a list of notifications generated for an account.<br/></div>
+        <div class="jd-descrdiv">Returns a list of notifications generated for an account.</div>
         
   </td></tr>
 
@@ -582,7 +607,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-outgoing-caller-id-by-outgoing-caller-id-sid">&lt;twilio:get-outgoing-caller-id-by-outgoing-caller-id-sid&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns an outgoing caller id instance matching the given filters.<br/></div>
+        <div class="jd-descrdiv">Returns an outgoing caller id instance matching the given filters.</div>
         
   </td></tr>
 
@@ -592,7 +617,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-participant">&lt;twilio:get-participant&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns a representation of this participant.<br/></div>
+        <div class="jd-descrdiv">Returns a representation of this participant.</div>
         
   </td></tr>
 
@@ -602,7 +627,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-participants">&lt;twilio:get-participants&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns the list of participants in the conference identified by the given conference sid.<br/></div>
+        <div class="jd-descrdiv">Returns the list of participants in the conference identified by the given conference sid.</div>
         
   </td></tr>
 
@@ -612,7 +637,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-recording">&lt;twilio:get-recording&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns one of several representations depending on the given recording type.<br/></div>
+        <div class="jd-descrdiv">Returns one of several representations depending on the given recording type.</div>
         
   </td></tr>
 
@@ -622,7 +647,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-recordings">&lt;twilio:get-recordings&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns a list of Recording resource representations, each representing a recording generated during the course of a phone call.<br/></div>
+        <div class="jd-descrdiv">Returns a list of Recording resource representations, each representing a recording generated during the course of a phone call.</div>
         
   </td></tr>
 
@@ -632,7 +657,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-sandbox">&lt;twilio:get-sandbox&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns the Sandbox resource associated with the account identified by {YourAccountSid}.<br/></div>
+        <div class="jd-descrdiv">Returns the Sandbox resource associated with the account identified by {YourAccountSid}.</div>
         
   </td></tr>
 
@@ -642,7 +667,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-sms-message">&lt;twilio:get-sms-message&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns a single SMS message specified by the provided SMS message sid.<br/></div>
+        <div class="jd-descrdiv">Returns a single SMS message specified by the provided SMS message sid.</div>
         
   </td></tr>
 
@@ -652,7 +677,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-sub-account-by-account-sid">&lt;twilio:get-sub-account-by-account-sid&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Subaccounts in Twilio are just accounts that are "owned" by another account.<br/></div>
+        <div class="jd-descrdiv">Subaccounts in Twilio are just accounts that are "owned" by another account.</div>
         
   </td></tr>
 
@@ -662,7 +687,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-sub-account-by-friendly-name">&lt;twilio:get-sub-account-by-friendly-name&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Subaccounts in Twilio are just accounts that are "owned" by another account.<br/></div>
+        <div class="jd-descrdiv">Subaccounts in Twilio are just accounts that are "owned" by another account.</div>
         
   </td></tr>
 
@@ -672,7 +697,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-transcription-by-transcription-sid">&lt;twilio:get-transcription-by-transcription-sid&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns a single Transcription resource representation identified by the given transcription sid.<br/></div>
+        <div class="jd-descrdiv">Returns a single Transcription resource representation identified by the given transcription sid.</div>
         
   </td></tr>
 
@@ -682,7 +707,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#get-transcriptions">&lt;twilio:get-transcriptions&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns a set of Transcription resource representations that includes paging information, sorted by 'DateUpdated', with most recent transcripts first.<br/></div>
+        <div class="jd-descrdiv">Returns a set of Transcription resource representations that includes paging information, sorted by 'DateUpdated', with most recent transcripts first.</div>
         
   </td></tr>
 
@@ -692,7 +717,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#make-call">&lt;twilio:make-call&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Initiates a call using the given paramaters.<br/></div>
+        <div class="jd-descrdiv">Initiates a call using the given paramaters.</div>
         
   </td></tr>
 
@@ -702,7 +727,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#send-sms-message">&lt;twilio:send-sms-message&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Send an outgoing SMS message.<br/></div>
+        <div class="jd-descrdiv">Send an outgoing SMS message.</div>
         
   </td></tr>
 
@@ -712,7 +737,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#update-account">&lt;twilio:update-account&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Allows you to modify the properties of an account.<br/></div>
+        <div class="jd-descrdiv">Allows you to modify the properties of an account.</div>
         
   </td></tr>
 
@@ -722,7 +747,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#update-application">&lt;twilio:update-application&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Tries to update the application's properties, and returns the updated resource representation if successful.<br/></div>
+        <div class="jd-descrdiv">Tries to update the application's properties, and returns the updated resource representation if successful.</div>
         
   </td></tr>
 
@@ -732,7 +757,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#update-incoming-phone-numbers">&lt;twilio:update-incoming-phone-numbers&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Tries to update the incoming phone number's properties, and returns the updated resource representation if successful.<br/></div>
+        <div class="jd-descrdiv">Tries to update the incoming phone number's properties, and returns the updated resource representation if successful.</div>
         
   </td></tr>
 
@@ -742,7 +767,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#update-outgoing-caller-id-by-outgoing-caller-id-sid">&lt;twilio:update-outgoing-caller-id-by-outgoing-caller-id-sid&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Updates the caller id, and returns the updated resource if successful.<br/></div>
+        <div class="jd-descrdiv">Updates the caller id, and returns the updated resource if successful.</div>
         
   </td></tr>
 
@@ -752,7 +777,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#update-participant-status">&lt;twilio:update-participant-status&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Updates the participant status.<br/></div>
+        <div class="jd-descrdiv">Updates the participant status.</div>
         
   </td></tr>
 
@@ -762,7 +787,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/twilio.html#update-sandbox">&lt;twilio:update-sandbox&gt;</a></nobr>
         
-        <div class="jd-descrdiv">You can POST to the Sandbox resource to update the TwiML voice and SMS URLs associated with the sandbox number.<br/></div>
+        <div class="jd-descrdiv">You can POST to the Sandbox resource to update the TwiML voice and SMS URLs associated with the sandbox number.</div>
         
   </td></tr>
 
@@ -780,7 +805,6 @@ Summary:
 </div><!-- jd-descr (summary) -->
 
 
-
 <!-- ========= CONFIGURATION DETAIL ======== -->
 <A NAME="config"></A>
 <h2>Configuration</h2>
@@ -794,14 +818,15 @@ similar to the following:</p>
                http://www.mulesoft.org/schema/mule/core
                http://www.mulesoft.org/schema/mule/core/current/mule.xsd
                http://www.mulesoft.org/schema/mule/twilio
-               http://www.mulesoft.org/schema/mule/twilio/1.0/mule-twilio.xsd"&gt;
+               http://www.mulesoft.org/schema/mule/twilio/current/mule-twilio.xsd"&gt;
 
       &lt;!-- here goes your flows and configuration elements --&gt;
 
 &lt;/mule&gt;
 </pre>
+
 <p>This module is configured using the <i>config</i> element. This element must be placed outside of your flows and at
-the root of your Mule application. You can create as many configurations as you deem necesary as long as each carries
+the root of your Mule application. You can create as many configurations as you deem necessary as long as each carries
 its own name.</p>
 <p>Each message processor, message source or transformer carries a <i>config-ref</i> attribute that allows the invoker to
 specify which configuration to use.</p>
@@ -834,6 +859,7 @@ specify which configuration to use.</p>
       
     
 </table>
+
 
 
 
