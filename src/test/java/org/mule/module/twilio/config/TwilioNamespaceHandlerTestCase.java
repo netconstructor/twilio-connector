@@ -19,7 +19,7 @@ import static org.fest.assertions.Assertions.assertThat;
 
 public class TwilioNamespaceHandlerTestCase extends FunctionalTestCase {
 
-    private static final String CALLBACK_URL = "http://localhost:";
+    private static final String CALLBACK_URL = "http://localhost";
 
     @Override
     protected String getConfigResources() {

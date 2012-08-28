@@ -14,8 +14,12 @@
                           http://www.mulesoft.org/schema/mule/twilio http://www.mulesoft.org/schema/mule/twilio/1.0/mule-twilio.xsd">
 
 
-    <twilio:config name="configA" accountSid="THIS IS A TEST" authToken="THIS IS A TEST"/>
-    <twilio:config name="configB" accountSid="THIS IS A TEST" authToken="THIS IS A TEST"/>
+    <twilio:config name="configA" accountSid="THIS IS A TEST" authToken="THIS IS A TEST">
+        <twilio:http-callback-config />
+    </twilio:config>
+    <twilio:config name="configB" accountSid="THIS IS A TEST" authToken="THIS IS A TEST">
+        <twilio:http-callback-config />
+    </twilio:config>
 
     <flow name="getAccountDetails">
         <twilio:get-account-details config-ref="configA" accountSid="AC970e46372f082a4947642b9cf19cafa7"/>

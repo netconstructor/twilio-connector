@@ -24,7 +24,7 @@ import org.mule.api.callback.HttpCallback;
  *
  * @author MuleSoft, Inc.
  */
-@Module(name = "twilio")
+@Module(name = "twilio", friendlyName = "Twilio")
 public class TwilioConnector {
 
     /**
