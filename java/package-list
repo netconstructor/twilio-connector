@@ -1,8 +1,10 @@
 com.twilio.sdk
 org.mule.module.twilio
 org.mule.module.twilio.adapters
+org.mule.module.twilio.agents
 org.mule.module.twilio.config
 org.mule.module.twilio.config.spring
+org.mule.module.twilio.process
 org.mule.module.twilio.processors
 org.mule.module.twilio.transformers
 
